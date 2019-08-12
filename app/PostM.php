@@ -74,40 +74,16 @@ class PostM extends Model
   public static function ShowActions() {
 
     if (!empty(func_get_args()[0])) {
-      // dd(func_get_args());
-
       $ShowID = PostM::ShowID(func_get_args()[0]);
       $allURLs['sub_post_read'] =   route('Network.show',$ShowID);
       $allURLs['sub_post_edit'] = route('Network.edit',$ShowID);
       $allURLs['sub_post_store'] = route('Network.store',$ShowID);
-
-      // $allURLs['sub_post_update'] = route('Post.update',$ShowID.$ShowID);
-      // $allURLs['sub_post_destroy'] = route('Network.destroy',$ShowID);
-      // $allURLs['sub_post_create'] = route('Network.create');
-      // $allURLs['sub_post_index'] = route('Network.index',$ShowID.$ShowID);
-
-
-
-      // $allURLs['post_create'] = route('Network.create');
-      // $allURLs['post_index'] = route('Network.index');
     } else {
-
       $ShowID = null;
       $allURLs['sub_post_read'] =   route('Network.show',$ShowID);
       $allURLs['sub_post_edit'] = route('Network.edit',$ShowID);
       $allURLs['sub_post_store'] = route('Network.store',$ShowID);
-
-
-      // $allURLs['sub_post_read'] =   " ";
-      // $allURLs['sub_post_edit'] = " ";
-      //
-      // $allURLs['sub_post_destroy'] =  " ";
-      // $allURLs['sub_post_create'] =  " ";
-
-
     }
-
-    // dd($allURLs);
     return $allURLs;
   }
 

@@ -21,7 +21,7 @@ use App\Http\Resources\User as UserResource;
 // Route::get('/blogApi/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}', 'blogApi@show');
 //
 Route::get('/', function(){
-  return redirect( route('Network.show'));
+  return redirect( route('NetworkC.show'));
 });
 
 
@@ -31,6 +31,13 @@ Route::group(['middleware' => 'ShortcodeMiddleware'], function() {
 });
 Route::get(   '/edit/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@edit')->name('Network.edit');
 Route::post(   '/store/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@store')->name('Network.store');
+
+
+Route::group(['middleware' => 'ShortcodeMiddleware'], function() {
+  Route::get(   '/showsql/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@show')->name('NetworkC.show');
+});
+Route::get(   '/editsql/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@edit')->name('NetworkC.edit');
+Route::post(   '/storesql/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@store')->name('NetworkC.store');
 
 // Route::get(   '/index',                                           'Network@index')->name('Network.index');
 // Route::get(   '/create/asset',                                    'Network@create')->name('Network.create');
