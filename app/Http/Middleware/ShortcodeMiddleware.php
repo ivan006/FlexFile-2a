@@ -7,6 +7,10 @@ use App\GroupM;
 use App\PostM;
 use App\SmartDataItemM;
 
+use App\Group;
+use App\Post;
+use App\Data;
+
 
 
 class ShortcodeMiddleware
@@ -26,6 +30,10 @@ class ShortcodeMiddleware
         if (!method_exists($responce, "content")) {
           return $responce;
         } else {
+
+
+          $parameters = $request->route()->parameters();
+          $arguments = array_values($parameters);
           if (1==1) {
             // code...
             $responceContent = $responce->content();
@@ -70,8 +78,10 @@ class ShortcodeMiddleware
                   }
                 }
               }
-
-              $arguments = $request->route()->parameters();
+              $PostShowSig = Post::ShowSignature($arguments);
+              $GroupShowSig = Group::ShowSignature($arguments);
+              // dd($arguments);
+              // dd($PostShowSig);
               if (!empty($arguments)) {
                 // code...
                 // dd($arguments);
@@ -83,12 +93,14 @@ class ShortcodeMiddleware
 
 
 
-                  $VPgsLocs = PostM::ShowSubPost($arguments2);
+                  $VPgsLocs = Post::ShowSubPost($arguments2);
                   // dd($arguments2);
                   // dd($VPgsLocs);
                   ob_start();
 
-                  page_list($VPgsLocs,  $value,$preg_match_all);
+                  // if (is_array($VPgsLocs)) {
+                    page_list($VPgsLocs,  $value,$preg_match_all);
+                  // }
 
                   $result = ob_get_contents();
                   ob_end_clean();
@@ -146,30 +158,17 @@ class ShortcodeMiddleware
                   '1' => 'SmartDataType',
                   '2' => 'SmartDataContent'
                 );
-                $ShowLocation = PostM::ShowLocation($arguments2[0]);
-                $DataLocation = $ShowLocation . "/" . $parameter;
-                $result = SmartDataItemM::Show($DataLocation);
 
 
-                // $retrieval_path = url('/')."/blogApi/".$parameter;
-                //
-                //
-                //
-                // if (file_exists($retrieval_path)) {
-                //
-                //   $result = file_get_contents($retrieval_path);
-                //   // code...
-                //   // echo 123;
-                //   // $result = json_decode($result);
-                //
-                //
-                //
-                // } else {
-                //   $result = "error";
-                // }
+                $PostShowSig = Post::ShowSignature($arguments);
+                $GroupShowSig = Group::ShowSignature($arguments);
+                $DataShowSig = $parameter;
+                // dd($DataShowSig);
+                $DataValues = Data::Show($GroupShowSig,$PostShowSig,$DataShowSig);
+                $result = $DataValues;
+                // dd($result);
 
-
-                  $responceContent = str_replace($shortcode, $result[$Attribute_types[2]], $responceContent);
+                $responceContent = str_replace($shortcode, $result[$Attribute_types[2]], $responceContent);
 
 
               }

@@ -36,7 +36,8 @@
         </li>
       </ul>
     </div>
-    <!-- <div class="f-multi-level-dropdown">
+    <!-- [r]Details/Rich.txt[/r] -->
+    <!-- <div class="g-multi-level-dropdown">
       <ul>
         [page_list]
         [twig]

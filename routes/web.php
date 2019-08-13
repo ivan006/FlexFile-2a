@@ -27,17 +27,17 @@ Route::get('/', function(){
 
 
 Route::group(['middleware' => 'ShortcodeMiddleware'], function() {
-  Route::get(   '/show/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@show')->name('Network.show');
+  Route::get(   '/showfileorineted/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@show')->name('Network.show');
 });
-Route::get(   '/edit/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@edit')->name('Network.edit');
-Route::post(   '/store/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@store')->name('Network.store');
+Route::get(   '/editfileorineted/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@edit')->name('Network.edit');
+Route::post(   '/storefileorineted/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@store')->name('Network.store');
 
 
 Route::group(['middleware' => 'ShortcodeMiddleware'], function() {
-  Route::get(   '/showsql/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@show')->name('NetworkC.show');
+  Route::get(   '/show/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'NetworkC@show')->name('NetworkC.show');
 });
-Route::get(   '/editsql/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@edit')->name('NetworkC.edit');
-Route::post(   '/storesql/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@store')->name('NetworkC.store');
+Route::get(   '/edit/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'NetworkC@edit')->name('NetworkC.edit');
+Route::post(   '/store/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'NetworkC@store')->name('NetworkC.store');
 
 // Route::get(   '/index',                                           'Network@index')->name('Network.index');
 // Route::get(   '/create/asset',                                    'Network@create')->name('Network.create');

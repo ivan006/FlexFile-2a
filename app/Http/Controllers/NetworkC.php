@@ -7,15 +7,21 @@ use App\GroupM;
 use App\PostM;
 use App\MetadataM;
 use App\RichDataM;
-
 use App\SmartDataItemM;
 
+use App\Group;
+use App\Post;
+use App\Data;
+use App\Metadata;
+use App\RichData;
+use App\SmartDataItem;
 
 
 
 
 
-class Network extends Controller
+
+class NetworkC extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -66,17 +72,28 @@ class Network extends Controller
      */
     public function show(){
       $arguments = func_get_args();
-      if (!empty($arguments)) {
+      if (empty($arguments)) {
+        // dd(func_get_args());
+        $allURLs = Post::ShowActions(func_get_args());
+        $PostList = Group::ShowAll();
+        return view('network-read', compact('PostList', 'allURLs'));
+      } else {
+
         array_shift($arguments);
         array_shift($arguments);
         $allURLs = Post::ShowActions(func_get_args());
-        $ShowBaseIDPlusBaseLocation = PostM::ShowBaseIDPlusBaseLocation(func_get_args());
-        $RichDataShow = RichDataM::Show(func_get_args());
-        return view('group-read', compact('allURLs', 'ShowBaseIDPlusBaseLocation', 'RichDataShow'));
-      } else {
-        $allURLs = PostM::ShowActions(func_get_args());
-        $PostList = GroupM::ShowAll();
-        return view('network-read', compact('PostList', 'allURLs'));
+
+        $GroupShowSig = Group::ShowSignature(func_get_args());
+        $PostShowSig = Post::ShowSignature(func_get_args());
+        $DataShowSig = "Details/Rich.txt";
+        
+        $DataValues = Data::Show($GroupShowSig,$PostShowSig,$DataShowSig);
+        $RichDataShow = $DataValues['SmartDataContent'];
+        // dd($RichDataShow);
+        // $ShowBaseIDPlusBaseLocation = Post::ShowBaseIDPlusBaseLocation(func_get_args());
+        // $headerDataShow = Data::$ShowBaseIDPlusBaseLocation  ."/header.txt";
+        $headerDataShow = 12;
+        return view('group-read', compact('allURLs', 'headerDataShow', 'RichDataShow'));
       }
     }
 
