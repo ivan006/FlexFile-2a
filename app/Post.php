@@ -13,8 +13,11 @@ class Post extends Model
     'parent_id',
     'parent_type',
   ];
-  public function Data() {
+  public function DataChildren() {
     return $this->morphMany('App\Data', 'parent');
+  }
+  public function PostChildren() {
+    return $this->morphMany('App\Post', 'parent');
   }
 
   public static function ShowActions() {

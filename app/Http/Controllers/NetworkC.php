@@ -85,8 +85,9 @@ class NetworkC extends Controller
 
         $GroupShowSig = Group::ShowSignature(func_get_args());
         $PostShowSig = Post::ShowSignature(func_get_args());
-        $DataShowSig = "Details/Rich.txt";
         
+        $DataShowSig = Data::ShowSignature("Details/Rich.txt");
+
         $DataValues = Data::Show($GroupShowSig,$PostShowSig,$DataShowSig);
         $RichDataShow = $DataValues['SmartDataContent'];
         // dd($RichDataShow);

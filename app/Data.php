@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\DB;
+
+// use App\Post;
+
 class Data extends Model
 {
 
@@ -18,37 +22,75 @@ class Data extends Model
   public function parent() {
     return $this->morphTo();
   }
-  public function Data() {
+  public function children() {
     return $this->morphMany('App\Data', 'parent');
   }
 
   public static function ShowID($GroupSig,$PostSig, $DataSig) {
-    $GroupSigFragments = $GroupSig;
+    $Group = $GroupSig;
     $PostSigFragments = explode("/", $PostSig);
     $DataSigFragments = explode("/", $DataSig);
 
-    $GroupEntityName = "App\Group";
-    $PostEntityName =  "App\Post";
-    $DataEntityName =  "App\Data";
+    // ----------------
+    // querie strat
+    // ----------------
+    // $GroupEntityName = "App\Group";
+    // $PostEntityName =  "App\Post";
+    // $DataEntityName =  "App\Data";
+    // $Show["ID"] = Group::where('name', $GroupSigFragments)->first()->id;
+    // $Show["type"] = $GroupEntityName;
+    // // dd($PostSigFragments);
+    // foreach ($PostSigFragments as $key => $value) {
+    //     $Show["ID"] = Post::where('parent_type', $Show["type"])->where('parent_id', $Show["ID"])->where('name', $value)->first()->id;
+    //     $Show["type"]= $PostEntityName;
+    // }
+    // $Show["ID"] = Data::where('parent_type', $Show["type"])->where('parent_id', $Show["ID"])->where('name', "_data")->first()->id;
+    // $Show["type"] = $DataEntityName;
+    // foreach ($DataSigFragments as $key => $value) {
+    //   // dd($Show["ID"]);
+    //     $Show["ID"] = Data::where('parent_type', $Show["type"])->where('parent_id', $Show["ID"])->where('name', $value)->first()->id;
+    //     $Show["type"]= $DataEntityName;
+    // }
+    // ----------------
+    // querie strat
+    // ----------------
+    // ----------------
+    // querie strat
+    // ----------------
 
 
-    $Show["ID"] = Group::where('name', $GroupSigFragments)->first()->id;
-    $Show["type"] = $GroupEntityName;
-    // dd($PostSigFragments);
+    $Show["ID"] = Group::where('name', $Group)->first()->id;
+
+    $Show["ID"] = Group::find($Show["ID"])->PostChildren->where('name', $PostSigFragments[0])
+    ->first()->id;
+    array_shift($PostSigFragments);
     foreach ($PostSigFragments as $key => $value) {
-        $Show["ID"] = Post::where('parent_type', $Show["type"])->where('parent_id', $Show["ID"])->where('name', $value)->first()->id;
-        $Show["type"]= $PostEntityName;
-    }
-    $Show["ID"] = Data::where('parent_type', $Show["type"])->where('parent_id', $Show["ID"])->where('name', "_data")->first()->id;
-    $Show["type"] = $DataEntityName;
-    foreach ($DataSigFragments as $key => $value) {
-      // dd($Show["ID"]);
-        $Show["ID"] = Data::where('parent_type', $Show["type"])->where('parent_id', $Show["ID"])->where('name', $value)->first()->id;
-        $Show["type"]= $DataEntityName;
+        $Show["ID"] = Post::find($Show["ID"])->PostChildren->where('name', $value)->first()->id;
     }
 
-    $ShowID = $Show["ID"];
-    return $ShowID;
+    $Show["ID"] = Post::find($Show["ID"])->DataChildren->where('name', $DataSigFragments[0])->first()->id;
+    array_shift($DataSigFragments);
+    foreach ($DataSigFragments as $key => $value) {
+      $Show["ID"] = Data::find($Show["ID"])->children->where('name', $value)->first()->id;
+    }
+
+
+
+    // $Show["ID"] = DB::select(
+    //   'SELECT *
+    //   FROM data a, data b
+    //   WHERE a.parent_id = b.id
+    //   AND a.parent_type = "App\\Data"
+    //   ;'
+    // );
+
+    // ----------------
+    // querie strat
+    // ----------------
+
+
+    dd($Show["ID"]);
+    return $Show["ID"];
 
   }
 
@@ -93,6 +135,12 @@ class Data extends Model
         $result[$Attribute_types['1']] = 'text';
         break;
       }
+      return $result;
+
+  }
+  public static function ShowSignature($arg) {
+
+      $result = "_data/".$arg;
       return $result;
 
   }

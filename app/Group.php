@@ -11,6 +11,10 @@ class Group extends Model
   protected $fillable = [
     'name',
   ];
+
+  public function PostChildren() {
+    return $this->morphMany('App\Post', 'parent');
+  }
   // public static function ShowBaseLocation() {
   //   // return "storage/app/public/";
   //   return base_path()."/storage/app/public/";
