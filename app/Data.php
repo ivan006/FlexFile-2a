@@ -82,29 +82,39 @@ class Data extends Model
     // ----------------
 
 
+    // $DataSig = "Group_1/Prod_1/Feat_1/Subfeat_1/_data/Details/Rich.txt"
+    // $DataSigFragments = array (
+    //   "Group_1",   <- group
+    //   "Prod_1",    <- basepost
+    //   "Feat_1",    <- subpost or basedata
+    //   "Subfeat_1", <- subpost or basedata
+    //   "_data",     <- subpost or basedata
+    //   "Details",   <- subdata
+    //   "Rich.txt",  <- subdata
+    // );
 
-    $stage = "1. what group?";
+    $stage = "group";
     foreach ($DataSigFragments as $key => $value) {
       switch ($stage) {
-        case "1. what group?":
+        case "group":
           $Show["ID"] = Group::where('name', $value)->first()->id;
-          $stage = "2. what post?";
+          $stage = "basepost";
           break;
-        case "2. what post?":
+        case "basepost":
           $Show["ID"] = Group::find($Show["ID"])->PostChildren->where('name', $value)->first()->id;
-          $stage = "3. what sub-post/data?";
+          $stage = "subpost or basedata";
           // array_shift($PostSigFragments);
           break;
-        case "3. what sub-post/data?":
+        case "subpost or basedata":
           if ($value !== Data::ShowSignaturePrefix()) {
             $Show["ID"] = Post::find($Show["ID"])->PostChildren->where('name', $value)->first()->id;
           } else {
             $Show["ID"] = Post::find($Show["ID"])->DataChildren->where('name', $value)->first()->id;
-            $stage = "4. what sub-data?";
+            $stage = "subdata";
             array_shift($DataSigFragments);
           }
           break;
-        case "4. what sub-data?":
+        case "subdata":
           $Show["ID"] = Data::find($Show["ID"])->children->where('name', $value)->first()->id;
           break;
         default:
