@@ -44,9 +44,9 @@ class Group extends Model
     return $result;
   }
 
-  public static function ShowSignature($argument){
+  public static function ShowSignature($routeParameters){
 
-    $var = $argument[0];
+    $var = $routeParameters[0];
     // dd($var);
     return $var;
 

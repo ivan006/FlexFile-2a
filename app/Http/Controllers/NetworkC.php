@@ -71,6 +71,7 @@ class NetworkC extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(){
+
       $arguments = func_get_args();
       if (empty($arguments)) {
         // dd(func_get_args());
@@ -83,12 +84,11 @@ class NetworkC extends Controller
         array_shift($arguments);
         $allURLs = Post::ShowActions(func_get_args());
 
-        $GroupShowSig = Group::ShowSignature(func_get_args());
-        $PostShowSig = Post::ShowSignature(func_get_args());
-        
-        $DataShowSig = Data::ShowSignature("Details/Rich.txt");
 
-        $DataValues = Data::Show($GroupShowSig,$PostShowSig,$DataShowSig);
+
+        $DataShowSig = Data::ShowSignature(func_get_args(),"Details/Rich.txt");
+
+        $DataValues = Data::Show($DataShowSig);
         $RichDataShow = $DataValues['SmartDataContent'];
         // dd($RichDataShow);
         // $ShowBaseIDPlusBaseLocation = Post::ShowBaseIDPlusBaseLocation(func_get_args());

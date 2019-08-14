@@ -33,9 +33,9 @@ Route::get(   '/editfileorineted/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network
 Route::post(   '/storefileorineted/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'Network@store')->name('Network.store');
 
 
-Route::group(['middleware' => 'ShortcodeMiddleware'], function() {
+// Route::group(['middleware' => 'ShortcodeMiddleware'], function() {
   Route::get(   '/show/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'NetworkC@show')->name('NetworkC.show');
-});
+// });
 Route::get(   '/edit/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'NetworkC@edit')->name('NetworkC.edit');
 Route::post(   '/store/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}',   'NetworkC@store')->name('NetworkC.store');
 

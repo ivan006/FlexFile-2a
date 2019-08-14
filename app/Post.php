@@ -33,8 +33,9 @@ class Post extends Model
     $allURLs['sub_post_store'] = route('NetworkC.store',$Slug);
     return $allURLs;
   }
-  public static function ShowSignature($arguments){
+  public static function ShowSignature($routeParameters){
     // dd($arguments);
+    $arguments = $routeParameters;
     array_shift($arguments);
     // dd($arguments);
 
@@ -50,7 +51,9 @@ class Post extends Model
     // dd($VPgLoc);
 
 
-    return $VPgLoc;
+    $GroupShowSig = Group::ShowSignature($routeParameters);
+    $result = $GroupShowSig."/".$VPgLoc;
+    return $result;
 
   }
 
