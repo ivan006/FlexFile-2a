@@ -1,5 +1,6 @@
 <?php function SmartDataFolderItemMenu($SmartDataID, $SmartDataItemM_ShowActions){ ?>
   <span class="" style="  ">
+    
     <button class="w3-button w3-theme-d1 w3-margin-bottom" type="submit" name="<?php echo $SmartDataID ?>[<?php echo $SmartDataItemM_ShowActions['SelectedSmartDataItem'] ?>]" value="1">
       Update
     </button>

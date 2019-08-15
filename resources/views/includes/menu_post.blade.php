@@ -6,7 +6,7 @@
     <div  class="f-multi-level-dropdown f-bg-col-blu f-fon-18px f-fon-fam-open ">
       <ul>
         <li>
-          <a  href="{{ route('Network.show') }}">Home
+          <a  href="{{ route('NetworkC.show') }}">Home
           </a>
         </li>
         <li>
@@ -36,30 +36,3 @@
         </li>
       </ul>
     </div>
-    <!-- [r]Details/Rich.txt[/r] -->
-    <!-- <div class="g-multi-level-dropdown">
-      <ul>
-        [page_list]
-        [twig]
-        <li>
-          <a href="[link]">
-            [name]
-          </a>
-          <span class="toggle">
-          <a href="#">+</a>
-          <ul>
-            [inner_twig]
-          </ul>
-          </span>
-        </li>
-        [/twig]
-        [leaf]
-        <li>
-          <a href="[link]">
-            [name]
-          </a>
-        </li>
-        [/leaf]
-        [/page_list]
-      </ul>
-    </div> -->

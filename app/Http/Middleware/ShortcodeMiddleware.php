@@ -32,9 +32,10 @@ class ShortcodeMiddleware
         } else {
 
 
-          $parameters = $request->route()->parameters();
-          $arguments = array_values($parameters);
-          if (1==1) {
+          $routeParameters = $request->route()->parameters();
+          $routeParameters = array_values($routeParameters);
+
+          function menu($responce,$routeParameters){
             // code...
             $responceContent = $responce->content();
 
@@ -45,7 +46,7 @@ class ShortcodeMiddleware
             preg_match_all( $preg_match_all, $responceContent, $matches);
             if (!empty($matches[0])) {
               function page_list($VPgsLocs, $value, $preg_match_all){
-
+                // dd($VPgsLocs);
                 foreach($VPgsLocs as $key => $value2){
                   preg_match_all( $preg_match_all, $value, $matches);
                   // echo "<pre>";
@@ -56,14 +57,14 @@ class ShortcodeMiddleware
                   if (is_array($value2)) {
 
                     // $preg_match_all = "/\[link\]/";
-
+                    // dd($value2['url']);
                     $matches[3][0] = str_replace("[link]", $value2['url'], $matches[3][0]);
                     $matches[3][0] = str_replace("[name]", $key, $matches[3][0]);
 
                     echo  $matches[3][0];
                     // echo  $value2['url'];
                     // echo $key ;
-                    page_list($value2, $value, $preg_match_all);
+                    page_list($value2["content"], $value, $preg_match_all);
                     echo  $matches[5][0];
 
                   } else {
@@ -78,34 +79,38 @@ class ShortcodeMiddleware
                   }
                 }
               }
-              $PostShowSig = Post::ShowSignature($arguments);
-              $GroupShowSig = Group::ShowSignature($arguments);
-              // dd($arguments);
+
+              // dd($routeParameters);
               // dd($PostShowSig);
-              if (!empty($arguments)) {
                 // code...
-                // dd($arguments);
+                // dd($routeParameters);
 
-                $arguments = array_values($arguments);
-                $arguments2[0] = $arguments[0];
+
                 foreach ($matches[0] as $key => $value) {
-                  // dd($arguments);
+                  if (!empty($routeParameters)) {
+                    $routeParameters = array_values($routeParameters);
+                    $arguments2[0] = $routeParameters[0];
+                    // dd($routeParameters);
 
 
+                    $GroupShowID = Group::ShowID($routeParameters);
+                    $VPgsLocs = Post::ShowSubPost($GroupShowID,$routeParameters);
+                    // dd($arguments2);
+                    // dd($VPgsLocs);
+                    ob_start();
+                    // dd($VPgsLocs);
+                    if (is_array($VPgsLocs)) {
+                      page_list($VPgsLocs,  $value,$preg_match_all);
+                    }
 
-                  $VPgsLocs = Post::ShowSubPost($arguments2);
-                  // dd($arguments2);
-                  // dd($VPgsLocs);
-                  ob_start();
+                    $result = ob_get_contents();
+                    ob_end_clean();
 
-                  // if (is_array($VPgsLocs)) {
-                    page_list($VPgsLocs,  $value,$preg_match_all);
-                  // }
+                    $responceContent = str_replace($value, $result, $responceContent);
+                  } else {
 
-                  $result = ob_get_contents();
-                  ob_end_clean();
-
-                  $responceContent = str_replace($value, $result, $responceContent);
+                    $responceContent = str_replace($value, null, $responceContent);
+                  }
 
                 }
                 // code  example ..
@@ -135,16 +140,16 @@ class ShortcodeMiddleware
                 //     [/page_list]
                 //   </ul>
                 // </div>
-              }
 
             }
+            return $responceContent;
           }
 
-
-          if (1==1) {
+          function reference($responceContent,$routeParameters){
             // code...
             preg_match_all( '/\[r\](.*)\[\/r\]/', $responceContent, $matches2);
-            if (!empty($matches2[0])) {
+
+            if (!empty($matches2[0]) AND !empty($routeParameters)) {
 
               // dd($matches2);
 
@@ -159,22 +164,29 @@ class ShortcodeMiddleware
                   '2' => 'SmartDataContent'
                 );
 
+                // dd($parameter);
+                // dd($routeParameters);
 
-                $PostShowSig = Post::ShowSignature($arguments);
-                $GroupShowSig = Group::ShowSignature($arguments);
-                $DataShowSig = $parameter;
-                // dd($DataShowSig);
-                $DataValues = Data::Show($GroupShowSig,$PostShowSig,$DataShowSig);
+                $DataShowRelSig = Data::ShowRelativeSignature($parameter);
+                $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
+
+                $DataValues = Data::Show($DataShowID);
+
+
                 $result = $DataValues;
                 // dd($result);
 
                 $responceContent = str_replace($shortcode, $result[$Attribute_types[2]], $responceContent);
 
-
               }
 
             }
+
+            return $responceContent;
           }
+          $responceContent = menu($responce,$routeParameters);
+
+          $responceContent = reference($responceContent,$routeParameters);
 
           $responce->setContent($responceContent);
           return $responce;

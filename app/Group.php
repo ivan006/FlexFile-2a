@@ -45,10 +45,14 @@ class Group extends Model
   }
 
   public static function ShowSignature($routeParameters){
-
     $var = $routeParameters[0];
-    // dd($var);
     return $var;
+  }
+  public static function ShowID($routeParameters){
+
+    $ShowID = Group::where('name', $routeParameters[0])->first()->id;
+
+    return $ShowID;
 
   }
 }

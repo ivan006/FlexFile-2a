@@ -42,3 +42,31 @@ if (!empty($headerDataShow)) {
   ?>
 
 </div>
+
+[r]Details/Rich.txt[/r]
+<div class="g-multi-level-dropdown">
+  <ul>
+    [page_list]
+    [twig]
+    <li>
+      <a href="[link]">
+        [name]
+      </a>
+      <span class="toggle">
+      <a href="#">+</a>
+      <ul>
+        [inner_twig]
+      </ul>
+      </span>
+    </li>
+    [/twig]
+    [leaf]
+    <li>
+      <a href="[link]">
+        [name]
+      </a>
+    </li>
+    [/leaf]
+    [/page_list]
+  </ul>
+</div>

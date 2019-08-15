@@ -51,17 +51,19 @@ class NetworkC extends Controller
      */
     public function store(Request $request)
     {
-      // $arguments = func_get_args();
-      // array_shift($arguments);
-      // if (!empty($arguments)) {
-      //   PostM::Store($arguments, $request);
-      //   $allURLs = PostM::ShowActions($arguments);
-      //   return redirect($allURLs['sub_post_edit']);
-      // } else {
-      //   GroupM::Create($request);
-      //   $allURLs = PostM::ShowActions($arguments);
-      //   return redirect($allURLs['sub_post_edit']);
-      // }
+
+      $routeParameters = func_get_args();
+      array_shift($routeParameters);
+
+      if (!empty($routeParameters)) {
+        Post::Store($routeParameters, $request);
+        $allURLs = Post::ShowActions($routeParameters);
+        return redirect($allURLs['sub_post_edit']);
+      } else {
+        GroupM::Create($request);
+        $allURLs = Post::ShowActions($routeParameters);
+        return redirect($allURLs['sub_post_edit']);
+      }
     }
 
     /**
@@ -72,28 +74,32 @@ class NetworkC extends Controller
      */
     public function show(){
 
-      $arguments = func_get_args();
-      if (empty($arguments)) {
-        // dd(func_get_args());
-        $allURLs = Post::ShowActions(func_get_args());
+      $routeParameters = func_get_args();
+      if (empty($routeParameters)) {
+        // dd($routeParameters);
+        $allURLs = Post::ShowActions($routeParameters);
         $PostList = Group::ShowAll();
         return view('network-read', compact('PostList', 'allURLs'));
       } else {
 
-        array_shift($arguments);
-        array_shift($arguments);
-        $allURLs = Post::ShowActions(func_get_args());
 
+        $allURLs = Post::ShowActions($routeParameters);
 
-
-        $DataShowSig = Data::ShowSignature(func_get_args(),"Details/Rich.txt");
-
-        $DataValues = Data::Show($DataShowSig);
+        $DataShowRelSig = Data::ShowRelativeSignature("Details/Rich.txt");
+        $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
+        // dd($DataShowID);
+        if (!empty($DataShowID)) {
+          // code...
+          $DataValues = Data::Show($DataShowID);
+        } else{
+          // dd(1);
+          $DataValues = null;
+        }
         $RichDataShow = $DataValues['SmartDataContent'];
         // dd($RichDataShow);
-        // $ShowBaseIDPlusBaseLocation = Post::ShowBaseIDPlusBaseLocation(func_get_args());
+        // $ShowBaseIDPlusBaseLocation = Post::ShowBaseIDPlusBaseLocation($routeParameters);
         // $headerDataShow = Data::$ShowBaseIDPlusBaseLocation  ."/header.txt";
-        $headerDataShow = 12;
+        $headerDataShow = 'abcdefghijklmo';
         return view('group-read', compact('allURLs', 'headerDataShow', 'RichDataShow'));
       }
     }
@@ -107,38 +113,50 @@ class NetworkC extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(){
-      // $arguments = func_get_args();
-      // if (!empty($arguments)) {
-      //   array_shift($arguments);
-      //   array_shift($arguments);
-      //   $ShowID = PostM::ShowID(func_get_args());
-      //   $SmartDataArrayShowBaseLocation = SmartDataItemM::ShowBaseLocation();
-      //   if (isset(SmartDataItemM::ShowAll($ShowID)[$SmartDataArrayShowBaseLocation])) {
-      //     $ShowAllDeepSmartData = SmartDataItemM::ShowAll($ShowID);
-      //   } else {
-      //     $ShowAllDeepSmartData = null;
-      //   }
-      //   $ShowAllShallowSmartData = PostM::ShowAllShallowSmartData(func_get_args());
-      //   $SmartDataItemM_ShowActions = SmartDataItemM::ShowActions();
-      //   $SmartDataItemM_ShowAttributeTypes = SmartDataItemM::ShowAttributeTypes();
-      //   $allURLs = PostM::ShowActions(func_get_args());
-      //   $RichDataShow = RichDataM::Show(func_get_args());
-      //   $SmartDataArrayShowBaseLocation = SmartDataItemM::ShowBaseLocation();
-      //   return view('group-edit', compact(
-      //     'ShowAllDeepSmartData',
-      //     'allURLs',
-      //     'RichDataShow',
-      //     'ShowAllShallowSmartData',
-      //     'SmartDataItemM_ShowActions',
-      //     'SmartDataItemM_ShowAttributeTypes',
-      //     'SmartDataArrayShowBaseLocation'
-      //   ));
-      // } else {
-      //   $allURLs = PostM::ShowActions(func_get_args());
-      //   $PostList = GroupM::ShowAll();
-      //   $SmartDataItemM_ShowActions = SmartDataItemM::ShowActions();
-      //   return view('network-edit', compact('PostList', 'allURLs', 'SmartDataItemM_ShowActions'));
-      // }
+      $routeParameters = func_get_args();
+      $arguments = func_get_args();
+      if (!empty($arguments)) {
+        array_shift($arguments);
+        array_shift($arguments);
+        $ShowID = PostM::ShowID($routeParameters);
+        $SmartDataArrayShowBaseLocation = SmartDataItemM::ShowBaseLocation();
+
+        $DataShowAll = Data::ShowAll($routeParameters);
+        // dd($DataShowAll);
+        // $ShowAllShallowSmartData = PostM::ShowAllShallowSmartData($routeParameters);
+        $SmartDataItemM_ShowActions = Data::ShowActions();
+        $SmartDataItemM_ShowAttributeTypes = Data::ShowAttributeTypes();
+
+        $allURLs = Post::ShowActions($routeParameters);
+
+
+        $DataShowRelSig = Data::ShowRelativeSignature("Details/Rich.txt");
+        $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
+        // dd($DataShowID);
+        if (!empty($DataShowID)) {
+          // code...
+          $DataValues = Data::Show($DataShowID);
+        } else{
+          // dd(1);
+          $DataValues = null;
+        }
+        $RichDataShow = $DataValues['SmartDataContent'];
+
+        $SmartDataArrayShowBaseLocation = SmartDataItemM::ShowBaseLocation();
+        return view('group-edit', compact(
+          'DataShowAll',
+          'allURLs',
+          'RichDataShow',
+          'SmartDataItemM_ShowActions',
+          'SmartDataItemM_ShowAttributeTypes',
+          'SmartDataArrayShowBaseLocation'
+        ));
+      } else {
+        $allURLs = PostM::ShowActions(func_get_args());
+        $PostList = GroupM::ShowAll();
+        $SmartDataItemM_ShowActions = SmartDataItemM::ShowActions();
+        return view('network-edit', compact('PostList', 'allURLs', 'SmartDataItemM_ShowActions'));
+      }
     }
 
     /**
