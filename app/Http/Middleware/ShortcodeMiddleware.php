@@ -158,25 +158,25 @@ class ShortcodeMiddleware
                 $shortcode = $value;
                 $parameter = str_replace("[r]", "", $shortcode);
                 $parameter = str_replace("[/r]", "", $parameter);
-                // dd($parameter);
-                $Attribute_types = array(
-                  '1' => 'SmartDataType',
-                  '2' => 'SmartDataContent'
-                );
 
-                // dd($parameter);
-                // dd($routeParameters);
+                $Attr = Data::ShowAttributeTypes();
 
                 $DataShowRelSig = Data::ShowRelativeSignature($parameter);
                 $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
 
                 $DataValues = Data::Show($DataShowID);
+                // dd($DataValues);
+                if ($DataValues[$Attr[1]]=="image" ) {
+                  // dd(1);
+                    $result = 'data:image/' . $DataValues[$Attr[5]] . ';base64,' . $DataValues[$Attr[2]];
+
+                } else {
+                  $result = $DataValues[$Attr[2]];
+                }
+                // dd($DataValues);
 
 
-                $result = $DataValues;
-                // dd($result);
-
-                $responceContent = str_replace($shortcode, $result[$Attribute_types[2]], $responceContent);
+                $responceContent = str_replace($shortcode, $result, $responceContent);
 
               }
 
@@ -184,8 +184,10 @@ class ShortcodeMiddleware
 
             return $responceContent;
           }
+
           $responceContent = menu($responce,$routeParameters);
 
+          $responceContent = reference($responceContent,$routeParameters);
           $responceContent = reference($responceContent,$routeParameters);
 
           $responce->setContent($responceContent);

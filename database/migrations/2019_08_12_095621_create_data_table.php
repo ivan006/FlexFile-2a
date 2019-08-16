@@ -21,7 +21,7 @@ class CreateDataTable extends Migration
             $table->string('parent_type');
             $table->string('type');
             $table->string('subtype');
-            $table->string('content');
+            $table->text('content');
         });
     }
 

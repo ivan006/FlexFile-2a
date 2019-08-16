@@ -91,34 +91,41 @@ class Data extends Model
       $ShowDataContent = $DataShowAll->toArray();
       // code...
 
-      $Attribute_types = array(
-        '1' => 'SmartDataType',
-        '2' => 'SmartDataContent'
-      );
+      $Attr = Data::ShowAttributeTypes();
+
       switch ($ShowDataContent["type"]) {
         case 'text':
         // code...
 
-        $result[$Attribute_types['2']] = $ShowDataContent["content"];
-        $result[$Attribute_types['1']] = $ShowDataContent["type"];
+        $result[$Attr[2]] = $ShowDataContent["content"];
+        $result[$Attr[1]] = $ShowDataContent["type"];
+        $result[$Attr[0]] = $ShowDataContent["name"];
+        $result[$Attr[4]] = $ShowDataContent["id"];
+        $result[$Attr[5]] = $ShowDataContent["subtype"];
         break;
         case 'image':
         // code...
 
         // mime_content_type($DataLocation) == "image/jpeg"
 
-        $subtype = $ShowDataContent["subtype"];
-        $data = $ShowDataContent["content"];
-        $base64 = 'data:image/' . $subtype . ';base64,' . base64_encode($data);
+        // $subtype = $ShowDataContent["subtype"];
+        // $data = ;
+        // $base64 = 'data:image/' . $subtype . ';base64,' . $data;
 
-        $result[$Attribute_types['2']] = $base64;
-        $result[$Attribute_types['1']] = 'img';
+        $result[$Attr[2]] = $ShowDataContent["content"];
+        $result[$Attr[1]] = $ShowDataContent["type"];
+        $result[$Attr[0]] = $ShowDataContent["name"];
+        $result[$Attr[4]] = $ShowDataContent["id"];
+        $result[$Attr[5]] = $ShowDataContent["subtype"];
         break;
 
         default:
         // code...
-        $result[$Attribute_types['2']] = "unknown data type \"".$ShowDataContent["type"]."\"";
-        $result[$Attribute_types['1']] = 'text';
+        $result[$Attr[2]] = "unknown data type \"".$ShowDataContent["type"]."\"";
+        $result[$Attr[1]] = 'text';
+        $result[$Attr[0]] = $ShowDataContent["name"];
+        $result[$Attr[4]] = $ShowDataContent["id"];
+        $result[$Attr[5]] = $ShowDataContent["subtype"];
         break;
       }
       return $result;
@@ -140,24 +147,30 @@ class Data extends Model
   public static function ShowAll($routeParameters) {
 
     if(!function_exists('App\ShowHelper')){
-      function ShowHelper($Data) {
+      function ShowHelper($Data,$Identifier) {
         $result = array();
+        $Attr = Data::ShowAttributeTypes();
 
-
+        $Identifier = -1;
         foreach ($Data as $key => $value) {
+
+          $Identifier = $Identifier+1;
+
           $SubData = Data::find($value["id"])->children->toArray();
 
           // $DataLocation = $PostShowID . "/" . $value;
-          $result[$value["name"]]["?"] = "?";
+          // $result[$value["name"]]["?"] = "?";
 
           if (!empty($SubData)) {
             // dd($SubData);
 
 
-            $result[$value["name"]] = ShowHelper($SubData);
-            $result[$value["name"]]["SmartDataType"] = $value["type"];
+            $result[$Identifier][$Attr[2]] = ShowHelper($SubData,$Identifier);
+            $result[$Identifier][$Attr[1]] = $value["type"];
+            $result[$Identifier][$Attr[0]] = $value["name"];
+            $result[$Identifier][$Attr[4]] = $value["id"];
           } else {
-            $result[$value["name"]] = Data::Show($value["id"]);
+            $result[$Identifier] = Data::Show($value["id"]);
           }
 
         }
@@ -175,7 +188,8 @@ class Data extends Model
       // $Show[$ShowDataID] =   ShowHelper($PostShowID);
 
       $BaseData = Post::find($PostShowID)->DataChildren->toArray();
-      $Show =   ShowHelper($BaseData);
+      $Identifier = null;
+      $Show =   ShowHelper($BaseData,$Identifier);
       // dd($Show);
       // dd($Show);
       return $Show;
@@ -183,9 +197,17 @@ class Data extends Model
   }
 
   public static function ShowAttributeTypes() {
-    $ShowAttributeTypes["/SmartDataName"] =   'SmartDataName';
-    $ShowAttributeTypes["/SmartDataContent"] =   'SmartDataContent';
-    $ShowAttributeTypes["/SmartDataType"] =   'SmartDataType';
+    $ShowAttributeTypes = array  (
+      '0'=>'Name',
+      '1'=>'Type',
+      '2'=>'Content',
+      '3'=>'Selected',
+      '4'=>'ID',
+      '5'=>'Subtype',
+
+    );
+    // ["/SmartDataName"] =   'SmartDataName';
+    // ["/SmartDataContent"] =   'SmartDataContent';
 
     return $ShowAttributeTypes;
   }
@@ -193,113 +215,49 @@ class Data extends Model
     $ShowActions["SelectedSmartDataItem"] =   'Selected';
     return $ShowActions;
   }
-  public static function g_base64_decode($value) {
-    return base64_decode($value);
-    // return $value;
-  }
+
 
   public static function Store($request, $ShowID) {
-    // dd($ShowID);
-    function StoreHelperDestroy($ShowLocation,$ShowDataID, $SelectedSmartDataItem, $SmartDataItemShowFieldValues) {
-      // dd($SmartDataItemShowFieldValues);
-      foreach ($SmartDataItemShowFieldValues as $key => $value) {
-        // dd($SmartDataItemShowFieldValues);
-        // dd($SmartDataItemShowFieldValues);
-        // dd($SmartDataItemShowFieldValues);
-        // dd($SmartDataItemShowFieldValues);
+    function StoreHelperStore($Selected,$Data,$Attr) {
+      foreach($Data["Content"] as $key => $value) {
+        $key = SmartDataItemM::g_base64_decode($key);
+        if ($value[$Attr[1]]=="folder"){
+          if (isset($value[$Attr[3]]) OR $Selected == 1) {
+            if (!empty($value[$Attr[4]])) {
+              // code...
+              Data::find($value[$Attr[4]])
+              ->update([
+                'name'=>$value[$Attr[0]],
+              ]);
+            }
 
-        $action = 'SelectedSmartDataItem';
-        $String_SmartDataName = 'SmartDataName';
-        $String_SmartDataLocationParent = 'SmartDataLocationParent';
-        $String_SmartDataContent = 'SmartDataContent';
-        $String_SmartDataLocation = 'SmartDataLocation';
-        if (
-        $key !== $action
-        && $key !== $String_SmartDataName
-        && $key !== $String_SmartDataLocationParent
-        && $key !== $String_SmartDataContent
-        && $key !== $String_SmartDataLocation
-        ) {
-          $key = SmartDataItemM::g_base64_decode($key);
-          if (!array_key_exists($String_SmartDataContent, $value)) {
-            // dd(1);
-            if (isset($value[$action]) OR $SelectedSmartDataItem == 1) {
-              $SelectedSmartDataItemInheritance = 1;
-            } else {
-              $SelectedSmartDataItemInheritance = 0;
-            }
-            // dd($key);
-            StoreHelperDestroy($ShowLocation,$ShowDataID."/".$key, $SelectedSmartDataItemInheritance, $value);
-            if (isset($value[$action]) OR $SelectedSmartDataItem == 1) {
-              rmdir($ShowLocation.$ShowDataID."/".$key);
-            }
+           $Selected = 1;
           } else {
-
-            if (isset($value[$action]) OR $SelectedSmartDataItem == 1) {
-              // dd($value['SelectedSmartDataItem']);
-              unlink($ShowLocation.$ShowDataID."/".$key);
-            }
+            $Selected = 0;
           }
-        }
-      }
+          StoreHelperStore($Selected, $value,$Attr);
+        } else {
 
-    }
-    function StoreHelperStore($ShowLocation,$SelectedSmartDataItem,$ShowDataID,$SmartDataItemShowFieldValues) {
-      // dd($SmartDataItemShowFieldValues);
-      foreach($SmartDataItemShowFieldValues as $key => $value) {
-
-        $action = 'SelectedSmartDataItem';
-        $String_SmartDataName = 'SmartDataName';
-        $String_SmartDataLocationParent = 'SmartDataLocationParent';
-        $String_SmartDataContent = 'SmartDataContent';
-        $String_SmartDataLocation = 'SmartDataLocation';
-        if (
-        $key !== $action
-        && $key !== $String_SmartDataName
-        && $key !== $String_SmartDataLocationParent
-        && $key !== $String_SmartDataContent
-        && $key !== $String_SmartDataLocation
-        )  {
-          $key = SmartDataItemM::g_base64_decode($key);
-          if (!array_key_exists($String_SmartDataContent, $value)){
-            if (isset($value[$action]) OR $SelectedSmartDataItem == 1) {
-              $SmartDataName = $value[$String_SmartDataName];
-              $SmartDataArrayLocation = $ShowLocation . $ShowDataID."/".$SmartDataName;
-              $SelectedSmartDataItemInheritance = 1;
-              mkdir($SmartDataArrayLocation);
-            } else {
-
-              $SmartDataName = $key;
-              $SelectedSmartDataItemInheritance = 0;
-            }
-            StoreHelperStore($ShowLocation,$SelectedSmartDataItemInheritance, $ShowDataID."/".$SmartDataName, $value);
-          } else {
-            $SmartDataName = $value[$String_SmartDataName];
-            $content = $value;
-            $SmartDataArrayLocation = $ShowLocation.$ShowDataID."/".$SmartDataName;
-
-
-            if (isset($value[$action]) OR $SelectedSmartDataItem == 1) {
-              file_put_contents($SmartDataArrayLocation,$value[$String_SmartDataContent]);
-            }
+          if (isset($value[$Attr[3]]) OR $Selected == 1) {
+            // if (!isset($value[$Attr[2]])) {
+            //   // code...
+            //   dd($value);
+            // }
+             Data::find($value[$Attr[4]])
+             ->update([
+               'name'=>$value[$Attr[0]],
+               'content'=>$value[$Attr[2]],
+             ]);
           }
         }
       }
     }
-    dd($request);
-    // $action = Data::ShowActions()["SelectedSmartDataItem"];
-    // $ghjeje = $request->get("_token");
+    $Attr = Data::ShowAttributeTypes();
+    // $Data[$Attr[2]][0] = $request->get("Data");
+    $Data = $request->get("Data");
+    // dd($Data);
 
-
-
-    StoreHelperDestroy($ShowLocation,null, 0, $SmartDataItemShowFieldValues);
-
-    $SmartDataItemM_ShowAttributeTypes = SmartDataItemM::ShowAttributeTypes();
-
-
-    StoreHelperStore($ShowLocation, null,null,$SmartDataItemShowFieldValues);
+    StoreHelperStore(0,$Data,$Attr);
   }
-
-
 
 }

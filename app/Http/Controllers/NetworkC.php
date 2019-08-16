@@ -91,16 +91,18 @@ class NetworkC extends Controller
         if (!empty($DataShowID)) {
           // code...
           $DataValues = Data::Show($DataShowID);
-        } else{
+        } else {
           // dd(1);
           $DataValues = null;
         }
-        $RichDataShow = $DataValues['SmartDataContent'];
+
+        $Attr = Data::ShowAttributeTypes();
+        $RichDataShow = $DataValues[$Attr[2]];
         // dd($RichDataShow);
         // $ShowBaseIDPlusBaseLocation = Post::ShowBaseIDPlusBaseLocation($routeParameters);
         // $headerDataShow = Data::$ShowBaseIDPlusBaseLocation  ."/header.txt";
-        $headerDataShow = 'abcdefghijklmo';
-        return view('group-read', compact('allURLs', 'headerDataShow', 'RichDataShow'));
+        // $headerDataShow = 'abcdefghijklmo';
+        return view('group-read', compact('allURLs', 'RichDataShow'));
       }
     }
 
@@ -119,13 +121,12 @@ class NetworkC extends Controller
         array_shift($arguments);
         array_shift($arguments);
         $ShowID = PostM::ShowID($routeParameters);
-        $SmartDataArrayShowBaseLocation = SmartDataItemM::ShowBaseLocation();
 
         $DataShowAll = Data::ShowAll($routeParameters);
         // dd($DataShowAll);
         // $ShowAllShallowSmartData = PostM::ShowAllShallowSmartData($routeParameters);
         $SmartDataItemM_ShowActions = Data::ShowActions();
-        $SmartDataItemM_ShowAttributeTypes = Data::ShowAttributeTypes();
+        $Attr = Data::ShowAttributeTypes();
 
         $allURLs = Post::ShowActions($routeParameters);
 
@@ -140,16 +141,14 @@ class NetworkC extends Controller
           // dd(1);
           $DataValues = null;
         }
-        $RichDataShow = $DataValues['SmartDataContent'];
+        $RichDataShow = $DataValues[$Attr[2]];
 
-        $SmartDataArrayShowBaseLocation = SmartDataItemM::ShowBaseLocation();
+
         return view('group-edit', compact(
           'DataShowAll',
           'allURLs',
           'RichDataShow',
-          'SmartDataItemM_ShowActions',
-          'SmartDataItemM_ShowAttributeTypes',
-          'SmartDataArrayShowBaseLocation'
+          'Attr',
         ));
       } else {
         $allURLs = PostM::ShowActions(func_get_args());

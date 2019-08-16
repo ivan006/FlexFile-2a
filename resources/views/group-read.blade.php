@@ -22,12 +22,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 @include('includes.menu_post')
 
 
-<?php
-if (!empty($headerDataShow)) {
-  // code...
-  echo $headerDataShow;
-}
-?>
 
 
 
@@ -43,8 +37,8 @@ if (!empty($headerDataShow)) {
 
 </div>
 
-[r]Details/Rich.txt[/r]
-<div class="g-multi-level-dropdown">
+
+<!-- <div class="g-multi-level-dropdown">
   <ul>
     [page_list]
     [twig]
@@ -69,4 +63,4 @@ if (!empty($headerDataShow)) {
     [/leaf]
     [/page_list]
   </ul>
-</div>
+</div> -->

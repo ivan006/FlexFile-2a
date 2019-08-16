@@ -1,4 +1,4 @@
-<?php function SmartDataNetworkItemMenu($SmartDataID, $SmartDataItemM_ShowActions){ ?>
+<?php function SmartDataNetworkItemMenu($SmartDataID, $Attr){ ?>
   <span class="" style="  ">
 
     <label>

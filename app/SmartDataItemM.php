@@ -24,8 +24,14 @@ class SmartDataItemM extends Model
   }
 
   public static function ShowAttributeTypes() {
-    $ShowAttributeTypes["/SmartDataName"] =   'SmartDataName';
-    $ShowAttributeTypes["/SmartDataContent"] =   'SmartDataContent';
+    $ShowAttributeTypes = array  (
+      'SmartDataName',
+      'SmartDataType',
+      'SmartDataContent'
+
+    );
+    // ["/SmartDataName"] =   'SmartDataName';
+    // ["/SmartDataContent"] =   'SmartDataContent';
     // $ShowAttributeTypes["/SmartDataLocation"] =   'SmartDataLocation';
     // $ShowAttributeTypes["/SmartDataLocationParent"] =   'SmartDataLocationParent';
 
