@@ -121,7 +121,7 @@
                           <?php
                            // dd($value2[$Attr[2]])
                            ?>
-                          <img style="max-width: 50%;" alt="Embedded Image" src="<?php echo 'data:image/' . $value2[$Attr[5]] . ';base64,' . $value2[$Attr[2]]; ?>" />
+                          <img style="max-width: 50%;" alt="Embedded Image" src="<?php echo $value2[$Attr[2]]; ?>" />
                           <textarea class="g-bor-gre "  style="display:none;" name="<?php echo $CurrentIdentifier ?>[<?php echo $Attr[2] ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
                         </div>
                       <?php } else { ?>

@@ -101,7 +101,7 @@ class Data extends Model
         $result[$Attr[1]] = $ShowDataContent["type"];
         $result[$Attr[0]] = $ShowDataContent["name"];
         $result[$Attr[4]] = $ShowDataContent["id"];
-        $result[$Attr[5]] = $ShowDataContent["subtype"];
+        // $result[$Attr[5]] = $ShowDataContent["subtype"];
         break;
         case 'image':
         // code...
@@ -116,7 +116,7 @@ class Data extends Model
         $result[$Attr[1]] = $ShowDataContent["type"];
         $result[$Attr[0]] = $ShowDataContent["name"];
         $result[$Attr[4]] = $ShowDataContent["id"];
-        $result[$Attr[5]] = $ShowDataContent["subtype"];
+        // $result[$Attr[5]] = $ShowDataContent["subtype"];
         break;
 
         default:
@@ -125,7 +125,7 @@ class Data extends Model
         $result[$Attr[1]] = 'text';
         $result[$Attr[0]] = $ShowDataContent["name"];
         $result[$Attr[4]] = $ShowDataContent["id"];
-        $result[$Attr[5]] = $ShowDataContent["subtype"];
+        // $result[$Attr[5]] = $ShowDataContent["subtype"];
         break;
       }
       return $result;

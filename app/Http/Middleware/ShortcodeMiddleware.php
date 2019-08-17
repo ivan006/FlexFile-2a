@@ -166,15 +166,10 @@ class ShortcodeMiddleware
 
                 $DataValues = Data::Show($DataShowID);
                 // dd($DataValues);
-                if ($DataValues[$Attr[1]]=="image" ) {
-                  // dd(1);
-                    $result = 'data:image/' . $DataValues[$Attr[5]] . ';base64,' . $DataValues[$Attr[2]];
 
-                } else {
-                  $result = $DataValues[$Attr[2]];
-                }
+                $result = $DataValues[$Attr[2]];
+
                 // dd($DataValues);
-
 
                 $responceContent = str_replace($shortcode, $result, $responceContent);
 
