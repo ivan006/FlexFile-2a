@@ -1,4 +1,4 @@
-<?php function SmartDataFileItemMenu($Identifier, $Attr){ ?>
+<?php function DataFileMenu($Identifier, $Attr){ ?>
   <span class="" style="  ">
 
 

@@ -1,4 +1,4 @@
-<?php function SmartDataFolderItemMenu($Identifier, $Attr){ ?>
+<?php function DataFolderMenu($Identifier, $Attr){ ?>
   <span class="" style="  ">
 
     <button class="w3-button w3-theme-d1 w3-margin-bottom" type="submit" name="<?php echo $Identifier ?>[<?php echo $Attr[3] ?>]" value="1">
