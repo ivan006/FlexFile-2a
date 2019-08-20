@@ -198,12 +198,13 @@ class Data extends Model
 
   public static function ShowAttributeTypes() {
     $ShowAttributeTypes = array  (
-      '0'=>'Name',
-      '1'=>'Type',
-      '2'=>'Content',
-      '3'=>'Selected',
-      '4'=>'ID',
-      '5'=>'Subtype',
+      '0'=>'name',
+      '1'=>'type',
+      '2'=>'content',
+      '3'=>'action',
+      '4'=>'id',
+      '5'=>'subtype',
+      '6'=>'add',
 
     );
     // ["/SmartDataName"] =   'SmartDataName';
@@ -218,14 +219,23 @@ class Data extends Model
 
 
   public static function Store($request) {
-    function StoreHelperStore($Selected,$Data,$Attr) {
-      if (isset($Data["Content"])) {
+    function StoreHelperStore($Action,$Data,$Attr) {
+      if (isset($Data[$Attr[2]])) {
         // code...
 
-        foreach($Data["Content"] as $key => $value) {
+        foreach($Data[$Attr[2]] as $key => $value) {
           $key = SmartDataItemM::g_base64_decode($key);
           if ($value[$Attr[1]]=="folder"){
-            if (isset($value[$Attr[3]]) OR $Selected == 1) {
+            // switch (variable) {
+            //   case 'value':
+            //     // code...
+            //     break;
+            //
+            //   default:
+            //     // code...
+            //     break;
+            // }
+            if (isset($value[$Attr[3]]) OR $Action == "update") {
               if (!empty($value[$Attr[4]])) {
                 // code...
                 Data::find($value[$Attr[4]])
@@ -234,14 +244,14 @@ class Data extends Model
                 ]);
               }
 
-              $Selected = 1;
+              $Action = "update";
             } else {
-              $Selected = 0;
+              $Action = null;
             }
-            StoreHelperStore($Selected, $value,$Attr);
+            StoreHelperStore($Action, $value,$Attr);
           } else {
 
-            if (isset($value[$Attr[3]]) OR $Selected == 1) {
+            if (isset($value[$Attr[3]]) OR $Action == "update") {
               // if (!isset($value[$Attr[2]])) {
               //   // code...
               //   dd($value);

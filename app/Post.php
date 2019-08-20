@@ -164,6 +164,7 @@ class Post extends Model
     // } elseif (!empty($GroupShowID)) {
     //   $EntityShow = Group::find($GroupShowID);
     // }
+    // dd($request);
 
     switch ($request->get('form')) {
       case "data":
