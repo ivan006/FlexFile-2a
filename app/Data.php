@@ -219,23 +219,20 @@ class Data extends Model
 
 
   public static function Store($request) {
+    // dd($request);
     function StoreHelperStore($Action,$Data,$Attr) {
       if (isset($Data[$Attr[2]])) {
         // code...
 
         foreach($Data[$Attr[2]] as $key => $value) {
-          $key = SmartDataItemM::g_base64_decode($key);
+          // $key = SmartDataItemM::g_base64_decode($key);
           if ($value[$Attr[1]]=="folder"){
-            // switch (variable) {
-            //   case 'value':
-            //     // code...
-            //     break;
-            //
-            //   default:
-            //     // code...
-            //     break;
-            // }
-            if (isset($value[$Attr[3]]) OR $Action == "update") {
+            if (isset($value[$Attr[3]]) ) {
+              $Action = $value[$Attr[3]];
+            }
+
+            switch ($Action) {
+              case 'update':
               if (!empty($value[$Attr[4]])) {
                 // code...
                 Data::find($value[$Attr[4]])
@@ -244,23 +241,57 @@ class Data extends Model
                 ]);
               }
 
-              $Action = "update";
-            } else {
-              $Action = null;
+              StoreHelperStore($Action, $value,$Attr);
+              break;
+              case 'create_folder':
+
+              // $name = "_data";
+              $name = $value[$Attr[6]]["folder"];
+              $parent_id = $value[$Attr[4]];
+              $parent_type = "App\Data";
+              $type = "folder";
+              $content = "null";
+
+              // Data::Create($name,$parent_id,$parent_type,$type,$content)
+              Data::Add($name, $parent_id,$parent_type,$type,$content);
+              break;
+              case 'create_file':
+
+              // $name = "_data";
+              $name = $value[$Attr[6]]["file"];
+              $parent_id = $value[$Attr[4]];
+              $parent_type = "App\Data";
+              $type = "file";
+              $content = "null";
+
+              // Data::Create($name,$parent_id,$parent_type,$type,$content)
+              Data::Add($name, $parent_id,$parent_type,$type,$content);
+              break;
+
+              default:
+              // code...
+              break;
             }
-            StoreHelperStore($Action, $value,$Attr);
           } else {
 
-            if (isset($value[$Attr[3]]) OR $Action == "update") {
-              // if (!isset($value[$Attr[2]])) {
-              //   // code...
-              //   dd($value);
-              // }
-              Data::find($value[$Attr[4]])
-              ->update([
-                'name'=>$value[$Attr[0]],
-                'content'=>$value[$Attr[2]],
-              ]);
+            if (isset($value[$Attr[3]])) {
+              $Action = $value[$Attr[3]];
+            }
+
+            switch ($Action) {
+              case 'update':
+              if (!empty($value[$Attr[4]])) {
+                Data::find($value[$Attr[4]])
+                ->update([
+                  'name'=>$value[$Attr[0]],
+                  'content'=>$value[$Attr[2]],
+                ]);
+              }
+              break;
+
+              default:
+              // code...
+              break;
             }
           }
         }
@@ -271,7 +302,7 @@ class Data extends Model
     $Data = $request->get("Data");
     // dd($Data);
 
-    StoreHelperStore(0,$Data,$Attr);
+    StoreHelperStore(null,$Data,$Attr);
   }
   public static function Add ($name, $parent_id,$parent_type,$type,$content){
     // dd($type);
