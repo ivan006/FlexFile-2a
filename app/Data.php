@@ -123,8 +123,8 @@ class Data extends Model
 
   public static function ShowSignaturePrefix() {
 
-      $result = "_data";
-      return $result;
+    $result = "_data";
+    return $result;
 
   }
   public static function ShowAll($routeParameters) {
@@ -171,13 +171,13 @@ class Data extends Model
 
   public static function ShowAttributeTypes() {
     $ShowAttributeTypes = array  (
-      '0'=>'name',
-      '1'=>'type',
-      '2'=>'content',
-      '3'=>'action',
-      '4'=>'id',
-      '5'=>'subtype',
-      '6'=>'add',
+    '0'=>'name',
+    '1'=>'type',
+    '2'=>'content',
+    '3'=>'action',
+    '4'=>'id',
+    '5'=>'subtype',
+    '6'=>'add',
 
     );
 
@@ -206,7 +206,7 @@ class Data extends Model
               if (!empty($value[$Attr[4]])) {
                 Data::find($value[$Attr[4]])
                 ->update([
-                  'name'=>$value[$Attr[0]],
+                'name'=>$value[$Attr[0]],
                 ]);
               }
               break;
@@ -250,8 +250,8 @@ class Data extends Model
               if (!empty($value[$Attr[4]])) {
                 Data::find($value[$Attr[4]])
                 ->update([
-                  'name'=>$value[$Attr[0]],
-                  'content'=>$value[$Attr[2]],
+                'name'=>$value[$Attr[0]],
+                'content'=>$value[$Attr[2]],
                 ]);
               }
               break;
@@ -272,11 +272,11 @@ class Data extends Model
   public static function Add ($name, $parent_id,$parent_type,$type,$content){
 
     Data::create([
-      'name'=>$name,
-      'parent_id'=>$parent_id,
-      'parent_type'=>$parent_type,
-      'type'=>$type,
-      'content'=>$content,
+    'name'=>$name,
+    'parent_id'=>$parent_id,
+    'parent_type'=>$parent_type,
+    'type'=>$type,
+    'content'=>$content,
     ]);
   }
 
