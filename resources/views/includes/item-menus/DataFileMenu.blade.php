@@ -2,10 +2,8 @@
 {
   ?>
   <span class="" style="  ">
-
-    <button class="w3-button w3-theme-d1 w3-margin-bottom" type="submit" name="<?php echo $Identifier; ?>[<?php echo $Attr[3]; ?>]" value="update">Store</button>
-    <button class="w3-button w3-theme-d1 w3-margin-bottom" type="submit" name="Create" value="1"><del>Create</del></button>
-    <button class="w3-button w3-theme-d1 w3-margin-bottom" type="submit" name="Destroy" value="1"><del>Destroy</del></button>
+    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" type="submit" name="<?php echo $Identifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
+    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" type="submit" name="Destroy" value="1">×</button>
 
   </span>
   <?php
