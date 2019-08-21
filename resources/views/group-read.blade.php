@@ -36,31 +36,3 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
   ?>
 
 </div>
-
-
-<!-- <div class="g-multi-level-dropdown">
-  <ul>
-    [page_list]
-    [twig]
-    <li>
-      <a href="[link]">
-        [name]
-      </a>
-      <span class="toggle">
-      <a href="#">+</a>
-      <ul>
-        [inner_twig]
-      </ul>
-      </span>
-    </li>
-    [/twig]
-    [leaf]
-    <li>
-      <a href="[link]">
-        [name]
-      </a>
-    </li>
-    [/leaf]
-    [/page_list]
-  </ul>
-</div> -->
