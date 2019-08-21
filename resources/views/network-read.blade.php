@@ -52,7 +52,10 @@
 
 
       <li>
-        To edit the group click "mode", at the top, and select "edit" mode after opeing it.
+        To edit the group go to the group and from there click "mode", at the top, and select "edit".
+      </li>
+      <li>
+        To add a group from here click "mode", at the top, and select "edit" then click "create" etc...
       </li>
 
     </ul>

@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\GroupM;
-use App\PostM;
-use App\MetadataM;
-use App\RichDataM;
-use App\SmartDataItemM;
 
 use App\Group;
 use App\Post;
@@ -54,7 +49,6 @@ class NetworkC extends Controller
 
       $routeParameters = func_get_args();
       array_shift($routeParameters);
-      // dd($routeParameters);
 
       if (!empty($routeParameters)) {
         Post::Store($routeParameters, $request);
@@ -77,7 +71,6 @@ class NetworkC extends Controller
 
       $routeParameters = func_get_args();
       if (empty($routeParameters)) {
-        // dd($routeParameters);
         $allURLs = Post::ShowActions($routeParameters);
         $PostList = Group::ShowAll();
         return view('network-read', compact('PostList', 'allURLs'));
@@ -87,25 +80,15 @@ class NetworkC extends Controller
         $allURLs = Post::ShowActions($routeParameters);
 
         $DataShowRelSig = "Rich.txt";
-        // dd($DataShowRelSig);
         $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
-        // dd($DataShowID);
-        // dd($DataShowID);
         if (!empty($DataShowID)) {
-          // code...
           $DataValues = Data::Show($DataShowID);
         } else {
-          // dd(1);
           $DataValues = null;
         }
 
         $Attr = Data::ShowAttributeTypes();
-        // dd($DataValues);
         $RichDataShow = $DataValues[$Attr[2]];
-        // dd($RichDataShow);
-        // $ShowBaseIDPlusBaseLocation = Post::ShowBaseIDPlusBaseLocation($routeParameters);
-        // $headerDataShow = Data::$ShowBaseIDPlusBaseLocation  ."/header.txt";
-        // $headerDataShow = 'abcdefghijklmo';
         return view('group-read', compact('allURLs', 'RichDataShow'));
       }
     }
@@ -124,12 +107,9 @@ class NetworkC extends Controller
       if (!empty($arguments)) {
         array_shift($arguments);
         array_shift($arguments);
-        $ShowID = PostM::ShowID($routeParameters);
-
         $Attr = Data::ShowAttributeTypes();
         $DataShowAll[$Attr[2]] = Data::ShowAll($routeParameters);
-        // dd($DataShowAll);
-        // $ShowAllShallowSmartData = PostM::ShowAllShallowSmartData($routeParameters);
+
         $SmartDataItemM_ShowActions = Data::ShowActions();
 
         $allURLs = Post::ShowActions($routeParameters);
@@ -137,12 +117,9 @@ class NetworkC extends Controller
 
         $DataShowRelSig = "Rich.txt";
         $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
-        // dd($DataShowID);
         if (!empty($DataShowID)) {
-          // code...
           $DataValues = Data::Show($DataShowID);
         } else{
-          // dd(1);
           $DataValues = null;
         }
         $RichDataShow = $DataValues[$Attr[2]];
@@ -177,8 +154,5 @@ class NetworkC extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+
 }
