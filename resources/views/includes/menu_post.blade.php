@@ -1,3 +1,4 @@
+<link href="{{ asset('css/menu-style.css') }}" rel="stylesheet">
 
 <div  class="f-multi-level-dropdown f-bg-col-blu f-fon-18px f-fon-fam-open ">
   <ul>

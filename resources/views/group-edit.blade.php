@@ -19,7 +19,7 @@
 
 
 <!-- Left Column -->
-<div class="w3-col m2">
+<div class="w3-col m1">
 
 
   <!-- Alert Box -->
@@ -27,30 +27,10 @@
 
   <!-- End Left Column -->
 </div>
-
-<!-- Middle Column -->
-<div class="w3-col m8">
-  <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-
-    <h2>
-      Guide
-
-    </h2>
-    <p>
-      Well done!
-    </p>
-    <ul>
-      <li>
-        Please explore the below options!
-      </li>
+<!-- Left Column -->
+<div class="w3-col m3">
 
 
-    </ul>
-
-
-    <br>
-
-  </div>
   <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 
     <h2>Posts</h2>
@@ -88,6 +68,35 @@
     </form>
 
   </div>
+  <!-- Alert Box -->
+  <br>
+
+  <!-- End Left Column -->
+</div>
+
+<!-- Middle Column -->
+<div class="w3-col m7">
+  <!-- <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+
+    <h2>
+      Guide
+
+    </h2>
+    <p>
+      Well done!
+    </p>
+    <ul>
+      <li>
+        Please explore the below options!
+      </li>
+
+
+    </ul>
+
+
+    <br>
+
+  </div> -->
   <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
     <h2>Data</h2>
 
@@ -205,7 +214,7 @@
 </div>
 
 <!-- Right Column -->
-<div class="w3-col m2">
+<div class="w3-col m1">
 
   <br>
 
