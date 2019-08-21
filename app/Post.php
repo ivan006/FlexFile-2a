@@ -149,7 +149,7 @@ class Post extends Model
 
     switch ($request->get('form')) {
       case "data":
-      .
+
       Data::Store($request);
       break;
       case "posts":
