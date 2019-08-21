@@ -155,7 +155,7 @@
                     ?>
                     <li>
                       <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot kv-di-in">
-                        <div class="kv-di-in">Name</div>
+                        <div class="kv-di-in">📁</div>
                         <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
@@ -173,7 +173,7 @@
                     ?>
                     <li>
                       <div class="kv-di-in kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot">
-                        <div class="kv-di-in">Name</div>
+                        <div class="kv-di-in">📃</div>
                         <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
 
 
@@ -186,6 +186,7 @@
                       <ul class="kv-li-st-no">
                         <li>
 
+                        <!-- <div class=""> -->
 
                           <?php
                           $fileExtension = FileExtention($value2[$Attr[0]]);
@@ -217,6 +218,8 @@
                             <!-- <textarea class="g-bor-gre f-res-ver"  style="width:100%;" </textarea> -->
                               <?php
                             } ?>
+
+                            <!-- </div> -->
 
                           </li>
                         </ul>
