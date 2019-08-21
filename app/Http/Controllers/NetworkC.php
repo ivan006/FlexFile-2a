@@ -3,18 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Group;
 use App\Post;
 use App\Data;
-use App\Metadata;
-use App\RichData;
-use App\SmartDataItem;
-
-
-
-
-
 
 class NetworkC extends Controller
 {
@@ -25,7 +16,6 @@ class NetworkC extends Controller
   */
   public function index()
   {
-    //
   }
 
   /**
@@ -35,28 +25,29 @@ class NetworkC extends Controller
   */
   public function create()
   {
-    //
   }
 
   /**
   * Store a newly created resource in storage.
   *
-  * @param  \Illuminate\Http\Request  $request
+  * @param \Illuminate\Http\Request $request
+  *
   * @return \Illuminate\Http\Response
   */
   public function store(Request $request)
   {
-
     $routeParameters = func_get_args();
     array_shift($routeParameters);
 
     if (!empty($routeParameters)) {
       Post::Store($routeParameters, $request);
       $allURLs = Post::ShowActions($routeParameters);
+
       return redirect($allURLs['sub_post_edit']);
     } else {
       Group::Add($request);
       $allURLs = Post::ShowActions($routeParameters);
+
       return redirect($allURLs['sub_post_edit']);
     }
   }
@@ -64,23 +55,23 @@ class NetworkC extends Controller
   /**
   * Display the specified resource.
   *
-  * @param  int  $id
+  * @param int $id
+  *
   * @return \Illuminate\Http\Response
   */
-  public function show(){
-
+  public function show()
+  {
     $routeParameters = func_get_args();
     if (empty($routeParameters)) {
       $allURLs = Post::ShowActions($routeParameters);
       $PostList = Group::ShowAll();
+
       return view('network-read', compact('PostList', 'allURLs'));
     } else {
-
-
       $allURLs = Post::ShowActions($routeParameters);
 
-      $DataShowRelSig = "Rich.txt";
-      $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
+      $DataShowRelSig = 'Rich.txt';
+      $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
       if (!empty($DataShowID)) {
         $DataValues = Data::Show($DataShowID);
       } else {
@@ -89,19 +80,20 @@ class NetworkC extends Controller
 
       $Attr = Data::ShowAttributeTypes();
       $RichDataShow = $DataValues[$Attr[2]];
+
       return view('group-read', compact('allURLs', 'RichDataShow'));
     }
   }
 
-
-
   /**
   * Show the form for editing the specified resource.
   *
-  * @param  int  $id
+  * @param int $id
+  *
   * @return \Illuminate\Http\Response
   */
-  public function edit(){
+  public function edit()
+  {
     $routeParameters = func_get_args();
     $arguments = func_get_args();
     if (!empty($arguments)) {
@@ -114,24 +106,23 @@ class NetworkC extends Controller
 
       $allURLs = Post::ShowActions($routeParameters);
 
-
-      $DataShowRelSig = "Rich.txt";
-      $DataShowID = Data::ShowID($routeParameters,$DataShowRelSig);
+      $DataShowRelSig = 'Rich.txt';
+      $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
       if (!empty($DataShowID)) {
         $DataValues = Data::Show($DataShowID);
-      } else{
+      } else {
         $DataValues = null;
       }
       $RichDataShow = $DataValues[$Attr[2]];
 
       $PostShowImSubPosts = Post::ShowImmediateSubPost($routeParameters);
 
-
-      return view('group-edit', compact('DataShowAll','allURLs','RichDataShow','Attr','PostShowImSubPosts'));
+      return view('group-edit', compact('DataShowAll', 'allURLs', 'RichDataShow', 'Attr', 'PostShowImSubPosts'));
     } else {
       $allURLs = Post::ShowActions(func_get_args());
       $PostList = Group::ShowAll();
       $SmartDataItemM_ShowActions = Data::ShowActions();
+
       return view('network-edit', compact('PostList', 'allURLs', 'SmartDataItemM_ShowActions'));
     }
   }
@@ -139,20 +130,19 @@ class NetworkC extends Controller
   /**
   * Update the specified resource in storage.
   *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  int  $id
+  * @param \Illuminate\Http\Request $request
+  * @param int                      $id
+  *
   * @return \Illuminate\Http\Response
   */
   public function update(Request $request, $id)
   {
-
   }
 
-  /**
+  /*
   * Remove the specified resource from storage.
   *
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-
 }

@@ -1,6 +1,3 @@
-
-
-
 @include('includes.base-dom/general-include-one-of-four')
 
 <link href="{{ asset('css/treeview.css') }}" rel="stylesheet">
@@ -53,13 +50,17 @@
             Network
             <?php echo PostAndGroupMenu(); ?>
             <ul>
-              <?php foreach($PostList as $key => $value){?>
+              <?php
+              foreach ($PostList as $key => $value) {
+                  ?>
                 <li class="f-leaf">
                   <a href="{{$value['url']}}">
                     {{$key}}
                   </a>
                 </li>
-              <?php }?>
+                <?php
+              }
+              ?>
 
             </ul>
           </li>

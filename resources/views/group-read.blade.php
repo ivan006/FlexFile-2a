@@ -1,5 +1,3 @@
-
-
 <style>
 html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 .g-futuristic-indented-list {
@@ -29,8 +27,8 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
   <?php
 
-  if (!empty($RichDataShow )) {
-    echo $RichDataShow ;
+  if (!empty($RichDataShow)) {
+    echo $RichDataShow;
   }
 
   ?>

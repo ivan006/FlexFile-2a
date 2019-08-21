@@ -163,27 +163,23 @@
 
                           <textarea class="g-bor-gre f-res-ver"  style="width:100%;" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
                           <?php
-                        }
-                        ?>
+                        } ?>
                       </div>
                     </li>
 
                     <?php
                   }
                 }
-              }
-              ?>
+              } ?>
             </ul>
             <?php
-          }
-          ?>
+          } ?>
           <div class="f-treeview" >
 
             <?php
 
             $Identifier = 'Data';
-            list1($Identifier, $DataShowAll, $Attr);
-            ?>
+            list1($Identifier, $DataShowAll, $Attr); ?>
 
 
           </div>
