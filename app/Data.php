@@ -187,7 +187,7 @@ class Data extends Model
             if (isset($value[$Attr[3]])) {
               $Action = $value[$Attr[3]];
             }
-
+            // dd($Data);
             switch ($Action) {
               case 'update':
               if (!empty($value[$Attr[4]])) {
@@ -198,7 +198,6 @@ class Data extends Model
               }
               break;
               case 'create_folder':
-
               $name = $value[$Attr[6]]['folder'];
               $parent_id = $value[$Attr[4]];
               $parent_type = "App\Data";

@@ -2,23 +2,22 @@
 function PostAndGroupMenu()
 {
   ?>
-  <span class="" style="  ">
-
-    <label>
-      <input class="f-toggle" type="checkbox" name="checkbox" value="value" style="display:none;" >
-      <span class="f-toggle w3-button w3-theme-d1 w3-margin-bottom" >
-        Create
-      </span>
-      <div class="content g-bor-gre g-pad-1em" style="margin-left:6em;">
+  <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="" value="update">✓</button>
+  <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="Destroy" value="1">×</button>
+  <label class="kv-po-re">
+    <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
+    <input class="ks-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
+    <div class="kv-bg-wh kv-wh-sp-no ks-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
+      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh  ">
         <div class="">
-          <input class="g-bor-gre f-width-270px"  type="text" name="name" value="">
-          <button style="" class="w3-button w3-theme-d1 w3-margin-bottom f-width-200px" type="submit" name="create" value="1">
-            Submit
-          </button>
+          <span>📁</span>
+          <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text" name="name">
+          <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="create" value="1">+</button>
         </div>
       </div>
-    </label>
-  </span>
+    </div>
+  </label>
+
   <?php
 }
 ?>

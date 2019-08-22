@@ -1,25 +1,9 @@
 @include('includes.base-dom/general-include-one-of-four')
-
 <link href="{{ asset('css/treeview.css') }}" rel="stylesheet">
-
-
-
 @include('includes.base-dom/general-include-two-of-four')
-
-
-
-@include('includes.item-menus/DataFileMenu')
-@include('includes.item-menus/DataFolderMenu')
 @include('includes.item-menus/PostAndGroupMenu')
-
-
-
 @include('includes.menu_post')
-
 @include('includes.base-dom/general-include-three-of-four')
-
-
-
 
 <!-- Left Column -->
 <div class="w3-col m2">

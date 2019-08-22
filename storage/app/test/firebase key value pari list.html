@@ -1,0 +1,338 @@
+<html class="mobilesdk-console-app" style="" lang="en">
+
+<head>
+
+  <style media="screen">
+    .data-tree-default .tree-content {
+      border: 1px transparent solid;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      padding: 2px 4px;
+      text-align: center
+    }
+
+    .data-tree-default .nameInput {
+      background: transparent;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      border: 1px #000 solid;
+      color: inherit;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 18px;
+      margin-left: 8px;
+      outline: none;
+      padding: 0 2px;
+      width: 100px
+    }
+
+    .data-tree-default .valueInput {
+      background: transparent;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      border: 1px #000 solid;
+      color: inherit;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 18px;
+      margin-left: 8px;
+      outline: none;
+      padding: 0 2px
+    }
+
+    .data-tree-default .valueLabel {
+      padding-left: 12px
+    }
+
+    .data-tree-default .adding .tree-content {
+      border-color: #a8adb3
+    }
+
+    .data-tree-default .data-tree-leaf>div>ins {
+      background-position: -66px 0
+    }
+
+    .data-tree ul {
+      display: block;
+      list-style-type: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .data-tree li {
+      display: block;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: block;
+      line-height: 26px;
+      margin-left: 33px;
+      min-height: 26px;
+      min-width: 33px;
+      white-space: nowrap
+    }
+
+    .data-tree>ul>li {
+      margin-left: 0
+    }
+
+    .data-tree ins {
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      display: inline-block;
+      height: 28px;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      width: 33px
+    }
+
+    .firebase-viewer .tree-content .nameInput,
+    .firebase-viewer .tree-content .valueInput,
+    .firebase-viewer .tree-content .valueedit {
+      font-family: 'Roboto Mono', monospace
+    }
+
+    .firebase-viewer ins {
+      width: 24px
+    }
+
+    .firebase-viewer .tree-content>.md-button:first-of-type {
+      margin-left: 12px
+    }
+
+    .firebase-viewer .tree-content>.md-button {
+      margin: 0 4px;
+      padding: 0;
+      height: 20px;
+      width: 20px;
+      min-height: 20px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px
+    }
+
+    .firebase-viewer .tree-content>.md-button .material-icons {
+      font-size: 16px;
+      position: relative;
+      top: 1px
+    }
+    /* latin */
+
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Roboto Bold'), local('Roboto-Bold'), url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* latin */
+
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Roboto Mono'), local('RobotoMono-Regular'), url(https://fonts.gstatic.com/s/robotomono/v7/L0x5DF4xlVMF-BfR8bXMIjhLq38.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    .md-button {
+      border: 0;
+      padding: 0 6px;
+      margin: 6px 8px;
+      background: transparent;
+      color: currentColor;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .md-button.md-icon-button {
+      margin: 0 6px;
+      height: 40px;
+      min-width: 0;
+      line-height: 24px;
+      padding: 8px;
+      width: 40px;
+      -moz-border-radius: 50%;
+      border-radius: 50%
+    }
+
+    button,
+    html,
+    input {
+      font-family: Roboto, "Helvetica Neue", sans-serif
+    }
+
+    .material-icons {
+      font-family: "Material Icons Extended";
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      text-rendering: optimizeLegibility;
+      -moz-osx-font-smoothing: grayscale;
+      -moz-font-feature-settings: "liga";
+      font-feature-settings: "liga";
+      speak: none;
+      text-decoration: none;
+      -moz-user-select: none
+    }
+    /* fallback */
+
+    @font-face {
+      font-family: 'Material Icons Extended';
+      font-style: normal;
+      font-weight: 400;
+      src: url(https://fonts.gstatic.com/s/materialiconsextended/v53/kJEjBvgX7BgnkSrUwT8UnLVc38YydejYY-oE_LvJ.woff2) format('woff2');
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="firebase-viewer data-tree data-tree-focused data-tree-default" style="">
+    <ul class="data-tree-no-icons">
+      <li class="data-tree-leaf root">
+
+        <ul>
+          <li class="data-tree-leaf adding">
+            <div>
+              <ins class="data-tree-icon">&nbsp;</ins >
+                <span class="tree-content" >
+                  <span>
+                    <span class="nameLabel">Name</span>
+                    <input type="text" class="nameInput" placeholder="name" value="1" >
+                    <span class="valueInputContainer" style="display: none;" >
+                      <span class="valueLabel">Value</span>
+                      <input type="text" class="valueInput" placeholder="value">
+                    </span>
+                  </span>
+                  <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                  <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                </span>
+              </div>
+              <ul>
+                <li class="data-tree-leaf adding">
+                  <div><ins class="data-tree-icon">&nbsp;</ins >
+                    <span class="tree-content" >
+                      <span>
+                        <span class="nameLabel">Name</span>
+                        <input type="text" class="nameInput" placeholder="name" value="1" >
+                        <span class="valueInputContainer" style="display: none;" >
+                          <span class="valueLabel">Value</span>
+                          <input type="text" class="valueInput" placeholder="value">
+                        </span>
+                      </span>
+                      <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                      <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                    </span>
+                  </div>
+                  <ul>
+                    <li class="data-tree-leaf adding">
+                      <div><ins class="data-tree-icon">&nbsp;</ins >
+                        <span class="tree-content" >
+                          <span>
+                            <span class="nameLabel">Name</span>
+                            <input type="text" class="nameInput" placeholder="name" value="1" >
+                            <span class="valueInputContainer" >
+                              <span class="valueLabel">Value</span>
+                              <input type="text" class="valueInput" placeholder="value">
+                            </span>
+                          </span>
+                          <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                          <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                        </span>
+                      </div>
+                      <ul></ul>
+                    </li>
+                    <li class="data-tree-leaf adding">
+                      <div><ins class="data-tree-icon">&nbsp;</ins >
+                        <span class="tree-content" >
+                          <span>
+                            <span class="nameLabel">Name</span>
+                            <input type="text" class="nameInput" placeholder="name" value="2" >
+                            <span class="valueInputContainer" >
+                              <span class="valueLabel">Value</span>
+                              <input type="text" class="valueInput" placeholder="value">
+                            </span>
+                          </span>
+                          <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                          <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                        </span>
+                      </div>
+                      <ul></ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="data-tree-leaf adding">
+                  <div><ins class="data-tree-icon">&nbsp;</ins >
+                    <span class="tree-content" >
+                      <span>
+                        <span class="nameLabel">Name</span>
+                        <input type="text" class="nameInput" placeholder="name" value="2" >
+                        <span class="valueInputContainer" style="display: none;" >
+                          <span class="valueLabel">Value</span>
+                          <input type="text" class="valueInput" placeholder="value">
+                        </span>
+                      </span>
+                      <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                      <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                    </span>
+                  </div>
+                  <ul>
+                    <li class="data-tree-leaf adding">
+                      <div><ins class="data-tree-icon">&nbsp;</ins >
+                        <span class="tree-content" >
+                          <span>
+                            <span class="nameLabel">Name</span>
+                            <input type="text" class="nameInput" placeholder="name" value="1" >
+                            <span class="valueInputContainer" >
+                              <span class="valueLabel">Value</span>
+                              <input type="text" class="valueInput" placeholder="value">
+                            </span>
+                          </span>
+                          <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                          <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                        </span>
+                      </div>
+                      <ul></ul>
+                    </li>
+                    <li class="data-tree-leaf adding">
+                      <div><ins class="data-tree-icon">&nbsp;</ins >
+                        <span class="tree-content" >
+                          <span>
+                            <span class="nameLabel">Name</span>
+                            <input type="text" class="nameInput" placeholder="name" value="2" >
+                            <span class="valueInputContainer" >
+                              <span class="valueLabel">Value</span>
+                              <input type="text" class="valueInput" placeholder="value">
+                            </span>
+                          </span>
+                          <button class="md-button md-icon-button addBtn" title="add child"><i class="material-icons">add</i></button>
+                          <button class="md-button md-icon-button removeBtn" title="delete"><i class="material-icons">close</i></button>
+                        </span>
+                      </div>
+                      <ul></ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </body>
+
+  </html>

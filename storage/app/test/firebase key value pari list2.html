@@ -1,0 +1,89 @@
+<html class="mobilesdk-console-app" style="" lang="en">
+
+<head>
+
+  <style media="screen">
+
+  .f-key-pair-value-list ul {
+    list-style: none;
+  }
+  .f-key-pair-value-list .f-kpv-component {
+    border: 1px DarkGray solid;
+    border-radius: 3px;
+    padding: 1px 4px;
+    margin-bottom: 3px;
+  }
+  .f-key-pair-value-list .f-kpv-value {
+    /* display: inline-block; */
+  }
+  .f-key-pair-value-list .f-kpv-key {
+    display: inline-block;
+  }
+
+  .f-key-pair-value-list .f-kpv-input {
+    border: 1px black solid;
+    padding: 2px;
+  }
+  .f-key-pair-value-list .f-kpv-input-small {
+
+    height: 20px;
+    width: 150px;
+    display: inline-block;
+    resize: none;
+  }
+  .f-key-pair-value-list .f-kpv-input-big {
+
+    height: 200px;
+    width: 100%;
+    display: inline-block;
+    resize:vertical;
+  }
+
+  .f-key-pair-value-list .f-kpv-btn {
+    font-weight: bold;
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+  }
+  .f-key-pair-value-list .f-kpv-text {
+  
+    display: inline-block;
+
+  }
+  </style>
+
+</head>
+<body>
+  <div class="f-key-pair-value-list">
+    <ul>
+      <li>
+        <div class="f-kpv-component f-kpv-key">
+          <div class="f-kpv-text">Name</div>
+
+          <textarea name="name"  class="f-kpv-input f-kpv-input-small"></textarea>
+
+          <div class="f-kpv-btn">×</div>
+          <div class="f-kpv-btn">+</div>
+          <div class="f-kpv-btn">✓</div>
+        </div>
+        <ul>
+          <li>
+            <div class="f-kpv-component f-kpv-key ">
+              <textarea name="name" class="f-kpv-input f-kpv-input-small"></textarea>
+              <div class="f-kpv-btn">×</div>
+              <div class="f-kpv-btn">+</div>
+              <div class="f-kpv-btn">✓</div>
+            </div>
+
+              <div class="f-kpv-component f-kpv-value ">
+                <textarea name="name"  class="f-kpv-input f-kpv-input-big"></textarea>
+              </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+</body>
+
+</html>
