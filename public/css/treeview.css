@@ -26,7 +26,7 @@
 
 .kv-bg-wh {background-color: white;}
 .kv-wh-sp-no { white-space: nowrap;}
-.ks-di-no {display:none;}
+.kv-di-no {display:none;}
 .kv-po-ab {position: absolute;}
 .kv-po-re {position: relative;}
 .kv-z-in-1 {z-index: 1;}
@@ -36,6 +36,10 @@
 
 .kv-pa-le-0  {padding-left: 0;}
 .kv-child-pa-le-40 .kv-child-pa-le-40 {padding-left: 40px;}
+
+.kv-sibling-di-no:checked ~ .kv-sibling-di-no-sib {display:none;}
+.kv-sibling-di-in:checked ~ .kv-sibling-di-in-sib {display:inline-block;}
+.kv-min-he-23 {min-height: 23px;}
 
 
 /*

@@ -26,7 +26,7 @@
         <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
           <li>
 
-            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-di-in kv-wh-sp-no ">
+            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
               <div class="kv-di-in">📁</div>
               <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="" value="Posts">
 
@@ -42,7 +42,7 @@
                 ?>
 
                 <li>
-                  <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-di-in kv-wh-sp-no ">
+                  <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
                     <div class="kv-di-in">📁</div>
                     <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="" value="{{$key}} {{$value['url']}}">
 
@@ -52,9 +52,9 @@
                     <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="Destroy" value="1">×</button>
                     <label class="kv-po-re">
                       <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
-                      <input class="ks-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
-                      <div class="kv-bg-wh kv-wh-sp-no ks-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
-                        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh  ">
+                      <input class="kv-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
+                      <div class="kv-bg-wh kv-wh-sp-no kv-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
+                        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23">
                           <div class="">
                             <span>📁</span>
                             <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text" name="name">
@@ -139,7 +139,7 @@
                   if ('folder' == $value2[$Attr[1]]) {
                     ?>
                     <li>
-                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-di-in kv-wh-sp-no ">
+                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
                         <div class="kv-di-in">📁</div>
                         <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
@@ -148,9 +148,9 @@
                         <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="Destroy" value="1">×</button>
                         <label class="kv-po-re">
                           <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
-                          <input class="ks-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
-                          <div class="kv-bg-wh kv-wh-sp-no ks-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib" style="">
-                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh  ">
+                          <input class="kv-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
+                          <div class="kv-bg-wh kv-wh-sp-no kv-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib" style="">
+                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23">
                               <div class="kv-mar-bot-3" >
                                 <span>📁</span>
                                 <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text"   name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][folder]" >
@@ -173,7 +173,7 @@
                   } else {
                     ?>
                     <li>
-                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-di-in ">
+                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23">
                         <div class="kv-di-in">📃</div>
                         <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
@@ -197,14 +197,14 @@
                           or 'gif' == $fileExtension
                           ) {
                             ?>
-                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-di-in kv-wh-sp-no ">
+                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 ">
                               <img  style="width: 300px;" alt="Embedded Image" src="<?php echo $value2[$Attr[2]]; ?>" />
                               <textarea class="g-bor-gre kv-di-in"  style="display:none;" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
                             </div>
                             <?php
                           } else {
                             ?>
-                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh ">
+                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 ">
                               <textarea class="kv-bo-bl kv-pa-2 kv-he-200 kv-wi-100-per kv-re-ve kv-di-in" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
                             </div>
 
