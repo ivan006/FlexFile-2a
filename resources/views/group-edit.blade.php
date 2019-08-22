@@ -26,7 +26,7 @@
         <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
           <li>
 
-            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
+            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
               <div class="kv-di-in">📁</div>
               <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="" value="Posts">
 
@@ -42,7 +42,7 @@
                 ?>
 
                 <li>
-                  <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
+                  <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
                     <div class="kv-di-in">📁</div>
                     <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="" value="{{$key}} {{$value['url']}}">
 
@@ -54,7 +54,7 @@
                       <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
                       <input class="kv-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
                       <div class="kv-bg-wh kv-wh-sp-no kv-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
-                        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23">
+                        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in ">
                           <div class="">
                             <span>📁</span>
                             <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text" name="name">
@@ -139,9 +139,15 @@
                   if ('folder' == $value2[$Attr[1]]) {
                     ?>
                     <li>
-                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
+                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
                         <div class="kv-di-in">📁</div>
-                        <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
+                        <label style="">
+                          <input class="kv-di-no kv-sibling-di-in kv-sibling-di-no" type="checkbox" name="checkbox" value="value">
+
+                          <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no kv-sibling-di-in-sib kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
+                          <div class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-re-no kv-sibling-di-no-sib "><?php echo $value2[$Attr[0]]; ?></div>
+                          <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">⚙</span>
+                        </label>
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
                         <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
@@ -150,7 +156,7 @@
                           <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
                           <input class="kv-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
                           <div class="kv-bg-wh kv-wh-sp-no kv-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib" style="">
-                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23">
+                            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in ">
                               <div class="kv-mar-bot-3" >
                                 <span>📁</span>
                                 <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text"   name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][folder]" >
@@ -173,7 +179,7 @@
                   } else {
                     ?>
                     <li>
-                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23">
+                      <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in ">
                         <div class="kv-di-in">📃</div>
                         <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
                         <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">

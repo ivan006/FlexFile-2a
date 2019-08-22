@@ -39,7 +39,7 @@
 
 .kv-sibling-di-no:checked ~ .kv-sibling-di-no-sib {display:none;}
 .kv-sibling-di-in:checked ~ .kv-sibling-di-in-sib {display:inline-block;}
-.kv-min-he-23 {min-height: 23px;}
+.kv-bo-tr {border: 1px solid transparent}
 
 
 /*

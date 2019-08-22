@@ -31,20 +31,22 @@
 
     .kv-bg-wh {background-color: white;}
     .kv-wh-sp-no { white-space: nowrap;}
-    .ks-di-no {display:none;}
+    .kv-di-no {display:none;}
     .kv-po-ab {position: absolute;}
     .kv-po-re {position: relative;}
     .kv-z-in-1 {z-index: 1;}
     .kv-to-100-per {top: 100%;}
     .kv-ri-0 {right: 0px;}
-    .kv-sibling-di-bl:checked ~ .kv-sibling-di-bl-sib {display:block}
+    .kv-sibling-di-bl:checked ~ .kv-sibling-di-bl-sib {display:block;}
 
     .kv-pa-le-0  {padding-left: 0;}
     .kv-child-pa-le-40 .kv-child-pa-le-40 {padding-left: 40px;}
 
     .kv-sibling-di-no:checked ~ .kv-sibling-di-no-sib {display:none;}
     .kv-sibling-di-in:checked ~ .kv-sibling-di-in-sib {display:inline-block;}
-    .kv-min-he-23 {min-height: 23px;}
+    .kv-bo-tr {border: 1px solid transparent}
+
+
   </style>
 
 </head>
@@ -52,13 +54,13 @@
   <div class="">
     <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
       <li>
-        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
+        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
           <div class="kv-di-in">📁</div>
           <label style="">
-            <input class="ks-di-no kv-sibling-di-in kv-sibling-di-no" type="checkbox" name="checkbox" value="value">
+            <input class="kv-di-no kv-sibling-di-in kv-sibling-di-no" type="checkbox" name="checkbox" value="value">
 
-            <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no kv-sibling-di-in-sib ks-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
-            <div class="kv-sibling-di-no-sib kv-wi-150 kv-di-in">o<?php echo $value2[$Attr[0]]; ?></div>
+            <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no kv-sibling-di-in-sib kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
+            <div class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-re-no kv-sibling-di-no-sib ">o<?php echo $value2[$Attr[0]]; ?></div>
             <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">⚙</span>
           </label>
           <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
@@ -67,9 +69,9 @@
           <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="Destroy" value="1">×</button>
           <label class="kv-po-re">
             <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
-            <input class="ks-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
-            <div class="ks-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
-              <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23  ">
+            <input class="kv-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
+            <div class="kv-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
+              <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in   ">
 
                 <div class="kv-mar-bot-3" >
                   <span>📁</span>
@@ -87,7 +89,7 @@
         </div>
         <ul class="kv-li-st-no">
           <li>
-            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-min-he-23 ">
+            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
               <div class="kv-di-in">📃</div>
               <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
               <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
