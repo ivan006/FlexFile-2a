@@ -41,8 +41,8 @@
                   <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh  ">
                     <div class="">
                       <span>📁</span>
-                      <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text" name="name">
-                      <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="create" value="1">+</button>
+                      <input class="kv-bo-bl kv-fo-in kv-bo-si-in kv-pa-2 kv-di-in kv-wi-150 "  type="text" name="name">
+                      <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-but-sty-res kv-di-in" name="create" value="1">+</button>
                     </div>
                   </div>
                 </div>
@@ -58,14 +58,14 @@
                     <div class="kv-di-in">📁</div>
                     <label style="">
                       <input class="kv-di-no kv-sibling-di-in kv-sibling-di-no" type="checkbox" name="checkbox" value="value">
-                      <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150  kv-sibling-di-in-sib kv-di-no kv-fo-in kv-bo-si-in" type="text" name="" value="">
+                      <input class="kv-bo-bl kv-fo-in kv-bo-si-in kv-pa-2 kv-di-in kv-wi-150 kv-sibling-di-in-sib kv-di-no" type="text" name="" value="">
                       <a href="{{$value['url']}}" class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-sibling-di-no-sib kv-ov-hi kv-ve-al-bo kv-te-ov-el ">{{$key}}</a>
                       <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-sibling-di-no-sib">⚙</span>
                     </label>
                     <input class=""  style="display:none;" type="text" name="" value="">
                     <input class=""  style="display:none;" type="text" name="" value="">
-                    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="" value="update">✓</button>
-                    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="Destroy" value="1">×</button>
+                    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-but-sty-res kv-di-in" name="" value="update">✓</button>
+                    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-but-sty-res kv-di-in" name="Destroy" value="1">×</button>
 
                   </div>
                 </li>

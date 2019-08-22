@@ -51,20 +51,100 @@
   .kv-ve-al-bo {vertical-align: bottom;}
 
   </style>
+ul tag
+kv-li-st-no kv-pa-le-0 kv-child-pa-le-40
+
+popover
+kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1
+
+nice border (mar-bot is used elsewhere "kv-wh-sp-no" belongs with these)
+kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh
+
+nice border 2 (kv-fo-in and kv-bo-si-in also belongs with these)
+kv-bo-bl kv-pa-2
+
+cute button (kv-but-sty-res also belong with these)
+kv-fo-we-bo kv-wi-20 kv-te-al-ce
 
 </head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php $CurrentIdentifier=0; $value2=0; ?>
 <body>
   <div class="">
     <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
       <li>
-        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in kv-ve-al-mi ">
+        <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in ">
           <div class="kv-di-in">📁</div>
           <label style="">
             <input class="kv-di-no kv-sibling-di-in kv-sibling-di-no" type="checkbox" name="checkbox" value="value">
             <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-sibling-di-in-sib kv-di-no kv-fo-in kv-bo-si-in" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
             <a href="#" class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-sibling-di-no-sib kv-ov-hi kv-ve-al-bo kv-te-ov-el ">php<?php echo $value2[$Attr[0]]; ?></a>
-            <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-sibling-di-no-sib">⚙</span>
+            <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-sibling-di-no-sib ">⚙</span>
           </label>
           <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
           <input class=""  style="display:none;" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
@@ -108,7 +188,7 @@
             </div>
             <ul class="kv-li-st-no">
               <li>
-                <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3">
+                <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh">
                   <textarea class="kv-bo-bl kv-pa-2 kv-he-200 kv-wi-100-per kv-re-ve kv-di-in" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
                 </div>
               </li>
