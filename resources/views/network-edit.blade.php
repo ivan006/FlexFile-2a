@@ -28,19 +28,46 @@
       <input class="g-bor-gre"  style="display: none;" type="text" name="All_Content" value="1">
 
       {{csrf_field()}}
-      <div class="f-treeview">
-        <ul>
+      <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
           <li>
-            Network
-            <?php echo PostAndGroupMenu(); ?>
-            <ul>
+            <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
+              <div class="kv-di-in">📁</div>
+              <div href="#" class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-ov-hi kv-ve-al-bo kv-te-ov-el">Harmonyville.net</div>
+
+              <label class="kv-po-re">
+                <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in ">+</span>
+                <input class="kv-di-no kv-sibling-di-bl" type="checkbox" name="checkbox" value="value">
+                <div class="kv-bg-wh kv-wh-sp-no kv-di-no kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1 kv-sibling-di-bl-sib " style="">
+                  <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh  ">
+                    <div class="">
+                      <span>📁</span>
+                      <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150 kv-re-no"  type="text" name="name">
+                      <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="create" value="1">+</button>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+              <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
               <?php
               foreach ($PostList as $key => $value) {
                   ?>
-                <li class="f-leaf">
-                  <a href="{{$value['url']}}">
-                    {{$key}}
-                  </a>
+                <li>
+                  <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
+                    <div class="kv-di-in">📁</div>
+                    <label style="">
+                      <input class="kv-di-no kv-sibling-di-in kv-sibling-di-no" type="checkbox" name="checkbox" value="value">
+                      <input class="kv-bo-bl kv-pa-2 kv-di-in kv-wi-150  kv-sibling-di-in-sib kv-di-no kv-fo-in kv-bo-si-in" type="text" name="" value="">
+                      <a href="{{$value['url']}}" class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-sibling-di-no-sib kv-ov-hi kv-ve-al-bo kv-te-ov-el ">{{$key}}</a>
+                      <span class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-sibling-di-no-sib">⚙</span>
+                    </label>
+                    <input class=""  style="display:none;" type="text" name="" value="">
+                    <input class=""  style="display:none;" type="text" name="" value="">
+                    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="" value="update">✓</button>
+                    <button type="submit" class="kv-fo-we-bo kv-wi-20 kv-te-al-ce kv-di-in kv-but-sty-res" name="Destroy" value="1">×</button>
+
+                  </div>
                 </li>
                 <?php
               }
@@ -49,7 +76,7 @@
             </ul>
           </li>
         </ul>
-      </div>
+
     </form>
 
     <br>

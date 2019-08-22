@@ -8,7 +8,6 @@
 .kv-pa-2{padding: 2px;}
 .kv-he-20 {height: 20px;}
 .kv-wi-150 {width: 150px;}
-.kv-re-no {resize: none;}
 .kv-he-200 {height: 200px;}
 .kv-wi-100-per {width: 100%;}
 .kv-re-ve {resize:vertical;}
@@ -40,6 +39,11 @@
 .kv-sibling-di-no:checked ~ .kv-sibling-di-no-sib {display:none;}
 .kv-sibling-di-in:checked ~ .kv-sibling-di-in-sib {display:inline-block;}
 .kv-bo-tr {border: 1px solid transparent}
+.kv-fo-in {font: inherit;}
+.kv-bo-si-in {box-sizing:inherit}
+.kv-ov-hi {overflow: hidden;}
+.kv-te-ov-el {text-overflow: ellipsis;}
+.kv-ve-al-bo {vertical-align: bottom;}
 
 
 /*

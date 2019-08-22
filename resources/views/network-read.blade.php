@@ -8,8 +8,6 @@
 
 
 
-@include('includes.item-menus/DataFileMenu')
-@include('includes.item-menus/DataFolderMenu')
 
 
 
@@ -69,18 +67,27 @@
     </h2>
 
     <div class="f-treeview">
-      <ul>
+      <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
         <li>
-          Network
-          <ul>
+          <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
+            <div class="kv-di-in">📁</div>
+            <div href="#" class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-ov-hi kv-ve-al-bo kv-te-ov-el">Harmonyville.net</div>
+
+
+          </div>
+          <ul class="kv-li-st-no kv-pa-le-0 kv-child-pa-le-40">
             <?php
             foreach ($PostList as $key => $value) {
               ?>
-              <li class="f-leaf">
-                <a href="{{$value['url']}}">
-                  {{$key}}
-                </a>
-              </li>
+
+            <li>
+              <div class="kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh kv-wh-sp-no kv-di-in  ">
+                <div class="kv-di-in">📁</div>
+                <a href="{{$value['url']}}" class="kv-bo-tr kv-pa-2 kv-di-in kv-wi-150 kv-sibling-di-no-sib kv-ov-hi kv-ve-al-bo kv-te-ov-el ">{{$key}}</a>
+
+
+              </div>
+            </li>
               <?php
             }
             ?>
