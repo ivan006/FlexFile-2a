@@ -50,89 +50,28 @@
   .kv-te-ov-el {text-overflow: ellipsis;}
   .kv-ve-al-bo {vertical-align: bottom;}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </style>
-ul tag
-kv-li-st-no kv-pa-le-0 kv-child-pa-le-40
-
-popover
-kv-po-ab kv-to-100-per kv-ri-0 kv-z-in-1
-
-nice border (mar-bot is used elsewhere "kv-wh-sp-no" belongs with these)
-kv-bo-gr kv-bo-ra-3 kv-pad-1-4 kv-mar-bot-3 kv-bg-wh
-
-nice border 2 (kv-fo-in and kv-bo-si-in also belongs with these)
-kv-bo-bl kv-pa-2
-
-cute button (kv-but-sty-res also belong with these)
-kv-fo-we-bo kv-wi-20 kv-te-al-ce
 
 </head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php $CurrentIdentifier=0; $value2=0; ?>
 <body>
   <div class="">
