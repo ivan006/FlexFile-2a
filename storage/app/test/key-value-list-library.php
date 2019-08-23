@@ -7,7 +7,10 @@
     list-style: none;
     padding-left: 0;
   }
-  .kv-list-parent .kv-list-parent {padding-left: 40px;}
+  .kv-list-parent .kv-list-parent {
+    padding-left: 20px;
+    border-left: 1px solid whitesmoke;
+  }
   .kv-item-container {
     border: 1px DarkGray solid;
     border-radius: 3px;
@@ -20,7 +23,8 @@
   .kv-di-in {display: inline-block;}
   .kv-name {
     width: 150px;
-    box-sizing:inherit
+    box-sizing:inherit;
+    vertical-align: top;
   }
   .kv-little-button {
     font-weight: bold;
@@ -65,7 +69,6 @@
   .kv-name-unedit {
     border: 1px solid transparent;
     overflow: hidden;
-    vertical-align: bottom;
     text-overflow: ellipsis;
     padding: 2px;
   }
