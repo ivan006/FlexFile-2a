@@ -12,9 +12,9 @@ class Group extends Model
     'name',
   ];
 
-  public function PostChildren()
+  public function ReportChildren()
   {
-    return $this->morphMany('App\Post', 'parent');
+    return $this->morphMany('App\Report', 'parent');
   }
 
   public function DataChildren()
@@ -58,12 +58,15 @@ class Group extends Model
 
     $GroupId = $var->attributes['id'];
 
-    $name = '_data';
-    $parent_id = $GroupId;
-    $parent_type = "App\Group";
-    $type = 'folder';
-    $content = 'null';
 
-    Data::Add($name, $parent_id, $parent_type, $type, $content);
+    $DataItem = array (
+      'name' => '_data',
+      'parent_id' => $GroupId,
+      'parent_type' => "App\Group",
+      'type' => 'folder',
+      'content' => 'null',
+    );
+
+    Data::Add($DataItem);
   }
 }

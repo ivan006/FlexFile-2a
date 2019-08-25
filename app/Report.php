@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Report extends Model
 {
   protected $primaryKey = 'id';
   protected $fillable = [
@@ -18,15 +18,15 @@ class Post extends Model
     return $this->morphMany('App\Data', 'parent');
   }
 
-  public function PostChildren()
+  public function ReportChildren()
   {
-    return $this->morphMany('App\Post', 'parent');
+    return $this->morphMany('App\Report', 'parent');
   }
 
   public static function ShowActions($routeParameters)
   {
     if (!empty($routeParameters)) {
-      $PostShowSig = Post::ShowRelativeSignature($routeParameters);
+      $PostShowSig = Report::ShowRelativeSignature($routeParameters);
       $GroupShowSig = Group::ShowSignature($routeParameters);
       $Slug = $GroupShowSig.'/'.$PostShowSig;
     } else {
@@ -58,7 +58,7 @@ class Post extends Model
 
   public static function ShowAbsoluteSignature($routeParameters)
   {
-    $PostShowSig = Post::ShowRelativeSignature($routeParameters);
+    $PostShowSig = Report::ShowRelativeSignature($routeParameters);
     $GroupShowSig = Group::ShowSignature($routeParameters);
 
     $result = $GroupShowSig.'/'.$PostShowSig;
@@ -74,10 +74,10 @@ class Post extends Model
 
     foreach ($routeParameters as $key => $value) {
       if (1 == $stage) {
-        $ShowID = Group::find($GroupShowID)->PostChildren->where('name', $value)->first()->id;
+        $ShowID = Group::find($GroupShowID)->ReportChildren->where('name', $value)->first()->id;
         $stage = 2;
       } else {
-        $ShowID = Post::find($ShowID)->PostChildren->where('name', $value)->first()->id;
+        $ShowID = Report::find($ShowID)->ReportChildren->where('name', $value)->first()->id;
       }
     }
 
@@ -86,7 +86,7 @@ class Post extends Model
 
   public static function ShowBaseIDPlusBaseLocation()
   {
-    return Group::ShowBaseLocation().Post::ShowBaseID(func_get_args()[0]);
+    return Group::ShowBaseLocation().Report::ShowBaseID(func_get_args()[0]);
   }
 
   public static function ShowBaseID()
@@ -102,7 +102,7 @@ class Post extends Model
     {
       $result = array();
       foreach ($Entities['List'] as $key => $value) {
-        $SubEntityList = Post::find($value['id'])->PostChildren->toArray();
+        $SubEntityList = Report::find($value['id'])->ReportChildren->toArray();
         $Slug = $Entities['Slug'].'/'.$value['name'];
         $SubEntities = array(
         'List' => $SubEntityList,
@@ -118,7 +118,7 @@ class Post extends Model
     $GroupShowID = Group::ShowID($routeParameters);
     $GroupShow = Group::find($GroupShowID);
 
-    $SubEntityList = Group::find($GroupShow['id'])->PostChildren->toArray();
+    $SubEntityList = Group::find($GroupShow['id'])->ReportChildren->toArray();
     $Slug = route('NetworkC.show').'/'.$GroupShow['name'];
     $SubEntities = array(
     'List' => $SubEntityList,
@@ -133,19 +133,19 @@ class Post extends Model
   public static function ShowImmediateSubPost($routeParameters)
   {
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Post::ShowID($GroupShowID, $routeParameters);
+    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
 
     if (!empty($PostShowID)) {
-      $EntityShow = Post::find($PostShowID);
-      $SubEntityList = Post::find($EntityShow['id'])->PostChildren->toArray();
+      $EntityShow = Report::find($PostShowID);
+      $SubEntityList = Report::find($EntityShow['id'])->ReportChildren->toArray();
     } elseif (!empty($GroupShowID)) {
       $EntityShow = Group::find($GroupShowID);
-      $SubEntityList = Group::find($EntityShow['id'])->PostChildren->toArray();
+      $SubEntityList = Group::find($EntityShow['id'])->ReportChildren->toArray();
     }
 
     $result = array();
     foreach ($SubEntityList as $key => $value) {
-      $result[$value['name']]['url'] = Post::ShowActions($routeParameters)['sub_post_edit'].'/'.$value['name'];
+      $result[$value['name']]['url'] = Report::ShowActions($routeParameters)['sub_post_edit'].'/'.$value['name'];
     }
 
     return $result;
@@ -160,7 +160,7 @@ class Post extends Model
       break;
       case 'posts':
 
-      Post::Add($routeParameters, $request);
+      Report::Add($routeParameters, $request);
       break;
 
       default:
@@ -172,19 +172,19 @@ class Post extends Model
   public static function Add($routeParameters, $request)
   {
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Post::ShowID($GroupShowID, $routeParameters);
+    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
 
     $name = $request->get('name');
 
     if (!empty($PostShowID)) {
       $parent_id = $PostShowID;
-      $parent_type = "App\Post";
+      $parent_type = "App\Report";
     } elseif (!empty($GroupShowID)) {
       $parent_id = $GroupShowID;
       $parent_type = "App\Group";
     }
 
-    $var = Post::create([
+    $var = Report::create([
     'name' => $name,
     'parent_id' => $parent_id,
     'parent_type' => $parent_type,
@@ -192,12 +192,14 @@ class Post extends Model
 
     $PostShowID = $var->attributes['id'];
 
-    $name = '_data';
-    $parent_id = $PostShowID;
-    $parent_type = "App\Post";
-    $type = 'folder';
-    $content = 'null';
-
-    Data::Add($name, $parent_id, $parent_type, $type, $content);
+    $Data = array (
+      'name' => '_data',
+      'parent_id' => $PostShowID,
+      'parent_type' => "App\Report",
+      'type' => 'folder',
+      'content' => 'null',
+    );
+    // dd(1);
+    Data::Add($Data);
   }
 }

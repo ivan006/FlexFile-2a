@@ -29,11 +29,11 @@ class Data extends Model
   public static function ShowID($routeParameters, $DataSig)
   {
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Post::ShowID($GroupShowID, $routeParameters);
+    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
 
     $DataShowSigPref = Data::ShowSignaturePrefix();
     if (!empty($PostShowID)) {
-      $Post = Post::find($PostShowID);
+      $Post = Report::find($PostShowID);
       if (!empty($Post)) {
         $Data = $Post->DataChildren->where('name', $DataShowSigPref)->first();
         if (!empty($Data)) {
@@ -142,11 +142,11 @@ class Data extends Model
     }
 
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Post::ShowID($GroupShowID, $routeParameters);
+    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
 
     $Identifier = null;
     if (!empty($PostShowID)) {
-      $BaseData = Post::find($PostShowID)->DataChildren->toArray();
+      $BaseData = Report::find($PostShowID)->DataChildren->toArray();
     } elseif (!empty($GroupShowID)) {
       $BaseData = Group::find($GroupShowID)->DataChildren->toArray();
     }
@@ -198,24 +198,27 @@ class Data extends Model
               }
               break;
               case 'create_folder':
-              $name = $value[$Attr[6]]['folder'];
-              $parent_id = $value[$Attr[4]];
-              $parent_type = "App\Data";
-              $type = 'folder';
-              $content = 'null';
-
-              Data::Add($name, $parent_id, $parent_type, $type, $content);
+              $DataItem = array (
+                'name' => $value[$Attr[6]]['folder'],
+                'parent_id' => $value[$Attr[4]],
+                'parent_type' => "App\Data",
+                'type' => 'folder',
+                'content' => 'null',
+              );
+              Data::Add($DataItem);
               $Action = null;
               break;
               case 'create_file':
 
-              $name = $value[$Attr[6]]['file'];
-              $parent_id = $value[$Attr[4]];
-              $parent_type = "App\Data";
-              $type = 'file';
-              $content = 'null';
+              $DataItem = array (
+                'name' => $value[$Attr[6]]['file'],
+                'parent_id' => $value[$Attr[4]],
+                'parent_type' => "App\Data",
+                'type' => 'file',
+                'content' => 'null',
+              );
 
-              Data::Add($name, $parent_id, $parent_type, $type, $content);
+              Data::Add($DataItem);
 
               $Action = null;
               break;
@@ -255,14 +258,10 @@ class Data extends Model
     StoreHelperStore(null, $Data, $Attr);
   }
 
-  public static function Add($name, $parent_id, $parent_type, $type, $content)
+  public static function Add($DataItem)
   {
-    Data::create([
-    'name' => $name,
-    'parent_id' => $parent_id,
-    'parent_type' => $parent_type,
-    'type' => $type,
-    'content' => $content,
-    ]);
+
+    // dd($DataItem);
+    Data::create($DataItem);
   }
 }

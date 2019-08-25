@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Group;
-use App\Post;
+use App\Report;
 use App\Data;
 
 class ShortcodeMiddleware
@@ -63,7 +63,7 @@ class ShortcodeMiddleware
               $arguments2[0] = $routeParameters[0];
 
               $GroupShowID = Group::ShowID($routeParameters);
-              $VPgsLocs = Post::ShowSubPost($GroupShowID, $routeParameters);
+              $VPgsLocs = Report::ShowSubPost($GroupShowID, $routeParameters);
 
               ob_start();
 
@@ -101,6 +101,7 @@ class ShortcodeMiddleware
             $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
             $DataValues = Data::Show($DataShowID);
 
+            // $result = $DataShowID;
             $result = $DataValues[$Attr[2]];
 
             $responceContent = str_replace($shortcode, $result, $responceContent);

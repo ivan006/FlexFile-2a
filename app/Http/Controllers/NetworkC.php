@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
-use App\Post;
+use App\Report;
 use App\Data;
 
 class NetworkC extends Controller
@@ -40,13 +40,13 @@ class NetworkC extends Controller
     array_shift($routeParameters);
 
     if (!empty($routeParameters)) {
-      Post::Store($routeParameters, $request);
-      $allURLs = Post::ShowActions($routeParameters);
+      Report::Store($routeParameters, $request);
+      $allURLs = Report::ShowActions($routeParameters);
 
       return redirect($allURLs['sub_post_edit']);
     } else {
       Group::Add($request);
-      $allURLs = Post::ShowActions($routeParameters);
+      $allURLs = Report::ShowActions($routeParameters);
 
       return redirect($allURLs['sub_post_edit']);
     }
@@ -63,12 +63,12 @@ class NetworkC extends Controller
   {
     $routeParameters = func_get_args();
     if (empty($routeParameters)) {
-      $allURLs = Post::ShowActions($routeParameters);
+      $allURLs = Report::ShowActions($routeParameters);
       $PostList = Group::ShowAll();
 
       return view('network-read', compact('PostList', 'allURLs'));
     } else {
-      $allURLs = Post::ShowActions($routeParameters);
+      $allURLs = Report::ShowActions($routeParameters);
 
       $DataShowRelSig = 'Rich.txt';
       $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
@@ -104,7 +104,7 @@ class NetworkC extends Controller
 
       $SmartDataItemM_ShowActions = Data::ShowActions();
 
-      $allURLs = Post::ShowActions($routeParameters);
+      $allURLs = Report::ShowActions($routeParameters);
 
       $DataShowRelSig = 'Rich.txt';
       $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
@@ -115,11 +115,11 @@ class NetworkC extends Controller
       }
       $RichDataShow = $DataValues[$Attr[2]];
 
-      $PostShowImSubPosts = Post::ShowImmediateSubPost($routeParameters);
+      $PostShowImSubPosts = Report::ShowImmediateSubPost($routeParameters);
 
       return view('group-edit', compact('DataShowAll', 'allURLs', 'RichDataShow', 'Attr', 'PostShowImSubPosts'));
     } else {
-      $allURLs = Post::ShowActions(func_get_args());
+      $allURLs = Report::ShowActions(func_get_args());
       $PostList = Group::ShowAll();
       $SmartDataItemM_ShowActions = Data::ShowActions();
 
