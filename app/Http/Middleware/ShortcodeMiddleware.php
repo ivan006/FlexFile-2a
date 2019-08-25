@@ -63,7 +63,7 @@ class ShortcodeMiddleware
               $arguments2[0] = $routeParameters[0];
 
               $GroupShowID = Group::ShowID($routeParameters);
-              $VPgsLocs = Report::ShowSubReport($routeParameters);
+              $VPgsLocs = Report::ShowMulti($routeParameters);
 
               ob_start();
 
