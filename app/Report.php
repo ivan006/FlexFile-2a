@@ -96,10 +96,10 @@ class Report extends Model
     return $arguments;
   }
 
-  public static function ShowSubReport($routeParameters)
+  public static function ShowMulti($routeParameters)
   {
-    if (!function_exists('App\ShowSubReportHelper')) {
-      function ShowSubReportHelper($Entities, $routeParameters)
+    if (!function_exists('App\ShowMultiHelper')) {
+      function ShowMultiHelper($Entities, $routeParameters)
       {
         $result = array();
 
@@ -112,7 +112,7 @@ class Report extends Model
             'List' => $SubEntityList,
             'Slug' => $Slug,
           );
-          $result[$Identifier]['content'] = ShowSubReportHelper($SubEntities, $routeParameters);
+          $result[$Identifier]['content'] = ShowMultiHelper($SubEntities, $routeParameters);
           $result[$Identifier]['url'] = $Slug;
           $result[$Identifier]['name'] = $value['name'];
           $result[$Identifier]['type'] = 'folder';
@@ -134,7 +134,7 @@ class Report extends Model
     'List' => $SubEntityList,
     'Slug' => $Slug,
     );
-    $result[$Identifier]['content'] = ShowSubReportHelper($SubEntities, $routeParameters);
+    $result[$Identifier]['content'] = ShowMultiHelper($SubEntities, $routeParameters);
     $result[$Identifier]['url'] = $Slug;
     $result[$Identifier]['name'] = $GroupShow['name'];
     $result[$Identifier]['type'] = 'folder';
