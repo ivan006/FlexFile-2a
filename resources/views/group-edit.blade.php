@@ -21,13 +21,13 @@
                 <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
                 <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="" value="Group ABC">
                 <a href="#" class="kv-name-unedit kv-name kv-tog-off-ib ">Group ABC</a>
-                <span class="kv-little-button ">⚙</span>
+                <span class="kv-little-button ">^</span>
               </label>
               <input class="kv-di-no" type="text" name="" value="">
               <input class="kv-di-no" type="text" name="" value="">
 
               <button type="submit" class="kv-little-button" name="" value="update">✓</button>
-              <button type="submit" class="kv-little-button" name="Destroy" value="1">×</button>
+              <button type="submit" class="kv-little-button" name="" value="delete">×</button>
 
               <label class="kv-po-re">
                 <span class="kv-little-button ">+</span>
@@ -56,13 +56,13 @@
                       <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
                       <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="" value="{{$key}}">
                       <a href="{{$value['url']}}" class="kv-name-unedit kv-name kv-tog-off-ib ">{{$key}}</a>
-                      <span class="kv-little-button ">⚙</span>
+                      <span class="kv-little-button ">^</span>
                     </label>
 
                     <input class="kv-di-no" type="text" name="" value="">
                     <input class="kv-di-no" type="text" name="" value="">
                     <button type="submit" class="kv-little-button" name="" value="update">✓</button>
-                    <button type="submit" class="kv-little-button" name="Destroy" value="1">×</button>
+                    <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
 
                     <label class="kv-po-re">
                       <span class="kv-little-button ">+</span>
@@ -125,13 +125,13 @@
                           <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
                           <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
                           <div class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></div>
-                          <span class="kv-little-button ">⚙</span>
+                          <span class="kv-little-button ">^</span>
                         </label>
 
                         <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
                         <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
                         <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
-                        <button type="submit" class="kv-little-button" name="Destroy" value="1">×</button>
+                        <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
 
 
                         <label class="kv-po-re">
@@ -165,13 +165,13 @@
                           <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
                           <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
                           <div class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></div>
-                          <span class="kv-little-button ">⚙</span>
+                          <span class="kv-little-button ">^</span>
                         </label>
 
                         <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
                         <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
                         <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
-                        <button type="submit" class="kv-little-button" name="Destroy" value="1">×</button>
+                        <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
 
                       </div>
 

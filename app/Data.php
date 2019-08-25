@@ -197,6 +197,12 @@ class Data extends Model
                 ]);
               }
               break;
+              case 'delete':
+              if (!empty($value[$Attr[4]])) {
+                Data::find($value[$Attr[4]])
+                ->delete();
+              }
+              break;
               case 'create_folder':
               $DataItem = array (
                 'name' => $value[$Attr[6]]['folder'],
@@ -220,7 +226,7 @@ class Data extends Model
 
               Data::Add($DataItem);
 
-              $Action = null;
+              // $Action = null;
               break;
 
               default:
@@ -228,6 +234,7 @@ class Data extends Model
               break;
             }
             StoreHelperStore($Action, $value, $Attr);
+            $Action = null;
           } else {
             if (isset($value[$Attr[3]])) {
               $Action = $value[$Attr[3]];
@@ -243,11 +250,18 @@ class Data extends Model
                 ]);
               }
               break;
+              case 'delete':
+              if (!empty($value[$Attr[4]])) {
+                Data::find($value[$Attr[4]])
+                ->delete();
+              }
+              break;
 
               default:
 
               break;
             }
+            $Action = null;
           }
         }
       }
