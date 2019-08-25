@@ -29,13 +29,13 @@ class Data extends Model
   public static function ShowID($routeParameters, $DataSig)
   {
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
+    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
     $DataShowSigPref = Data::ShowSignaturePrefix();
-    if (!empty($PostShowID)) {
-      $Post = Report::find($PostShowID);
-      if (!empty($Post)) {
-        $Data = $Post->DataChildren->where('name', $DataShowSigPref)->first();
+    if (!empty($ReportShowID)) {
+      $Report = Report::find($ReportShowID);
+      if (!empty($Report)) {
+        $Data = $Report->DataChildren->where('name', $DataShowSigPref)->first();
         if (!empty($Data)) {
           $ShowParentID = $Data->id;
         }
@@ -95,7 +95,7 @@ class Data extends Model
     if (!empty($DataShowAll)) {
       $ShowDataContent = $DataShowAll->toArray();
 
-      $Attr = Data::ShowAttributeTypes();
+      $Attr = Entity::ShowAttributeTypes();
 
       $result[$Attr[2]] = $ShowDataContent['content'];
       $result[$Attr[1]] = $ShowDataContent['type'];
@@ -113,62 +113,13 @@ class Data extends Model
     return $result;
   }
 
-  public static function ShowAll($routeParameters)
+  public static function ShowForEdit($routeParameters)
   {
-    if (!function_exists('App\ShowHelper')) {
-      function ShowHelper($Data, $Identifier)
-      {
-        $result = array();
-        $Attr = Data::ShowAttributeTypes();
-
-        $Identifier = -1;
-        foreach ($Data as $key => $value) {
-          $Identifier = $Identifier + 1;
-
-          $SubData = Data::find($value['id'])->children->toArray();
-
-          if ('folder' == $value['type']) {
-            $result[$Identifier][$Attr[2]] = ShowHelper($SubData, $Identifier);
-            $result[$Identifier][$Attr[1]] = $value['type'];
-            $result[$Identifier][$Attr[0]] = $value['name'];
-            $result[$Identifier][$Attr[4]] = $value['id'];
-          } else {
-            $result[$Identifier] = Data::Show($value['id']);
-          }
-        }
-
-        return  $result;
-      }
-    }
-
-    $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
-
-    $Identifier = null;
-    if (!empty($PostShowID)) {
-      $BaseData = Report::find($PostShowID)->DataChildren->toArray();
-    } elseif (!empty($GroupShowID)) {
-      $BaseData = Group::find($GroupShowID)->DataChildren->toArray();
-    }
-    $Show = ShowHelper($BaseData, $Identifier);
+    $Show = Entity::ShowForEdit($routeParameters, 'App\Data');
 
     return $Show;
   }
 
-  public static function ShowAttributeTypes()
-  {
-    $ShowAttributeTypes = array(
-    '0' => 'name',
-    '1' => 'type',
-    '2' => 'content',
-    '3' => 'action',
-    '4' => 'id',
-    '5' => 'subtype',
-    '6' => 'add',
-    );
-
-    return $ShowAttributeTypes;
-  }
 
   public static function ShowActions()
   {
@@ -177,7 +128,7 @@ class Data extends Model
     return $ShowActions;
   }
 
-  public static function Store($request)
+  public static function StoreForEdit($request)
   {
     function StoreHelperStore($Action, $Data, $Attr)
     {
@@ -266,7 +217,7 @@ class Data extends Model
         }
       }
     }
-    $Attr = Data::ShowAttributeTypes();
+    $Attr = Entity::ShowAttributeTypes();
     $Data = $request->get('Data');
 
     StoreHelperStore(null, $Data, $Attr);

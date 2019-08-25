@@ -1,7 +1,7 @@
 @include('includes.base-dom/general-include-one-of-four')
 <link href="{{ asset('css/key-value-list.css') }}" rel="stylesheet">
 @include('includes.base-dom/general-include-two-of-four')
-@include('includes.menu_post')
+@include('includes.menu_report')
 @include('includes.base-dom/general-include-three-of-four')
 <!-- Left Column -->
 <div class="w3-col m2">
@@ -55,7 +55,7 @@
           </div>
           <ul class="kv-list-parent">
             <?php
-            foreach ($PostList as $key => $value) {
+            foreach ($ReportList as $key => $value) {
               ?>
 
             <li>

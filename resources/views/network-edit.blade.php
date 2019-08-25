@@ -1,7 +1,7 @@
 @include('includes.base-dom/general-include-one-of-four')
 <link href="{{ asset('css/key-value-list.css') }}" rel="stylesheet">
 @include('includes.base-dom/general-include-two-of-four')
-@include('includes.menu_post')
+@include('includes.menu_report')
 @include('includes.base-dom/general-include-three-of-four')
 
 <!-- Left Column -->
@@ -16,7 +16,7 @@
     <h2>
       Groups
     </h2>
-    <form  enctype="multipart/form-data" name="1" class="" action="{{ $allURLs['sub_post_store'] }}" method="post">
+    <form  enctype="multipart/form-data" name="1" class="" action="{{ $allURLs['sub_report_store'] }}" method="post">
       <input class="g-bor-gre"  style="display: none;" type="text" name="All_Content" value="1">
       {{csrf_field()}}
       <ul class="kv-list-parent">
@@ -39,7 +39,7 @@
 
           <ul class="kv-list-parent">
             <?php
-            foreach ($PostList as $key => $value) {
+            foreach ($ReportList as $key => $value) {
               ?>
               <li>
                 <div class="kv-item-container  kv-di-in ">

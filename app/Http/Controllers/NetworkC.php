@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Group;
 use App\Report;
 use App\Data;
+use App\Entity;
 
 class NetworkC extends Controller
 {
@@ -43,12 +44,12 @@ class NetworkC extends Controller
       Report::Store($routeParameters, $request);
       $allURLs = Report::ShowActions($routeParameters);
 
-      return redirect($allURLs['sub_post_edit']);
+      return redirect($allURLs['sub_report_edit']);
     } else {
       Group::Add($request);
       $allURLs = Report::ShowActions($routeParameters);
 
-      return redirect($allURLs['sub_post_edit']);
+      return redirect($allURLs['sub_report_edit']);
     }
   }
 
@@ -64,9 +65,9 @@ class NetworkC extends Controller
     $routeParameters = func_get_args();
     if (empty($routeParameters)) {
       $allURLs = Report::ShowActions($routeParameters);
-      $PostList = Group::ShowAll();
+      $ReportList = Group::ShowAll();
 
-      return view('network-read', compact('PostList', 'allURLs'));
+      return view('network-read', compact('ReportList', 'allURLs'));
     } else {
       $allURLs = Report::ShowActions($routeParameters);
 
@@ -78,9 +79,9 @@ class NetworkC extends Controller
         $DataValues = null;
       }
 
-      $Attr = Data::ShowAttributeTypes();
+      $Attr = Entity::ShowAttributeTypes();
       $RichDataShow = $DataValues[$Attr[2]];
-
+      // dd(  $ReportShowSubReport);
       return view('group-read', compact('allURLs', 'RichDataShow'));
     }
   }
@@ -99,8 +100,8 @@ class NetworkC extends Controller
     if (!empty($arguments)) {
       array_shift($arguments);
       array_shift($arguments);
-      $Attr = Data::ShowAttributeTypes();
-      $DataShowAll[$Attr[2]] = Data::ShowAll($routeParameters);
+      $Attr = Entity::ShowAttributeTypes();
+      $DataShowAll[$Attr[2]] = Data::ShowForEdit($routeParameters);
 
       $SmartDataItemM_ShowActions = Data::ShowActions();
 
@@ -115,15 +116,17 @@ class NetworkC extends Controller
       }
       $RichDataShow = $DataValues[$Attr[2]];
 
-      $PostShowImSubPosts = Report::ShowImmediateSubPost($routeParameters);
+      $ReportShowImSubReports = Report::ShowImmediateSubReport($routeParameters);
 
-      return view('group-edit', compact('DataShowAll', 'allURLs', 'RichDataShow', 'Attr', 'PostShowImSubPosts'));
+      $ReportShowSubReport = Report::ShowSubReport($routeParameters);
+
+      return view('group-edit', compact('DataShowAll', 'allURLs', 'RichDataShow', 'Attr', 'ReportShowImSubReports', 'ReportShowSubReport'));
     } else {
       $allURLs = Report::ShowActions(func_get_args());
-      $PostList = Group::ShowAll();
+      $ReportList = Group::ShowAll();
       $SmartDataItemM_ShowActions = Data::ShowActions();
 
-      return view('network-edit', compact('PostList', 'allURLs', 'SmartDataItemM_ShowActions'));
+      return view('network-edit', compact('ReportList', 'allURLs', 'SmartDataItemM_ShowActions'));
     }
   }
 

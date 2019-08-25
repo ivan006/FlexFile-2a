@@ -26,16 +26,16 @@ class Report extends Model
   public static function ShowActions($routeParameters)
   {
     if (!empty($routeParameters)) {
-      $PostShowSig = Report::ShowRelativeSignature($routeParameters);
+      $ReportShowSig = Report::ShowRelativeSignature($routeParameters);
       $GroupShowSig = Group::ShowSignature($routeParameters);
-      $Slug = $GroupShowSig.'/'.$PostShowSig;
+      $Slug = $GroupShowSig.'/'.$ReportShowSig;
     } else {
       $Slug = null;
     }
 
-    $allURLs['sub_post_read'] = route('NetworkC.show', $Slug);
-    $allURLs['sub_post_edit'] = route('NetworkC.edit', $Slug);
-    $allURLs['sub_post_store'] = route('NetworkC.store', $Slug);
+    $allURLs['sub_report_read'] = route('NetworkC.show', $Slug);
+    $allURLs['sub_report_edit'] = route('NetworkC.edit', $Slug);
+    $allURLs['sub_report_store'] = route('NetworkC.store', $Slug);
 
     return $allURLs;
   }
@@ -58,10 +58,10 @@ class Report extends Model
 
   public static function ShowAbsoluteSignature($routeParameters)
   {
-    $PostShowSig = Report::ShowRelativeSignature($routeParameters);
+    $ReportShowSig = Report::ShowRelativeSignature($routeParameters);
     $GroupShowSig = Group::ShowSignature($routeParameters);
 
-    $result = $GroupShowSig.'/'.$PostShowSig;
+    $result = $GroupShowSig.'/'.$ReportShowSig;
 
     return $result;
   }
@@ -96,47 +96,60 @@ class Report extends Model
     return $arguments;
   }
 
-  public static function ShowSubPost($GroupShowID, $routeParameters)
+  public static function ShowSubReport($routeParameters)
   {
-    function ShowSubPostHelper($Entities, $routeParameters)
-    {
-      $result = array();
-      foreach ($Entities['List'] as $key => $value) {
-        $SubEntityList = Report::find($value['id'])->ReportChildren->toArray();
-        $Slug = $Entities['Slug'].'/'.$value['name'];
-        $SubEntities = array(
-        'List' => $SubEntityList,
-        'Slug' => $Slug,
-        );
-        $result[$value['name']]['content'] = ShowSubPostHelper($SubEntities, $routeParameters);
-        $result[$value['name']]['url'] = $Slug;
-      }
+    if (!function_exists('App\ShowSubReportHelper')) {
+      function ShowSubReportHelper($Entities, $routeParameters)
+      {
+        $result = array();
 
-      return $result;
+        $Identifier = -1;
+        foreach ($Entities['List'] as $key => $value) {
+          $Identifier = $Identifier + 1;
+          $SubEntityList = Report::find($value['id'])->ReportChildren->toArray();
+          $Slug = $Entities['Slug'].'/'.$value['name'];
+          $SubEntities = array(
+            'List' => $SubEntityList,
+            'Slug' => $Slug,
+          );
+          $result[$Identifier]['content'] = ShowSubReportHelper($SubEntities, $routeParameters);
+          $result[$Identifier]['url'] = $Slug;
+          $result[$Identifier]['name'] = $value['name'];
+          $result[$Identifier]['type'] = 'folder';
+          $result[$Identifier]['id'] = $value['id'];
+        }
+
+        return $result;
+      }
     }
 
     $GroupShowID = Group::ShowID($routeParameters);
     $GroupShow = Group::find($GroupShowID);
 
+    $Identifier = -1;
+    $Identifier = $Identifier + 1;
     $SubEntityList = Group::find($GroupShow['id'])->ReportChildren->toArray();
     $Slug = route('NetworkC.show').'/'.$GroupShow['name'];
     $SubEntities = array(
     'List' => $SubEntityList,
     'Slug' => $Slug,
     );
-    $result[$GroupShow['name']]['content'] = ShowSubPostHelper($SubEntities, $routeParameters);
-    $result[$GroupShow['name']]['url'] = $Slug;
+    $result[$Identifier]['content'] = ShowSubReportHelper($SubEntities, $routeParameters);
+    $result[$Identifier]['url'] = $Slug;
+    $result[$Identifier]['name'] = $GroupShow['name'];
+    $result[$Identifier]['type'] = 'folder';
+    $result[$Identifier]['id'] = $GroupShow['id'];
 
     return $result;
   }
 
-  public static function ShowImmediateSubPost($routeParameters)
+  public static function ShowImmediateSubReport($routeParameters)
   {
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
+    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
-    if (!empty($PostShowID)) {
-      $EntityShow = Report::find($PostShowID);
+    if (!empty($ReportShowID)) {
+      $EntityShow = Report::find($ReportShowID);
       $SubEntityList = Report::find($EntityShow['id'])->ReportChildren->toArray();
     } elseif (!empty($GroupShowID)) {
       $EntityShow = Group::find($GroupShowID);
@@ -145,7 +158,7 @@ class Report extends Model
 
     $result = array();
     foreach ($SubEntityList as $key => $value) {
-      $result[$value['name']]['url'] = Report::ShowActions($routeParameters)['sub_post_edit'].'/'.$value['name'];
+      $result[$value['name']]['url'] = Report::ShowActions($routeParameters)['sub_report_edit'].'/'.$value['name'];
     }
 
     return $result;
@@ -156,9 +169,9 @@ class Report extends Model
     switch ($request->get('form')) {
       case 'data':
 
-      Data::Store($request);
+      Data::StoreForEdit($request);
       break;
-      case 'posts':
+      case 'reports':
 
       Report::Add($routeParameters, $request);
       break;
@@ -172,12 +185,12 @@ class Report extends Model
   public static function Add($routeParameters, $request)
   {
     $GroupShowID = Group::ShowID($routeParameters);
-    $PostShowID = Report::ShowID($GroupShowID, $routeParameters);
+    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
     $name = $request->get('name');
 
-    if (!empty($PostShowID)) {
-      $parent_id = $PostShowID;
+    if (!empty($ReportShowID)) {
+      $parent_id = $ReportShowID;
       $parent_type = "App\Report";
     } elseif (!empty($GroupShowID)) {
       $parent_id = $GroupShowID;
@@ -190,11 +203,11 @@ class Report extends Model
     'parent_type' => $parent_type,
     ]);
 
-    $PostShowID = $var->attributes['id'];
+    $ReportShowID = $var->attributes['id'];
 
     $Data = array (
       'name' => '_data',
-      'parent_id' => $PostShowID,
+      'parent_id' => $ReportShowID,
       'parent_type' => "App\Report",
       'type' => 'folder',
       'content' => 'null',

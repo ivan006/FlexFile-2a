@@ -41,7 +41,7 @@ class ShortcodeMiddleware
 
               if (is_array($value2)) {
                 $matches[3][0] = str_replace('[link]', $value2['url'], $matches[3][0]);
-                $matches[3][0] = str_replace('[name]', $key, $matches[3][0]);
+                $matches[3][0] = str_replace('[name]', $value2['name'], $matches[3][0]);
 
                 echo  $matches[3][0];
 
@@ -49,7 +49,7 @@ class ShortcodeMiddleware
                 echo  $matches[5][0];
               } else {
                 if ('url' !== $key) {
-                  $matches[9][0] = str_replace('[name]', $key, $matches[9][0]);
+                  $matches[9][0] = str_replace('[name]', $value2['name'], $matches[9][0]);
                   $matches[9][0] = str_replace('[link]', $value2, $matches[9][0]);
                   echo  $matches[9][0];
                 }
@@ -63,7 +63,7 @@ class ShortcodeMiddleware
               $arguments2[0] = $routeParameters[0];
 
               $GroupShowID = Group::ShowID($routeParameters);
-              $VPgsLocs = Report::ShowSubPost($GroupShowID, $routeParameters);
+              $VPgsLocs = Report::ShowSubReport($routeParameters);
 
               ob_start();
 
@@ -94,7 +94,7 @@ class ShortcodeMiddleware
             $parameter = str_replace('[r]', '', $shortcode);
             $parameter = str_replace('[/r]', '', $parameter);
 
-            $Attr = Data::ShowAttributeTypes();
+            $Attr = Entity::ShowAttributeTypes();
 
             $DataShowRelSig = $parameter;
 
