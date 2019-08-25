@@ -113,9 +113,9 @@ class Data extends Model
     return $result;
   }
 
-  public static function ShowForEdit($routeParameters)
+  public static function ShowMultiForEdit($routeParameters)
   {
-    $Show = Entity::ShowForEdit($routeParameters, 'App\Data');
+    $Show = Entity::ShowMultiForEdit($routeParameters, 'App\Data');
 
     return $Show;
   }
@@ -128,7 +128,7 @@ class Data extends Model
     return $ShowActions;
   }
 
-  public static function StoreForEdit($request)
+  public static function StoreMultiForEdit($request)
   {
     function StoreHelperStore($Action, $Data, $Attr)
     {

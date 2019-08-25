@@ -101,7 +101,7 @@ class NetworkC extends Controller
       array_shift($arguments);
       array_shift($arguments);
       $Attr = Entity::ShowAttributeTypes();
-      $DataShowAll[$Attr[2]] = Data::ShowForEdit($routeParameters);
+      $DataShowAll[$Attr[2]] = Data::ShowMultiForEdit($routeParameters);
 
       $SmartDataItemM_ShowActions = Data::ShowActions();
 

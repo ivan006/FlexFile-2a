@@ -96,7 +96,7 @@
       <div class="">
         <?php
         if (!empty($DataShowAll)) {
-          function ReportShowStyledForEdit($Identifier, $DataShowAll, $Attr)
+          function ReportShowStyledMultiForEdit($Identifier, $DataShowAll, $Attr)
           {
             ?>
             <ul class="kv-list-parent">
@@ -144,7 +144,7 @@
                           </div>
                         </label>
                       </div>
-                      <?php ReportShowStyledForEdit($CurrentIdentifier, $value2, $Attr); ?>
+                      <?php ReportShowStyledMultiForEdit($CurrentIdentifier, $value2, $Attr); ?>
                     </li>
 
 
@@ -158,7 +158,7 @@
           $Reports['content'] =$ReportShowSubReport;
           // dd($Reports);
           $Identifier = 'Reports';
-          ReportShowStyledForEdit($Identifier, $Reports, $Attr);
+          ReportShowStyledMultiForEdit($Identifier, $Reports, $Attr);
         }
         ?>
       </div>
@@ -182,7 +182,7 @@
       <div class="">
         <?php
         if (!empty($DataShowAll)) {
-          function DataShowStyledForEdit($Identifier, $DataShowAll, $Attr)
+          function DataShowStyledMultiForEdit($Identifier, $DataShowAll, $Attr)
           {
             ?>
             <ul class="kv-list-parent">
@@ -229,7 +229,7 @@
                           </div>
                         </label>
                       </div>
-                      <?php DataShowStyledForEdit($CurrentIdentifier, $value2, $Attr); ?>
+                      <?php DataShowStyledMultiForEdit($CurrentIdentifier, $value2, $Attr); ?>
                     </li>
 
 
@@ -291,7 +291,7 @@
             <?php
           }
           $Identifier = 'Data';
-          DataShowStyledForEdit($Identifier, $DataShowAll, $Attr);
+          DataShowStyledMultiForEdit($Identifier, $DataShowAll, $Attr);
         }
         ?>
       </div>

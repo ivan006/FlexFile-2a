@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Data;
 class Entity extends Model
 {
-  public static function ShowForEdit($routeParameters, $EntityType)
+  public static function ShowMulti($routeParameters, $EntityType)
   {
 
     if (!function_exists('App\ShowHelper')) {
@@ -19,7 +19,7 @@ class Entity extends Model
         $Identifier = -1;
         foreach ($Data as $key => $value) {
           $Identifier = $Identifier + 1;
-          
+
           $SubData = $EntityType::find($value['id'])->children->toArray();
 
           if ('folder' == $value['type']) {
@@ -49,6 +49,13 @@ class Entity extends Model
 
     return $Show;
   }
+  public static function ShowMultiForEdit($routeParameters, $EntityType)
+  {
+    $result = Entity::ShowMulti($routeParameters, $EntityType);
+
+    return  $result;
+  }
+  
 
   public static function ShowAttributeTypes()
   {

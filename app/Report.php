@@ -169,7 +169,7 @@ class Report extends Model
     switch ($request->get('form')) {
       case 'data':
 
-      Data::StoreForEdit($request);
+      Data::StoreMultiForEdit($request);
       break;
       case 'reports':
 
