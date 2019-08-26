@@ -57,10 +57,12 @@ class Entity extends Model
     return $result;
   }
 
+
+
   public static function ShowMultiq($BaseEntityType,$BaseEntityID, $EntityType,$Slug)
   {
-    if (!function_exists('App\ShowMultiHelper2')) {
-      function ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
+    if (!function_exists('App\ShowMultiHelper')) {
+      function ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
       {
         $result = array();
         $Attr = Entity::ShowAttributeTypes();
@@ -88,7 +90,7 @@ class Entity extends Model
 
           if ('folder' == $value['type']) {
             $BaseEntityType = $EntityType;
-            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
           } else {
             $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
           }
@@ -100,8 +102,7 @@ class Entity extends Model
     }
 
     $SubIdentifier = 0;
-
-    $result = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+    $result = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
 
     return $result;
   }
