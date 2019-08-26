@@ -154,7 +154,7 @@ class Data extends Model
 
     return $ShowActions;
   }
-
+  
   public static function ShowMultiStyledForEdit($DataShowMultiForEdit)
   {
 

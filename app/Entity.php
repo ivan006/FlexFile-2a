@@ -83,12 +83,13 @@ class Entity extends Model
 
       return $extention;
   }
-  public static function ShowMultiStyledForEdit($ReportShowMultiForEdit)
+
+  public static function ShowMultiStyledForEdit($EntityShowMultiForEdit)
   {
     function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
     {
-      ob_start();
       $result = null;
+      ob_start();
       ?>
       <ul class="kv-list-parent">
         <?php
@@ -167,7 +168,7 @@ class Entity extends Model
 
     }
 
-    $Reports['content'] = $ReportShowMultiForEdit;
+    $Reports['content'] = $EntityShowMultiForEdit;
     // dd($Reports);
     $Identifier = 'Reports';
     $Attr = Entity::ShowAttributeTypes();
@@ -175,12 +176,12 @@ class Entity extends Model
     return $result;
   }
 
-  public static function ShowMultiStyledForEdits($ReportShowMultiForEdit)
+  public static function ShowMultiStyledForEditd($EntityShowMultiForEdit)
   {
     function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
     {
-      ob_start();
       $result = null;
+      ob_start();
       ?>
       <ul class="kv-list-parent">
         <?php
@@ -259,7 +260,7 @@ class Entity extends Model
 
     }
 
-    $Reports['content'] = $ReportShowMultiForEdit;
+    $Reports['content'] = $EntityShowMultiForEdit;
     // dd($Reports);
     $Identifier = 'Reports';
     $Attr = Entity::ShowAttributeTypes();
