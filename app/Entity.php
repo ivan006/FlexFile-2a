@@ -139,6 +139,35 @@ class Entity extends Model
     return  $result;
   }
 
+  public static function ShowMultiForEdits($routeParameters, $EntityType)
+  {
+    $GroupShowID = Group::ShowID($routeParameters);
+    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
+
+    $Identifier = null;
+    if (!empty($ReportShowID)) {
+
+      $BaseEntityType = 'Report';
+      $BaseEntityID = $ReportShowID;
+    } elseif (!empty($GroupShowID)) {
+      $BaseEntityType = 'Group';
+      $BaseEntityID = $GroupShowID;
+    }
+
+    $BaseEntityTypeClass = "App\\".$BaseEntityType;
+
+    $DataList = $BaseEntityTypeClass::find($BaseEntityID)->DataChildren->first()->toArray();
+
+    $BaseEntityID = $DataList['id'];
+    $BaseEntityType = 'Data';
+
+    $Slug = null;
+
+    $result[0] = Entity::ShowMulti($BaseEntityType,$BaseEntityID,  $EntityType,$Slug);
+    // dd($result);
+    return  $result;
+  }
+
 
   public static function ShowAttributeTypes()
   {
