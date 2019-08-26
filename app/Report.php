@@ -128,20 +128,18 @@ class Report extends Model
             $BaseEntityType = $EntityType;
             $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
           } else {
-            $result[$Attr[2]][$SubIdentifier] = $EntityType::Show($value['id']);
+            $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
           }
           $SubIdentifier = $SubIdentifier + 1;
         }
 
         return $result;
-
       }
     }
 
     $SubIdentifier = 0;
     $Slug = route('NetworkC.show');
     $result = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
-
 
     return $result;
   }
