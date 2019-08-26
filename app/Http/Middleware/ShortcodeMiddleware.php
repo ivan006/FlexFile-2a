@@ -37,56 +37,54 @@ class ShortcodeMiddleware
         if (!empty($matches[0])) {
           function page_list($VPgsLocs, $value, $preg_match_all)
           {
-            foreach ($VPgsLocs as $key => $value2) {
-              preg_match_all($preg_match_all, $value, $matches);
 
-              if (is_array($value2)) {
-                $matches[3][0] = str_replace('[link]', $value2['url'], $matches[3][0]);
-                $matches[3][0] = str_replace('[name]', $value2['name'], $matches[3][0]);
+            if (!empty($VPgsLocs)) {
+              foreach ($VPgsLocs as $key => $value2) {
+                preg_match_all($preg_match_all, $value, $matches);
 
-                echo  $matches[3][0];
+                if (is_array($value2)) {
+                  $matches[3][0] = str_replace('[link]', $value2['url'], $matches[3][0]);
+                  $matches[3][0] = str_replace('[name]', $value2['name'], $matches[3][0]);
 
-                page_list($value2['content'], $value, $preg_match_all);
-                echo  $matches[5][0];
-              } else {
-                if ('url' !== $key) {
-                  $matches[9][0] = str_replace('[name]', $value2['name'], $matches[9][0]);
-                  $matches[9][0] = str_replace('[link]', $value2, $matches[9][0]);
-                  echo  $matches[9][0];
+                  echo  $matches[3][0];
+
+                  page_list($value2['content'], $value, $preg_match_all);
+                  echo  $matches[5][0];
+                } else {
+                  if ('url' !== $key) {
+                    $matches[9][0] = str_replace('[name]', $value2['name'], $matches[9][0]);
+                    $matches[9][0] = str_replace('[link]', $value2, $matches[9][0]);
+                    echo  $matches[9][0];
+                  }
                 }
               }
             }
           }
+            // dd($matches[0]);
+            foreach ($matches[0] as $key => $value) {
+              if (!empty($routeParameters)) {
+                $routeParameters = array_values($routeParameters);
+                $arguments2[0] = $routeParameters[0];
 
-          foreach ($matches[0] as $key => $value) {
-            if (!empty($routeParameters)) {
-              $routeParameters = array_values($routeParameters);
-              $arguments2[0] = $routeParameters[0];
+                $Slug = null;
+                $VPgsLocs = Report::ShowMulti($routeParameters,$Slug);
 
-              $GroupShowID = Group::ShowID($routeParameters);
+                ob_start();
 
-              $EntityType ='Report';
+                if (is_array($VPgsLocs)) {
+                  page_list($VPgsLocs, $value, $preg_match_all);
+                }
 
-              $GroupShowID = Group::ShowID($routeParameters);
-              $BaseEntityID = $GroupShowID;
-              $BaseEntityType = 'Group';
-              $VPgsLocs = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
+                $result = ob_get_contents();
+                ob_end_clean();
 
-              ob_start();
-
-              if (is_array($VPgsLocs)) {
-                page_list($VPgsLocs, $value, $preg_match_all);
+                $responceContent = str_replace($value, $result, $responceContent);
+              } else {
+                $responceContent = str_replace($value, null, $responceContent);
               }
-
-              $result = ob_get_contents();
-              ob_end_clean();
-
-              $responceContent = str_replace($value, $result, $responceContent);
-            } else {
-              $responceContent = str_replace($value, null, $responceContent);
             }
           }
-        }
+
 
         return $responceContent;
       }

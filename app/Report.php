@@ -97,21 +97,31 @@ class Report extends Model
     return $arguments;
   }
 
-  public static function ShowMultiForEdit($routeParameters,$EntityType)
+  public static function ShowMultiForEdit($routeParameters)
   {
-    $GroupShowID = Group::ShowID($routeParameters);
-    $BaseEntityID = $GroupShowID;
-    $BaseEntityType = 'Group';
-
-
     $Slug = route('NetworkC.show');
+    $result = Report::ShowMulti($routeParameters,$Slug);
 
-    $result[0] = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
-
-
-    // dd($result);
     return $result;
   }
+  public static function ShowMulti($routeParameters,$Slug)
+  {
+
+    $BaseEntityType = 'Group';
+    $BaseEntityID = Group::ShowID($routeParameters);
+    $EntityType ='Report';
+    $result = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
+
+    return $result;
+  }
+
+  public static function ShowMultiStyledForEdit($ReportShowSubReport)
+  {
+
+    $result = Entity::ShowMultiStyledForEdit($ReportShowSubReport);
+    return $result;
+  }
+
 
   public static function ShowImmediateSubReport($routeParameters)
   {
@@ -179,11 +189,11 @@ class Report extends Model
     $ReportShowID = $var->attributes['id'];
 
     $Data = array (
-      'name' => '_data',
-      'parent_id' => $ReportShowID,
-      'parent_type' => "App\Report",
-      'type' => 'folder',
-      'content' => 'null',
+    'name' => '_data',
+    'parent_id' => $ReportShowID,
+    'parent_type' => "App\Report",
+    'type' => 'folder',
+    'content' => 'null',
     );
     // dd(1);
     Data::Add($Data);
