@@ -174,6 +174,98 @@ class Entity extends Model
     $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
     return $result;
   }
+  
+  public static function ShowMultiStyledForEditxx($ReportShowSubReport)
+  {
+    function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
+    {
+      ob_start();
+      $result = null;
+      ?>
+      <ul class="kv-list-parent">
+        <?php
+        $IdentifierSuffix = -1;
+        if (!empty($Reports[$Attr[2]])) {
+          foreach ($Reports[$Attr[2]] as $key => $value2) {
+            $IdentifierSuffix = $IdentifierSuffix + 1;
+            $CurrentIdentifier = $Identifier.'['.$Attr[2].']'.'['.$IdentifierSuffix.']';
+
+            if (is_array($value2)) {
+              ?>
+              <li>
+
+                <div class="kv-item-container  kv-di-in ">
+                  <div class="kv-di-in">📁</div>
+                  <label style="">
+                    <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
+                    <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
+                    <!-- <div class="kv-name-unedit kv-name kv-tog-off-ib "></div> -->
+                    <a href="<?php echo $value2['url']; ?>" class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></a>
+                    <span class="kv-little-button ">∧</span>
+                  </label>
+
+                  <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
+                  <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
+                  <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
+                  <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
+
+
+                  <label class="kv-po-re">
+                    <span class="kv-little-button ">+</span>
+                    <input class="kv-tog-on-bl-switch" type="checkbox" name="checkbox" value="value">
+                    <div class="kv-popover kv-tog-on-bl kv-item-container  kv-di-in" style="">
+                      <div class="kv-mar-bot-3" >
+                        <span>📁</span>
+                        <input class="kv-field-container kv-name kv-di-in "  type="text"   name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][folder]" >
+                        <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_folder">+</button>
+                      </div>
+                      <div class="">
+                        <span>📃</span>
+                        <input class="kv-field-container kv-name kv-di-in"  type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][file]">
+                        <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_file">+</button>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <?php
+
+                $result .= ob_get_contents();
+
+                ob_end_clean();
+
+
+                $result .= ShowMultiStyledForEditHelper($CurrentIdentifier, $value2, $Attr);
+
+
+                ob_start();
+                ?>
+              </li>
+
+
+              <?php
+              // }
+            }
+          }
+        }?>
+      </ul>
+      <?php
+
+
+      $result .= ob_get_contents();
+
+      ob_end_clean();
+
+      return $result;
+
+    }
+
+    $Reports['content'] = $ReportShowSubReport;
+    // dd($Reports);
+    $Identifier = 'Reports';
+    $Attr = Entity::ShowAttributeTypes();
+    $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
+    return $result;
+  }
 
 
 
