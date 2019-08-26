@@ -105,9 +105,9 @@ class Report extends Model
         $result = array();
         $Attr = Entity::ShowAttributeTypes();
 
-        // $Identifier = $SubIdentifier;
+        $BaseEntityTypeClass = "App\\".$BaseEntityType;
 
-        $Entity = $BaseEntityType::find($BaseEntityID)->toArray();
+        $Entity = $BaseEntityTypeClass::find($BaseEntityID)->toArray();
 
         $result[$Attr[0]] = $Entity['name'];
         $result[$Attr[1]] = $Entity['type'];
@@ -115,8 +115,9 @@ class Report extends Model
         $result[$Attr[4]] = $Entity['id'];
         $result[$Attr[7]] = $Slug;
 
+        $EntityChildrenType = $EntityType."Children";
 
-        $SubEntityList = $BaseEntityType::find($BaseEntityID)->ReportChildren->toArray();
+        $SubEntityList = $BaseEntityTypeClass::find($BaseEntityID)->$EntityChildrenType->toArray();
 
         $SubIdentifier = 0;
         foreach ($SubEntityList as $key => $value) {
@@ -124,14 +125,10 @@ class Report extends Model
           $BaseEntityID = $value[$Attr[4]];
 
           if ('folder' == $value['type']) {
-
             $BaseEntityType = $EntityType;
-
             $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
-
-
           } else {
-
+            $result[$Attr[2]][$SubIdentifier] = $EntityType::Show($value['id']);
           }
           $SubIdentifier = $SubIdentifier + 1;
         }
@@ -153,7 +150,7 @@ class Report extends Model
   {
     $GroupShowID = Group::ShowID($routeParameters);
     $BaseEntityID = $GroupShowID;
-    $BaseEntityType = 'App\Group';
+    $BaseEntityType = 'Group';
 
     $result[0] = Report::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType);
 

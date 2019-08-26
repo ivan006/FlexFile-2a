@@ -115,7 +115,7 @@ class Data extends Model
 
   public static function ShowMultiForEdit($routeParameters)
   {
-    $Show = Entity::ShowMultiForEdit($routeParameters, 'App\Data');
+    $Show = Entity::ShowMultiForEdit($routeParameters, 'Data');
 
     return $Show;
   }

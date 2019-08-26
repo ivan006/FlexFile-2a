@@ -65,11 +65,11 @@ class ShortcodeMiddleware
 
               $GroupShowID = Group::ShowID($routeParameters);
 
-              $EntityType ='App\Report';
+              $EntityType ='Report';
 
               $GroupShowID = Group::ShowID($routeParameters);
               $BaseEntityID = $GroupShowID;
-              $BaseEntityType = 'App\Group';
+              $BaseEntityType = 'Group';
               $VPgsLocs = Report::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType);
 
               ob_start();

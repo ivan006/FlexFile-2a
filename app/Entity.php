@@ -16,14 +16,18 @@ class Entity extends Model
         $result = array();
         $Attr = Entity::ShowAttributeTypes();
 
-        $Entity = $BaseEntityType::find($BaseEntityID)->toArray();
-        // dd($Entity);
+        $BaseEntityTypeClass = "App\\".$BaseEntityType;
+
+        $Entity = $BaseEntityTypeClass::find($BaseEntityID)->toArray();
+
         $result[$Attr[0]] = $Entity['name'];
         $result[$Attr[1]] = $Entity['type'];
         $result[$Attr[2]] = null;
         $result[$Attr[4]] = $Entity['id'];
 
-        $SubEntityList = $BaseEntityType::find($BaseEntityID)->DataChildren->toArray();
+        $EntityChildrenType = $EntityType."Children";
+
+        $SubEntityList = $BaseEntityTypeClass::find($BaseEntityID)->$EntityChildrenType->toArray();
 
         $SubIdentifier = 0;
         foreach ($SubEntityList as $key => $value) {
@@ -34,7 +38,7 @@ class Entity extends Model
             $BaseEntityType = $EntityType;
             $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
           } else {
-            $result[$Attr[2]][$SubIdentifier] = $EntityType::Show($value['id']);
+            $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
           }
           $SubIdentifier = $SubIdentifier + 1;
         }
@@ -44,9 +48,10 @@ class Entity extends Model
     }
 
     $SubIdentifier = 0;
-    $Show = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
+
+    $result = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
     // dd($Show);
-    return $Show;
+    return $result;
   }
 
   public static function ShowMultiq($BaseEntityType,$BaseEntityID, $EntityType)
@@ -57,14 +62,18 @@ class Entity extends Model
         $result = array();
         $Attr = Entity::ShowAttributeTypes();
 
-        $Entity = $BaseEntityType::find($BaseEntityID)->toArray();
-        // dd($Entity);
+        $BaseEntityTypeClass = "App\\".$BaseEntityType;
+
+        $Entity = $BaseEntityTypeClass::find($BaseEntityID)->toArray();
+
         $result[$Attr[0]] = $Entity['name'];
         $result[$Attr[1]] = $Entity['type'];
         $result[$Attr[2]] = null;
         $result[$Attr[4]] = $Entity['id'];
 
-        $SubEntityList = $BaseEntityType::find($BaseEntityID)->DataChildren->toArray();
+        $EntityChildrenType = $EntityType."Children";
+
+        $SubEntityList = $BaseEntityTypeClass::find($BaseEntityID)->$EntityChildrenType->toArray();
 
         $SubIdentifier = 0;
         foreach ($SubEntityList as $key => $value) {
@@ -75,7 +84,7 @@ class Entity extends Model
             $BaseEntityType = $EntityType;
             $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
           } else {
-            $result[$Attr[2]][$SubIdentifier] = $EntityType::Show($value['id']);
+            $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
           }
           $SubIdentifier = $SubIdentifier + 1;
         }
@@ -85,9 +94,10 @@ class Entity extends Model
     }
 
     $SubIdentifier = 0;
-    $Show = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
+
+    $result = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
     // dd($Show);
-    return $Show;
+    return $result;
   }
 
 
@@ -100,17 +110,19 @@ class Entity extends Model
     $Identifier = null;
     if (!empty($ReportShowID)) {
 
-      $BaseEntityType = 'App\Report';
+      $BaseEntityType = 'Report';
       $BaseEntityID = $ReportShowID;
     } elseif (!empty($GroupShowID)) {
-      $BaseEntityType = 'App\Group';
+      $BaseEntityType = 'Group';
       $BaseEntityID = $GroupShowID;
     }
 
-    $DataList = $BaseEntityType::find($BaseEntityID)->DataChildren->first()->toArray();
+    $BaseEntityTypeClass = "App\\".$BaseEntityType;
+
+    $DataList = $BaseEntityTypeClass::find($BaseEntityID)->DataChildren->first()->toArray();
 
     $BaseEntityID = $DataList['id'];
-    $BaseEntityType = 'App\Data';
+    $BaseEntityType = 'Data';
 
 
 
