@@ -83,7 +83,7 @@ class Entity extends Model
 
       return $extention;
   }
-  public static function ShowMultiStyledForEdit($ReportShowSubReport)
+  public static function ShowMultiStyledForEdit($ReportShowMultiForEdit)
   {
     function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
     {
@@ -167,7 +167,7 @@ class Entity extends Model
 
     }
 
-    $Reports['content'] = $ReportShowSubReport;
+    $Reports['content'] = $ReportShowMultiForEdit;
     // dd($Reports);
     $Identifier = 'Reports';
     $Attr = Entity::ShowAttributeTypes();
@@ -175,7 +175,7 @@ class Entity extends Model
     return $result;
   }
 
-  public static function ShowMultiStyledForEdit($ReportShowSubReport)
+  public static function ShowMultiStyledForEdits($ReportShowMultiForEdit)
   {
     function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
     {
@@ -259,13 +259,15 @@ class Entity extends Model
 
     }
 
-    $Reports['content'] = $ReportShowSubReport;
+    $Reports['content'] = $ReportShowMultiForEdit;
     // dd($Reports);
     $Identifier = 'Reports';
     $Attr = Entity::ShowAttributeTypes();
     $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
     return $result;
   }
+
+
 
 
 
