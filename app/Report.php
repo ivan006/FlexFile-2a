@@ -137,8 +137,6 @@ class Report extends Model
 
         return $result;
 
-        $result = array();
-
       }
     }
 
