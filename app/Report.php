@@ -109,11 +109,11 @@ class Report extends Model
 
         $Entity = $BaseEntityType::find($BaseEntityID)->toArray();
 
-        $result[$Attr[1]] = 'folder';
         $result[$Attr[0]] = $Entity['name'];
+        $result[$Attr[1]] = 'folder';
+        $result[$Attr[2]][$SubIdentifier] = null;
         $result[$Attr[4]] = $Entity['id'];
         $result['url'] = $Slug;
-        $result[$Attr[2]][$SubIdentifier] = null;
 
 
         $SubEntityList = $BaseEntityType::find($BaseEntityID)->ReportChildren->toArray();
