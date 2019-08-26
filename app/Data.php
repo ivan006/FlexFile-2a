@@ -155,10 +155,10 @@ class Data extends Model
     return $ShowActions;
   }
 
-  public static function ShowMultiStyledForEdit($DataShowAll)
+  public static function ShowMultiStyledForEdit($DataShowMultiForEdit)
   {
 
-    function DataShowMultiStyledForEditHelper($Identifier, $DataShowAll, $Attr)
+    function DataShowMultiStyledForEditHelper($Identifier, $DataShowMultiForEdit, $Attr)
     {
 
       $result = null;
@@ -167,8 +167,8 @@ class Data extends Model
       <ul class="kv-list-parent">
         <?php
         $IdentifierSuffix = -1;
-        if (!empty($DataShowAll[$Attr[2]])) {
-          foreach ($DataShowAll[$Attr[2]] as $key => $value2) {
+        if (!empty($DataShowMultiForEdit[$Attr[2]])) {
+          foreach ($DataShowMultiForEdit[$Attr[2]] as $key => $value2) {
             $IdentifierSuffix = $IdentifierSuffix + 1;
             $CurrentIdentifier = $Identifier.'['.$Attr[2].']'.'['.$IdentifierSuffix.']';
 
@@ -292,7 +292,7 @@ class Data extends Model
     $Identifier = 'Data';
 
     $Attr = Entity::ShowAttributeTypes();
-    $result = DataShowMultiStyledForEditHelper($Identifier, $DataShowAll, $Attr);
+    $result = DataShowMultiStyledForEditHelper($Identifier, $DataShowMultiForEdit, $Attr);
 
 
 

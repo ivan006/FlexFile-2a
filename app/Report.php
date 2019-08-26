@@ -115,10 +115,10 @@ class Report extends Model
     return $result;
   }
 
-  public static function ShowMultiStyledForEdit($ReportShowSubReport)
+  public static function ShowMultiStyledForEdit($ReportShowMultiForEdit)
   {
 
-    $result = Entity::ShowMultiStyledForEdit($ReportShowSubReport);
+    $result = Entity::ShowMultiStyledForEdit($ReportShowMultiForEdit);
     return $result;
   }
 

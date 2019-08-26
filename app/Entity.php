@@ -174,8 +174,8 @@ class Entity extends Model
     $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
     return $result;
   }
-  
-  public static function ShowMultiStyledForEditxx($ReportShowSubReport)
+
+  public static function ShowMultiStyledForEdit($ReportShowSubReport)
   {
     function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
     {
@@ -266,6 +266,8 @@ class Entity extends Model
     $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
     return $result;
   }
+
+
 
 
 

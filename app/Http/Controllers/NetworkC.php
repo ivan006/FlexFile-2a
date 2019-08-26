@@ -100,10 +100,10 @@ class NetworkC extends Controller
       array_shift($arguments);
       array_shift($arguments);
       $Attr = Entity::ShowAttributeTypes();
-      $DataShowAll[$Attr[2]] = Data::ShowMultiForEdit($routeParameters);
+      $DataShowMultiForEdit[$Attr[2]] = Data::ShowMultiForEdit($routeParameters);
 
-      if (!empty($DataShowAll)) {
-        $DataShowMultiStyledForEdit = Data::ShowMultiStyledForEdit($DataShowAll);
+      if (!empty($DataShowMultiForEdit)) {
+        $DataShowMultiStyledForEdit = Data::ShowMultiStyledForEdit($DataShowMultiForEdit);
       } else {
         $DataShowMultiStyledForEdit = null ;
       }
@@ -123,15 +123,15 @@ class NetworkC extends Controller
 
       $ReportShowImSubReports = Report::ShowImmediateSubReport($routeParameters);
 
-      $ReportShowSubReport = Report::ShowMultiForEdit($routeParameters);
+      $ReportShowMultiForEdit = Report::ShowMultiForEdit($routeParameters);
 
-      if (!empty($ReportShowSubReport)) {
-        $ReportShowMultiStyledForEdit = Report::ShowMultiStyledForEdit($ReportShowSubReport);
+      if (!empty($ReportShowMultiForEdit)) {
+        $ReportShowMultiStyledForEdit = Report::ShowMultiStyledForEdit($ReportShowMultiForEdit);
       } else {
         $ReportShowMultiStyledForEdit =null;
       }
 
-      return view('group-edit', compact('DataShowAll', 'allURLs', 'RichDataShow', 'Attr', 'ReportShowImSubReports', 'ReportShowMultiStyledForEdit', 'DataShowMultiStyledForEdit'));
+      return view('group-edit', compact('DataShowMultiForEdit', 'allURLs', 'RichDataShow', 'Attr', 'ReportShowImSubReports', 'ReportShowMultiStyledForEdit', 'DataShowMultiStyledForEdit'));
     } else {
       $allURLs = Report::ShowActions(func_get_args());
       $ReportList = Group::ShowAll();
