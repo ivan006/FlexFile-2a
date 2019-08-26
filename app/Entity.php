@@ -8,10 +8,10 @@ use App\Data;
 class Entity extends Model
 {
 
-  public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType)
+  public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug)
   {
     if (!function_exists('App\ShowMultiHelper2')) {
-      function ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier)
+      function ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
       {
         $result = array();
         $Attr = Entity::ShowAttributeTypes();
@@ -20,10 +20,13 @@ class Entity extends Model
 
         $Entity = $BaseEntityTypeClass::find($BaseEntityID)->toArray();
 
+        $Slug = $Slug."/".$Entity['name'];
+
         $result[$Attr[0]] = $Entity['name'];
         $result[$Attr[1]] = $Entity['type'];
         $result[$Attr[2]] = null;
         $result[$Attr[4]] = $Entity['id'];
+        $result[$Attr[7]] = $Slug;
 
         $EntityChildrenType = $EntityType."Children";
 
@@ -36,7 +39,7 @@ class Entity extends Model
 
           if ('folder' == $value['type']) {
             $BaseEntityType = $EntityType;
-            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
+            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
           } else {
             $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
           }
@@ -49,7 +52,7 @@ class Entity extends Model
 
     $SubIdentifier = 0;
 
-    $result = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
+    $result = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
 
     return $result;
   }
@@ -79,9 +82,9 @@ class Entity extends Model
     $BaseEntityID = $DataList['id'];
     $BaseEntityType = 'Data';
 
+    $Slug = null;
 
-
-    $result[0] = Entity::ShowMulti($BaseEntityType,$BaseEntityID,  $EntityType);
+    $result[0] = Entity::ShowMulti($BaseEntityType,$BaseEntityID,  $EntityType,$Slug);
     // dd($result);
     return  $result;
   }

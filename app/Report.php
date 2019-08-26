@@ -97,7 +97,7 @@ class Report extends Model
     return $arguments;
   }
 
-  public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType)
+  public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug)
   {
     if (!function_exists('App\ShowMultiHelper')) {
       function ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
@@ -108,6 +108,8 @@ class Report extends Model
         $BaseEntityTypeClass = "App\\".$BaseEntityType;
 
         $Entity = $BaseEntityTypeClass::find($BaseEntityID)->toArray();
+
+        $Slug = $Slug."/".$Entity['name'];
 
         $result[$Attr[0]] = $Entity['name'];
         $result[$Attr[1]] = $Entity['type'];
@@ -138,7 +140,6 @@ class Report extends Model
     }
 
     $SubIdentifier = 0;
-    $Slug = route('NetworkC.show');
     $result = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
 
     return $result;
@@ -150,7 +151,10 @@ class Report extends Model
     $BaseEntityID = $GroupShowID;
     $BaseEntityType = 'Group';
 
-    $result[0] = Report::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType);
+
+    $Slug = route('NetworkC.show');
+
+    $result[0] = Report::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
 
 
     // dd($result);
