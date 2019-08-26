@@ -110,7 +110,7 @@ class Report extends Model
         $Entity = $BaseEntityType::find($BaseEntityID)->toArray();
 
         $result[$Attr[0]] = $Entity['name'];
-        $result[$Attr[1]] = 'folder';
+        $result[$Attr[1]] = $Entity['type'];
         $result[$Attr[2]][$SubIdentifier] = null;
         $result[$Attr[4]] = $Entity['id'];
         $result['url'] = $Slug;
@@ -119,14 +119,15 @@ class Report extends Model
         $SubEntityList = $BaseEntityType::find($BaseEntityID)->ReportChildren->toArray();
 
         $SubIdentifier = 0;
-
         foreach ($SubEntityList as $key => $value) {
+
+          $BaseEntityID = $value[$Attr[4]];
 
           if ('folder' == $value['type']) {
 
             $BaseEntityType = $EntityType;
 
-            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $value[$Attr[4]], $EntityType, $SubIdentifier,$Slug);
+            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
 
 
           } else {
@@ -147,6 +148,7 @@ class Report extends Model
 
     return $result;
   }
+
   public static function ShowMultiForEdit($routeParameters,$EntityType)
   {
     $GroupShowID = Group::ShowID($routeParameters);

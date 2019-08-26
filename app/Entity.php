@@ -28,7 +28,7 @@ class Entity extends Model
         $SubIdentifier = 0;
         foreach ($SubEntityList as $key => $value) {
 
-          $BaseEntityID = $value['id'];
+          $BaseEntityID = $value[$Attr[4]];
 
           if ('folder' == $value['type']) {
             $BaseEntityType = $EntityType;
@@ -39,7 +39,7 @@ class Entity extends Model
           $SubIdentifier = $SubIdentifier + 1;
         }
 
-        return  $result;
+        return $result;
       }
     }
 
@@ -48,8 +48,7 @@ class Entity extends Model
     // dd($Show);
     return $Show;
   }
-
-  public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType)
+  public static function ShowMultiw($BaseEntityType,$BaseEntityID, $EntityType)
   {
     if (!function_exists('App\ShowMultiHelper2')) {
       function ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier)
@@ -69,7 +68,7 @@ class Entity extends Model
         $SubIdentifier = 0;
         foreach ($SubEntityList as $key => $value) {
 
-          $BaseEntityID = $value['id'];
+          $BaseEntityID = $value[$Attr[4]];
 
           if ('folder' == $value['type']) {
             $BaseEntityType = $EntityType;
@@ -80,7 +79,7 @@ class Entity extends Model
           $SubIdentifier = $SubIdentifier + 1;
         }
 
-        return  $result;
+        return $result;
       }
     }
 
@@ -89,6 +88,7 @@ class Entity extends Model
     // dd($Show);
     return $Show;
   }
+
 
 
   public static function ShowMultiForEdit($routeParameters, $EntityType)
