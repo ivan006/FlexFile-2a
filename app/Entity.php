@@ -11,35 +11,40 @@ class Entity extends Model
   public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType)
   {
     if (!function_exists('App\ShowHelper')) {
-      function ShowHelper($BaseEntityType, $BaseEntityID, $EntityType, $Identifier)
+      function ShowHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier)
       {
         $result = array();
         $Attr = Entity::ShowAttributeTypes();
 
-        $Identifier = -1;
-        $Data = $BaseEntityType::find($BaseEntityID)->DataChildren->toArray();
-        foreach ($Data as $key => $value) {
-          $Identifier = $Identifier + 1;
+        $Data = $BaseEntityType::find($BaseEntityID)->toArray();
+        // dd($Data);
+        $result[$Attr[2]] = null;
+        $result[$Attr[1]] = $Data['type'];
+        $result[$Attr[0]] = $Data['name'];
+        $result[$Attr[4]] = $Data['id'];
+
+        $DataList = $BaseEntityType::find($BaseEntityID)->DataChildren->toArray();
+
+        $SubIdentifier = 0;
+        foreach ($DataList as $key => $value) {
 
           $BaseEntityID = $value['id'];
 
           if ('folder' == $value['type']) {
             $BaseEntityType = $EntityType;
-            $result[$Identifier][$Attr[2]] = ShowHelper($BaseEntityType, $BaseEntityID, $EntityType, $Identifier);
-            $result[$Identifier][$Attr[1]] = $value['type'];
-            $result[$Identifier][$Attr[0]] = $value['name'];
-            $result[$Identifier][$Attr[4]] = $value['id'];
+            $result[$Attr[2]][$SubIdentifier] = ShowHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
           } else {
-            $result[$Identifier] = $EntityType::Show($value['id']);
+            $result[$Attr[2]][$SubIdentifier] = $EntityType::Show($value['id']);
           }
+          $SubIdentifier = $SubIdentifier + 1;
         }
 
         return  $result;
       }
     }
 
-    $Identifier = null;
-    $Show = ShowHelper($BaseEntityType, $BaseEntityID, $EntityType, $Identifier);
+    $SubIdentifier = 0;
+    $Show = ShowHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier);
     // dd($Show);
     return $Show;
   }
@@ -58,7 +63,15 @@ class Entity extends Model
       $BaseEntityID = $GroupShowID;
     }
 
-    $result = Entity::ShowMulti($BaseEntityType,$BaseEntityID,  $EntityType);
+    $DataList = $BaseEntityType::find($BaseEntityID)->DataChildren->first()->toArray();
+
+    $BaseEntityID = $DataList['id'];
+    $BaseEntityType = 'App\Data';
+
+
+
+    $result[0] = Entity::ShowMulti($BaseEntityType,$BaseEntityID,  $EntityType);
+    // dd($result);
     return  $result;
   }
 

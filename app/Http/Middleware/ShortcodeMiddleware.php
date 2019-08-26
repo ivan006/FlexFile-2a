@@ -65,7 +65,7 @@ class ShortcodeMiddleware
 
               $GroupShowID = Group::ShowID($routeParameters);
 
-              $EntityType ='App\Report'
+              $EntityType ='App\Report';
 
               $GroupShowID = Group::ShowID($routeParameters);
               $BaseEntityID = $GroupShowID;
