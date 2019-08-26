@@ -57,6 +57,55 @@ class Entity extends Model
     return $result;
   }
 
+  public static function ShowMultiq($BaseEntityType,$BaseEntityID, $EntityType,$Slug)
+  {
+    if (!function_exists('App\ShowMultiHelper2')) {
+      function ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
+      {
+        $result = array();
+        $Attr = Entity::ShowAttributeTypes();
+
+        $BaseEntityTypeClass = "App\\".$BaseEntityType;
+
+        $Entity = $BaseEntityTypeClass::find($BaseEntityID)->toArray();
+
+        $Slug = $Slug."/".$Entity['name'];
+
+        $result[$Attr[0]] = $Entity['name'];
+        $result[$Attr[1]] = $Entity['type'];
+        $result[$Attr[2]] = null;
+        $result[$Attr[4]] = $Entity['id'];
+        $result[$Attr[7]] = $Slug;
+
+        $EntityChildrenType = $EntityType."Children";
+
+        $SubEntityList = $BaseEntityTypeClass::find($BaseEntityID)->$EntityChildrenType->toArray();
+
+        $SubIdentifier = 0;
+        foreach ($SubEntityList as $key => $value) {
+
+          $BaseEntityID = $value[$Attr[4]];
+
+          if ('folder' == $value['type']) {
+            $BaseEntityType = $EntityType;
+            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+          } else {
+            $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
+          }
+          $SubIdentifier = $SubIdentifier + 1;
+        }
+
+        return $result;
+      }
+    }
+
+    $SubIdentifier = 0;
+
+    $result = ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+
+    return $result;
+  }
+
 
 
 
