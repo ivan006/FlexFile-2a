@@ -117,8 +117,8 @@ class Report extends Model
 
   public static function ShowMultiStyledForEdit($ReportShowMultiForEdit)
   {
-
-    $result = Entity::ShowMultiStyledForEdit($ReportShowMultiForEdit);
+    $EntityType = 'Report';
+    $result = Entity::ShowMultiStyledForEdit($ReportShowMultiForEdit,$EntityType);
     return $result;
   }
 
@@ -178,7 +178,7 @@ class Report extends Model
       $parent_id = $GroupShowID;
       $parent_type = "App\Group";
     }
-    $ReportRequest =  $request->get('Reports');
+    $ReportRequest =  $request->get('Report');
     $var = Report::create([
     'name' => 'whoops',
     'parent_id' => $parent_id,

@@ -154,11 +154,11 @@ class Data extends Model
 
     return $ShowActions;
   }
-  
+
   public static function ShowMultiStyledForEdit($DataShowMultiForEdit)
   {
 
-    function DataShowMultiStyledForEditHelper($Identifier, $DataShowMultiForEdit, $Attr)
+    function ShowMultiStyledForEditHelper2($Identifier, $DataShowMultiForEdit, $Attr)
     {
 
       $result = null;
@@ -216,7 +216,7 @@ class Data extends Model
                   $result .= ob_get_contents();
 
                   ob_end_clean();
-                  $result .= DataShowMultiStyledForEditHelper($CurrentIdentifier, $value2, $Attr);
+                  $result .= ShowMultiStyledForEditHelper2($CurrentIdentifier, $value2, $Attr);
 
                   ob_start();
                   ?>
@@ -292,7 +292,7 @@ class Data extends Model
     $Identifier = 'Data';
 
     $Attr = Entity::ShowAttributeTypes();
-    $result = DataShowMultiStyledForEditHelper($Identifier, $DataShowMultiForEdit, $Attr);
+    $result = ShowMultiStyledForEditHelper2($Identifier, $DataShowMultiForEdit, $Attr);
 
 
 

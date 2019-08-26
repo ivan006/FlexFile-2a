@@ -85,9 +85,9 @@ class Entity extends Model
   }
 
 
-  public static function ShowMultiStyledForEdit($EntityShowMultiForEdit)
+  public static function ShowMultiStyledForEdit($EntityShowMultiForEdit,$EntityType)
   {
-    function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
+    function ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType)
     {
       $result = null;
       ob_start();
@@ -95,8 +95,8 @@ class Entity extends Model
       <ul class="kv-list-parent">
         <?php
         $IdentifierSuffix = -1;
-        if (!empty($Reports[$Attr[2]])) {
-          foreach ($Reports[$Attr[2]] as $key => $value2) {
+        if (!empty($EntityShowMultiForEdit[$Attr[2]])) {
+          foreach ($EntityShowMultiForEdit[$Attr[2]] as $key => $value2) {
             $IdentifierSuffix = $IdentifierSuffix + 1;
             $CurrentIdentifier = $Identifier.'['.$Attr[2].']'.'['.$IdentifierSuffix.']';
 
@@ -110,8 +110,11 @@ class Entity extends Model
                     <label style="">
                       <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
                       <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
-                      <!-- <div class="kv-name-unedit kv-name kv-tog-off-ib "></div> -->
-                      <a href="<?php echo $value2['url']; ?>" class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></a>
+                      <?php if ($EntityType=='Report') { ?>
+                        <a href="<?php echo $value2['url']; ?>" class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></a>
+                      <?php } else { ?>
+                        <div class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></div>
+                      <?php }?>
                       <span class="kv-little-button ">∧</span>
                     </label>
 
@@ -140,12 +143,12 @@ class Entity extends Model
                   </div>
                   <?php
 
+
+
                   $result .= ob_get_contents();
 
                   ob_end_clean();
-
-
-                  $result .= ShowMultiStyledForEditHelper($CurrentIdentifier, $value2, $Attr);
+                  $result .= ShowMultiStyledForEditHelper($CurrentIdentifier, $value2, $Attr,$EntityType);
 
 
                   ob_start();
@@ -154,8 +157,56 @@ class Entity extends Model
 
 
                 <?php
-                // }
               } else {
+                ?>
+                <li>
+                  <div class="kv-item-container  kv-di-in ">
+                    <div class="kv-di-in">📃</div>
+                    <label style="">
+                      <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
+                      <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
+                      <div class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></div>
+                      <span class="kv-little-button ">∧</span>
+                    </label>
+
+                    <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
+                    <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
+                    <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
+                    <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
+
+                  </div>
+
+
+                  <ul class="kv-list-parent">
+                    <li>
+
+
+
+                      <?php
+                      $fileExtension = Entity::FileExtention($value2[$Attr[0]]);
+
+                      if ('png' == $fileExtension or 'jpg' == $fileExtension or 'jpeg' == $fileExtension
+                      or 'png' == $fileExtension or 'gif' == $fileExtension)
+                      {
+                        ?>
+                        <div class="kv-item-container ">
+                          <img  style="width: 300px;" alt="Embedded Image" src="<?php echo $value2[$Attr[2]]; ?>" />
+                          <textarea class="kv-field-container kv-content-container kv-di-in kv-di-no" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
+                        </div>
+                        <?php
+                      } else {
+                        ?>
+
+                        <div class="kv-item-container ">
+                          <textarea class="kv-field-container kv-content-container kv-di-in" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
+                        </div>
+
+                        <?php
+                      } ?>
+                    </li>
+                  </ul>
+                </li>
+                <?php
 
               }
             }
@@ -165,27 +216,27 @@ class Entity extends Model
       <?php
 
 
+
       $result .= ob_get_contents();
 
       ob_end_clean();
 
       return $result;
-
     }
 
-    $Reports['content'] = $EntityShowMultiForEdit;
-    // dd($Reports);
-    $Identifier = 'Reports';
+
+
+    $Identifier = $EntityType;
     $Attr = Entity::ShowAttributeTypes();
-    $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
+    $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
     return $result;
   }
 
 
 
-  public static function ShowMultiStyledForEditd($EntityShowMultiForEdit)
+  public static function ShowMultiStyledForEditx($EntityShowMultiForEdit,$EntityType)
   {
-    function ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr)
+    function ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType)
     {
       $result = null;
       ob_start();
@@ -193,8 +244,8 @@ class Entity extends Model
       <ul class="kv-list-parent">
         <?php
         $IdentifierSuffix = -1;
-        if (!empty($Reports[$Attr[2]])) {
-          foreach ($Reports[$Attr[2]] as $key => $value2) {
+        if (!empty($EntityShowMultiForEdit[$Attr[2]])) {
+          foreach ($EntityShowMultiForEdit[$Attr[2]] as $key => $value2) {
             $IdentifierSuffix = $IdentifierSuffix + 1;
             $CurrentIdentifier = $Identifier.'['.$Attr[2].']'.'['.$IdentifierSuffix.']';
 
@@ -208,8 +259,11 @@ class Entity extends Model
                     <label style="">
                       <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
                       <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
-                      <!-- <div class="kv-name-unedit kv-name kv-tog-off-ib "></div> -->
-                      <a href="<?php echo $value2['url']; ?>" class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></a>
+                      <?php if ($EntityType=='Report') { ?>
+                        <a href="<?php echo $value2['url']; ?>" class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></a>
+                      <?php } else { ?>
+                        <div class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></div>
+                      <?php }?>
                       <span class="kv-little-button ">∧</span>
                     </label>
 
@@ -238,12 +292,12 @@ class Entity extends Model
                   </div>
                   <?php
 
+
+
                   $result .= ob_get_contents();
 
                   ob_end_clean();
-
-
-                  $result .= ShowMultiStyledForEditHelper($CurrentIdentifier, $value2, $Attr);
+                  $result .= ShowMultiStyledForEditHelper($CurrentIdentifier, $value2, $Attr,$EntityType);
 
 
                   ob_start();
@@ -252,8 +306,56 @@ class Entity extends Model
 
 
                 <?php
-                // }
               } else {
+                ?>
+                <li>
+                  <div class="kv-item-container  kv-di-in ">
+                    <div class="kv-di-in">📃</div>
+                    <label style="">
+                      <input class="kv-tog-on-ib-switch kv-tog-off-ib-switch" type="checkbox" name="checkbox" value="value">
+                      <input class="kv-field-container kv-name kv-tog-on-ib" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[0]; ?>]" value="<?php echo $value2[$Attr[0]]; ?>">
+                      <div class="kv-name-unedit kv-name kv-tog-off-ib "><?php echo $value2[$Attr[0]]; ?></div>
+                      <span class="kv-little-button ">∧</span>
+                    </label>
+
+                    <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
+                    <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
+                    <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
+                    <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
+
+                  </div>
+
+
+                  <ul class="kv-list-parent">
+                    <li>
+
+
+
+                      <?php
+                      $fileExtension = Entity::FileExtention($value2[$Attr[0]]);
+
+                      if ('png' == $fileExtension or 'jpg' == $fileExtension or 'jpeg' == $fileExtension
+                      or 'png' == $fileExtension or 'gif' == $fileExtension)
+                      {
+                        ?>
+                        <div class="kv-item-container ">
+                          <img  style="width: 300px;" alt="Embedded Image" src="<?php echo $value2[$Attr[2]]; ?>" />
+                          <textarea class="kv-field-container kv-content-container kv-di-in kv-di-no" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
+                        </div>
+                        <?php
+                      } else {
+                        ?>
+
+                        <div class="kv-item-container ">
+                          <textarea class="kv-field-container kv-content-container kv-di-in" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
+                        </div>
+
+                        <?php
+                      } ?>
+                    </li>
+                  </ul>
+                </li>
+                <?php
 
               }
             }
@@ -263,21 +365,22 @@ class Entity extends Model
       <?php
 
 
+
       $result .= ob_get_contents();
 
       ob_end_clean();
 
       return $result;
-
     }
 
-    $Reports['content'] = $EntityShowMultiForEdit;
-    // dd($Reports);
-    $Identifier = 'Reports';
+
+
+    $Identifier = $EntityType;
     $Attr = Entity::ShowAttributeTypes();
-    $result = ShowMultiStyledForEditHelper($Identifier, $Reports, $Attr);
+    $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
     return $result;
   }
+
 
 
 

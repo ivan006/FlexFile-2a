@@ -126,7 +126,8 @@ class NetworkC extends Controller
       $ReportShowMultiForEdit = Report::ShowMultiForEdit($routeParameters);
 
       if (!empty($ReportShowMultiForEdit)) {
-        $ReportShowMultiStyledForEdit = Report::ShowMultiStyledForEdit($ReportShowMultiForEdit);
+        $ReportShowMultiForEdit2['content'] = $ReportShowMultiForEdit;
+        $ReportShowMultiStyledForEdit = Report::ShowMultiStyledForEdit($ReportShowMultiForEdit2);
       } else {
         $ReportShowMultiStyledForEdit =null;
       }
