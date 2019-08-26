@@ -48,7 +48,8 @@ class Entity extends Model
     // dd($Show);
     return $Show;
   }
-  public static function ShowMultiw($BaseEntityType,$BaseEntityID, $EntityType)
+
+  public static function ShowMultiq($BaseEntityType,$BaseEntityID, $EntityType)
   {
     if (!function_exists('App\ShowMultiHelper2')) {
       function ShowMultiHelper2($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier)
@@ -129,6 +130,7 @@ class Entity extends Model
     '4' => 'id',
     '5' => 'subtype',
     '6' => 'add',
+    '7' => 'url',
     );
 
     return $ShowAttributeTypes;

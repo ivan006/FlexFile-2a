@@ -102,12 +102,13 @@
             <ul class="kv-list-parent">
               <?php
               $IdentifierSuffix = -1;
-              foreach ($DataShowAll[$Attr[2]] as $key => $value2) {
-                $IdentifierSuffix = $IdentifierSuffix + 1;
-                $CurrentIdentifier = $Identifier.'['.$Attr[2].']'.'['.$IdentifierSuffix.']';
+              if (!empty($DataShowAll[$Attr[2]])) {
+                foreach ($DataShowAll[$Attr[2]] as $key => $value2) {
+                  $IdentifierSuffix = $IdentifierSuffix + 1;
+                  $CurrentIdentifier = $Identifier.'['.$Attr[2].']'.'['.$IdentifierSuffix.']';
 
-                if (is_array($value2)) {
-                  // if ('folder' == $value2[$Attr[1]]) {
+                  if (is_array($value2)) {
+                    // if ('folder' == $value2[$Attr[1]]) {
                     ?>
                     <li>
 
@@ -149,9 +150,10 @@
 
 
                     <?php
-                  // }
+                    // }
+                  }
                 }
-              } ?>
+              }?>
             </ul>
             <?php
           }

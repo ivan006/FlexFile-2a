@@ -111,9 +111,9 @@ class Report extends Model
 
         $result[$Attr[0]] = $Entity['name'];
         $result[$Attr[1]] = $Entity['type'];
-        $result[$Attr[2]][$SubIdentifier] = null;
+        $result[$Attr[2]] = null;
         $result[$Attr[4]] = $Entity['id'];
-        $result['url'] = $Slug;
+        $result[$Attr[7]] = $Slug;
 
 
         $SubEntityList = $BaseEntityType::find($BaseEntityID)->ReportChildren->toArray();
