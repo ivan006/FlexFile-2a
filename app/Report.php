@@ -11,6 +11,7 @@ class Report extends Model
     'name',
     'parent_id',
     'parent_type',
+    'type',
   ];
 
   public function DataChildren()
@@ -96,50 +97,68 @@ class Report extends Model
     return $arguments;
   }
 
-  public static function ShowMulti($routeParameters)
+  public static function ShowMulti($BaseEntityType,$BaseEntityID, $EntityType)
   {
     if (!function_exists('App\ShowMultiHelper')) {
-      function ShowMultiHelper($Entities, $routeParameters)
+      function ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
       {
         $result = array();
+        $Attr = Entity::ShowAttributeTypes();
 
-        $Identifier = -1;
-        foreach ($Entities['List'] as $key => $value) {
-          $Identifier = $Identifier + 1;
-          $SubEntityList = Report::find($value['id'])->ReportChildren->toArray();
-          $Slug = $Entities['Slug'].'/'.$value['name'];
-          $SubEntities = array(
-            'List' => $SubEntityList,
-            'Slug' => $Slug,
-          );
-          $result[$Identifier]['content'] = ShowMultiHelper($SubEntities, $routeParameters);
-          $result[$Identifier]['url'] = $Slug;
-          $result[$Identifier]['name'] = $value['name'];
-          $result[$Identifier]['type'] = 'folder';
-          $result[$Identifier]['id'] = $value['id'];
+        // $Identifier = $SubIdentifier;
+
+        $Entity = $BaseEntityType::find($BaseEntityID)->toArray();
+
+        $result[$Attr[1]] = 'folder';
+        $result[$Attr[0]] = $Entity['name'];
+        $result[$Attr[4]] = $Entity['id'];
+        $result['url'] = $Slug;
+        $result[$Attr[2]][$SubIdentifier] = null;
+
+
+        $SubEntityList = $BaseEntityType::find($BaseEntityID)->ReportChildren->toArray();
+
+        $SubIdentifier = 0;
+
+        foreach ($SubEntityList as $key => $value) {
+
+          if ('folder' == $value['type']) {
+
+            $BaseEntityType = $EntityType;
+
+            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $value[$Attr[4]], $EntityType, $SubIdentifier,$Slug);
+
+
+          } else {
+
+          }
+          $SubIdentifier = $SubIdentifier + 1;
         }
 
         return $result;
+
+        $result = array();
+
       }
     }
 
+    $SubIdentifier = 0;
+    $Slug = route('NetworkC.show');
+    $result = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+
+
+    return $result;
+  }
+  public static function ShowMultiForEdit($routeParameters,$EntityType)
+  {
     $GroupShowID = Group::ShowID($routeParameters);
-    $GroupShow = Group::find($GroupShowID);
+    $BaseEntityID = $GroupShowID;
+    $BaseEntityType = 'App\Group';
 
-    $Identifier = -1;
-    $Identifier = $Identifier + 1;
-    $SubEntityList = Group::find($GroupShow['id'])->ReportChildren->toArray();
-    $Slug = route('NetworkC.show').'/'.$GroupShow['name'];
-    $SubEntities = array(
-    'List' => $SubEntityList,
-    'Slug' => $Slug,
-    );
-    $result[$Identifier]['content'] = ShowMultiHelper($SubEntities, $routeParameters);
-    $result[$Identifier]['url'] = $Slug;
-    $result[$Identifier]['name'] = $GroupShow['name'];
-    $result[$Identifier]['type'] = 'folder';
-    $result[$Identifier]['id'] = $GroupShow['id'];
+    $result[0] = Report::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType);
 
+
+    // dd($result);
     return $result;
   }
 
@@ -184,10 +203,12 @@ class Report extends Model
 
   public static function Add($routeParameters, $request)
   {
+
+    $Attr = Entity::ShowAttributeTypes();
+
     $GroupShowID = Group::ShowID($routeParameters);
     $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
-    $name = $request->get('name');
 
     if (!empty($ReportShowID)) {
       $parent_id = $ReportShowID;
@@ -196,11 +217,12 @@ class Report extends Model
       $parent_id = $GroupShowID;
       $parent_type = "App\Group";
     }
-
+    $ReportRequest =  $request->get('Reports');
     $var = Report::create([
-    'name' => $name,
+    'name' => 'whoops',
     'parent_id' => $parent_id,
     'parent_type' => $parent_type,
+    'type' => 'folder',
     ]);
 
     $ReportShowID = $var->attributes['id'];

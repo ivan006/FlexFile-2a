@@ -20,6 +20,7 @@ class CreateReportsTable extends Migration
             $table->string('name');
             $table->integer('parent_id');
             $table->string('parent_type');
+            $table->string('type');
         });
     }
 

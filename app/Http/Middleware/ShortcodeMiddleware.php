@@ -6,6 +6,7 @@ use Closure;
 use App\Group;
 use App\Report;
 use App\Data;
+use App\Entity;
 
 class ShortcodeMiddleware
 {
@@ -63,7 +64,13 @@ class ShortcodeMiddleware
               $arguments2[0] = $routeParameters[0];
 
               $GroupShowID = Group::ShowID($routeParameters);
-              $VPgsLocs = Report::ShowMulti($routeParameters);
+
+              $EntityType ='App\Report'
+
+              $GroupShowID = Group::ShowID($routeParameters);
+              $BaseEntityID = $GroupShowID;
+              $BaseEntityType = 'App\Group';
+              $VPgsLocs = Report::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType);
 
               ob_start();
 

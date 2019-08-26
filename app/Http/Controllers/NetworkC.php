@@ -118,8 +118,8 @@ class NetworkC extends Controller
 
       $ReportShowImSubReports = Report::ShowImmediateSubReport($routeParameters);
 
-      $ReportShowSubReport = Report::ShowMulti($routeParameters);
-
+      $EntityType = 'App\Report';
+      $ReportShowSubReport = Report::ShowMultiForEdit($routeParameters,$EntityType);
       return view('group-edit', compact('DataShowAll', 'allURLs', 'RichDataShow', 'Attr', 'ReportShowImSubReports', 'ReportShowSubReport'));
     } else {
       $allURLs = Report::ShowActions(func_get_args());

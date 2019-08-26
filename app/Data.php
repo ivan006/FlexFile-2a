@@ -21,7 +21,7 @@ class Data extends Model
     return $this->morphTo();
   }
 
-  public function children()
+  public function DataChildren()
   {
     return $this->morphMany('App\Data', 'parent');
   }
@@ -61,7 +61,7 @@ class Data extends Model
       foreach ($DataSigFragments as $key => $value) {
         $DataParent = Data::find($ShowID);
         if (!empty($DataParent)) {
-          $Data = $DataParent->children->where('name', $value)->first();
+          $Data = $DataParent->DataChildren->where('name', $value)->first();
           if (!empty($Data)) {
             $ShowID = $Data->id;
           } else {
