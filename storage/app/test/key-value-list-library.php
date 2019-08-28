@@ -19,7 +19,7 @@
     white-space: nowrap;
     margin-bottom: 3px;
   }
-  .kv-mar-bot-3 {margin-bottom: 3px;}
+  .kv-mar-top-3 {margin-top: 3px;}
   .kv-di-in {display: inline-block;}
   .kv-name {
     width: 150px;
@@ -96,12 +96,12 @@
             <span class="kv-little-button ">+</span>
             <input class="kv-tog-on-bl-switch" type="checkbox" name="checkbox" value="value">
             <div class="kv-popover kv-tog-on-bl kv-item-container  kv-di-in" style="">
-              <div class="kv-mar-bot-3" >
+              <div class="" >
                 <span>📁</span>
                 <input class="kv-field-container kv-name kv-di-in "  type="text"   name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][folder]" >
                 <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_folder">+</button>
               </div>
-              <div class="">
+              <div class="kv-mar-top-3">
                 <span>📃</span>
                 <input class="kv-field-container kv-name kv-di-in"  type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][file]">
                 <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_folder">+</button>

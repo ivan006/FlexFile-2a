@@ -12,6 +12,7 @@ class Report extends Model
     'parent_id',
     'parent_type',
     'type',
+    'content',
   ];
 
   public function DataChildren()
@@ -160,8 +161,8 @@ class Report extends Model
       Data::StoreMultiForEdit($request);
       break;
       case 'reports':
+      Report::StoreMultiForEdit($request);
 
-      Report::Add($routeParameters, $request);
       break;
 
       default:
@@ -172,40 +173,8 @@ class Report extends Model
 
 
 
-  public static function Add($routeParameters, $request)
-  {
-
-    $Attr = Entity::ShowAttributeTypes();
-
-    $GroupShowID = Group::ShowID($routeParameters);
-    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
-
-
-    if (!empty($ReportShowID)) {
-      $parent_id = $ReportShowID;
-      $parent_type = "App\Report";
-    } elseif (!empty($GroupShowID)) {
-      $parent_id = $GroupShowID;
-      $parent_type = "App\Group";
-    }
-    $ReportRequest =  $request->get('Report');
-    $var = Report::create([
-    'name' => 'whoops',
-    'parent_id' => $parent_id,
-    'parent_type' => $parent_type,
-    'type' => 'folder',
-    ]);
-
-    $ReportShowID = $var->attributes['id'];
-
-    $Data = array (
-    'name' => '_data',
-    'parent_id' => $ReportShowID,
-    'parent_type' => "App\Report",
-    'type' => 'folder',
-    'content' => 'null',
-    );
-    // dd(1);
-    Data::Add($Data);
-  }
+  // public static function Add($routeParameters, $request)
+  // {
+  //
+  // }
 }

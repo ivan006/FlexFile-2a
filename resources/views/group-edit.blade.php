@@ -1,7 +1,7 @@
 @include('includes.base-dom/general-include-one-of-four')
 <link href="{{ asset('css/key-value-list.css') }}" rel="stylesheet">
 @include('includes.base-dom/general-include-two-of-four')
-@include('includes.item-menus/functions')
+
 @include('includes.menu_report')
 @include('includes.base-dom/general-include-three-of-four')
 

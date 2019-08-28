@@ -175,10 +175,10 @@ class Data extends Model
     Entity::StoreMultiForEdit($request,$EntityType);
   }
 
-  public static function Add($DataItem)
-  {
-
-    // dd($DataItem);
-    Data::create($DataItem);
-  }
+  // public static function Add($DataItem)
+  // {
+  //
+  //   // dd($DataItem);
+  //   Data::create($DataItem);
+  // }
 }

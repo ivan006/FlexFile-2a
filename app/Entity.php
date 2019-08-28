@@ -27,6 +27,7 @@ class Entity extends Model
         $result[$Attr[2]] = null;
         $result[$Attr[4]] = $Entity['id'];
         $result[$Attr[7]] = $Slug;
+        $result[$Attr[8]] = $BaseEntityTypeClass;
 
         $EntityChildrenType = $EntityType."Children";
 
@@ -71,6 +72,7 @@ class Entity extends Model
     '5' => 'subtype',
     '6' => 'add',
     '7' => 'url',
+    '8' => 'entity_type',
     );
 
     return $ShowAttributeTypes;
@@ -118,27 +120,51 @@ class Entity extends Model
               }
               break;
               case 'create_folder':
-              $EntityItem = array (
+              // dd($EntityTypeClass);
+              $var = $EntityTypeClass::create([
                 'name' => $value[$Attr[6]]['folder'],
                 'parent_id' => $value[$Attr[4]],
-                'parent_type' => $EntityType,
+                'parent_type' => $value[$Attr[8]],
                 'type' => 'folder',
-                'content' => 'null',
-              );
-              $EntityTypeClass::Add($EntityItem);
+                'content' => 'null'
+              ]);
+
+              // $GroupShowID = Group::ShowID($routeParameters);
+              // $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
+              //
+              //
+              // if (!empty($ReportShowID)) {
+              //   $parent_id = $ReportShowID;
+              //   $parent_type = "App\Report";
+              // } elseif (!empty($GroupShowID)) {
+              //   $parent_id = $GroupShowID;
+              //   $parent_type = "App\Group";
+              // }
+
+
+              if ($EntityType == "Report") {
+                $ReportShowID = $var->id;
+
+                Data::create([
+                  'name' => '_data',
+                  'parent_id' => $ReportShowID,
+                  'parent_type' => "App\Report",
+                  'type' => 'folder',
+                  'content' => 'null',
+                ]);
+              }
+
               $Action = null;
               break;
               case 'create_file':
 
-              $EntityItem = array (
+              $var = $EntityTypeClass::create([
                 'name' => $value[$Attr[6]]['file'],
                 'parent_id' => $value[$Attr[4]],
-                'parent_type' => $EntityType,
+                'parent_type' => $value[$Attr[8]],
                 'type' => 'file',
                 'content' => 'null',
-              );
-
-              $EntityTypeClass::Add($EntityItem);
+              ]);
 
               // $Action = null;
               break;
@@ -183,9 +209,9 @@ class Entity extends Model
       }
     }
 
-
     $Attr = Entity::ShowAttributeTypes();
     $Entity = $request->get($EntityType);
+    // dd($Entity);
 
     StoreHelperStore(null, $Entity, $Attr, $EntityType);
   }
@@ -226,6 +252,7 @@ class Entity extends Model
 
                       <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[1]; ?>]" value="<?php echo $value2[$Attr[1]]; ?>">
                       <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[4]; ?>]" value="<?php echo $value2[$Attr[4]]; ?>">
+                      <input class="kv-di-no" type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[8]; ?>]" value="<?php echo $value2[$Attr[8]]; ?>">
                       <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="update">✓</button>
                       <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="delete">×</button>
 
@@ -234,16 +261,18 @@ class Entity extends Model
                         <span class="kv-little-button ">+</span>
                         <input class="kv-tog-on-bl-switch" type="checkbox" name="checkbox" value="value">
                         <div class="kv-popover kv-tog-on-bl kv-item-container  kv-di-in" style="">
-                          <div class="kv-mar-bot-3" >
+                          <div class="" >
                             <span>📁</span>
                             <input class="kv-field-container kv-name kv-di-in "  type="text"   name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][folder]" >
                             <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_folder">+</button>
                           </div>
-                          <div class="">
-                            <span>📃</span>
-                            <input class="kv-field-container kv-name kv-di-in"  type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][file]">
-                            <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_file">+</button>
-                          </div>
+                          <?php if ($EntityType!=='Report') { ?>
+                            <div class="kv-mar-top-3">
+                              <span>📃</span>
+                              <input class="kv-field-container kv-name kv-di-in"  type="text" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[6]; ?>][file]">
+                              <button type="submit" class="kv-little-button" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[3]; ?>]" value="create_file">+</button>
+                            </div>
+                          <?php } ?>
                         </div>
                       </label>
                     </div>

@@ -10,6 +10,7 @@ class Group extends Model
   protected $primaryKey = 'id';
   protected $fillable = [
     'name',
+    'type',
   ];
 
   public function ReportChildren()
@@ -54,19 +55,20 @@ class Group extends Model
 
     $var = new Group();
     $var->name = $GroupName;
+    $var->type = 'folder';
     $var->save();
 
     $GroupId = $var->attributes['id'];
 
 
-    $DataItem = array (
+
+    Data::create([
       'name' => '_data',
       'parent_id' => $GroupId,
       'parent_type' => "App\Group",
       'type' => 'folder',
       'content' => 'null',
-    );
+    ]);
 
-    Data::Add($DataItem);
   }
 }
