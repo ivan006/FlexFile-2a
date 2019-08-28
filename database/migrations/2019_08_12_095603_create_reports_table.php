@@ -16,11 +16,12 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-
             $table->string('name');
             $table->integer('parent_id');
             $table->string('parent_type');
             $table->string('type');
+            $table->text('content');
+
         });
     }
 

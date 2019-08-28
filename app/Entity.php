@@ -85,6 +85,111 @@ class Entity extends Model
   }
 
 
+
+
+  public static function StoreMultiForEdit($request,$EntityType)
+  {
+    function StoreHelperStore($InheritedAction, $Entity, $Attr, $EntityType)
+    {
+      $EntityTypeClass = "App\\".$EntityType;
+
+      if (isset($Entity[$Attr[2]])) {
+        foreach ($Entity[$Attr[2]] as $key => $value) {
+          if ('folder' == $value[$Attr[1]]) {
+            if (isset($value[$Attr[3]])) {
+              $Action = $value[$Attr[3]];
+            } else {
+              $Action = $InheritedAction;
+            }
+            // dd($Entity);
+            switch ($Action) {
+              case 'update':
+              if (!empty($value[$Attr[4]])) {
+                $EntityTypeClass::find($value[$Attr[4]])
+                ->update([
+                  'name' => $value[$Attr[0]],
+                ]);
+              }
+              break;
+              case 'delete':
+              if (!empty($value[$Attr[4]])) {
+                $EntityTypeClass::find($value[$Attr[4]])
+                ->delete();
+              }
+              break;
+              case 'create_folder':
+              $EntityItem = array (
+                'name' => $value[$Attr[6]]['folder'],
+                'parent_id' => $value[$Attr[4]],
+                'parent_type' => $EntityType,
+                'type' => 'folder',
+                'content' => 'null',
+              );
+              $EntityTypeClass::Add($EntityItem);
+              $Action = null;
+              break;
+              case 'create_file':
+
+              $EntityItem = array (
+                'name' => $value[$Attr[6]]['file'],
+                'parent_id' => $value[$Attr[4]],
+                'parent_type' => $EntityType,
+                'type' => 'file',
+                'content' => 'null',
+              );
+
+              $EntityTypeClass::Add($EntityItem);
+
+              // $Action = null;
+              break;
+
+              default:
+
+              break;
+            }
+            StoreHelperStore($Action, $value, $Attr, $EntityType);
+            // $Action = null;
+          } else {
+            if (isset($value[$Attr[3]])) {
+              $Action = $value[$Attr[3]];
+            } else {
+              $Action = $InheritedAction;
+            }
+
+            switch ($Action) {
+              case 'update':
+              if (!empty($value[$Attr[4]])) {
+                $EntityTypeClass::find($value[$Attr[4]])
+                ->update([
+                'name' => $value[$Attr[0]],
+                'content' => $value[$Attr[2]],
+                ]);
+              }
+              break;
+              case 'delete':
+              if (!empty($value[$Attr[4]])) {
+                $EntityTypeClass::find($value[$Attr[4]])
+                ->delete();
+              }
+              break;
+
+              default:
+
+              break;
+            }
+            // $Action = null;
+          }
+        }
+      }
+    }
+
+
+    $Attr = Entity::ShowAttributeTypes();
+    $Entity = $request->get($EntityType);
+
+    StoreHelperStore(null, $Entity, $Attr, $EntityType);
+  }
+
   public static function ShowMultiStyledForEdit($EntityShowMultiForEdit,$EntityType)
   {
     if (!function_exists('App\ShowMultiStyledForEditHelper')) {
@@ -233,6 +338,8 @@ class Entity extends Model
     $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
     return $result;
   }
+
+
 
 
 }

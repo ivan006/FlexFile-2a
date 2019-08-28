@@ -144,6 +144,14 @@ class Report extends Model
     return $result;
   }
 
+
+  public static function StoreMultiForEdit($request)
+  {
+    $EntityType = 'Report';
+    Entity::StoreMultiForEdit($request,$EntityType);
+  }
+
+
   public static function Store($routeParameters, $request)
   {
     switch ($request->get('form')) {
@@ -161,6 +169,8 @@ class Report extends Model
       break;
     }
   }
+
+
 
   public static function Add($routeParameters, $request)
   {
