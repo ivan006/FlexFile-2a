@@ -58,9 +58,6 @@ class Entity extends Model
     return $result;
   }
 
-
-
-
   public static function ShowAttributeTypes()
   {
     $ShowAttributeTypes = array(
@@ -86,24 +83,21 @@ class Entity extends Model
       return $extention;
   }
 
-
-
-
   public static function StoreMultiForEdit($request,$EntityType)
   {
-    function StoreHelperStore($InheritedAction, $Entity, $Attr, $EntityType)
+    function StoreHelperStore($InheritedAction, $ShowChangesForEdit, $Attr, $EntityType)
     {
       $EntityTypeClass = "App\\".$EntityType;
 
-      if (isset($Entity[$Attr[2]])) {
-        foreach ($Entity[$Attr[2]] as $key => $value) {
+      if (isset($ShowChangesForEdit[$Attr[2]])) {
+        foreach ($ShowChangesForEdit[$Attr[2]] as $key => $value) {
           if ('folder' == $value[$Attr[1]]) {
             if (isset($value[$Attr[3]])) {
               $Action = $value[$Attr[3]];
             } else {
               $Action = $InheritedAction;
             }
-            // dd($Entity);
+            // dd($ShowChangesForEdit);
             switch ($Action) {
               case 'update':
               if (!empty($value[$Attr[4]])) {
@@ -115,8 +109,8 @@ class Entity extends Model
               break;
               case 'delete':
               if (!empty($value[$Attr[4]])) {
-                $EntityTypeClass::find($value[$Attr[4]])
-                ->delete();
+                $EntityTypeClass::find($value[$Attr[4]])->delete();
+                // Data::StoreMultiForEdit($request,$EntityType);
               }
               break;
               case 'create_folder':
@@ -128,19 +122,6 @@ class Entity extends Model
                 'type' => 'folder',
                 'content' => 'null'
               ]);
-
-              // $GroupShowID = Group::ShowID($routeParameters);
-              // $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
-              //
-              //
-              // if (!empty($ReportShowID)) {
-              //   $parent_id = $ReportShowID;
-              //   $parent_type = "App\Report";
-              // } elseif (!empty($GroupShowID)) {
-              //   $parent_id = $GroupShowID;
-              //   $parent_type = "App\Group";
-              // }
-
 
               if ($EntityType == "Report") {
                 $ReportShowID = $var->id;
@@ -210,14 +191,16 @@ class Entity extends Model
     }
 
     $Attr = Entity::ShowAttributeTypes();
-    $Entity = $request->get($EntityType);
+    $ShowChangesForEdit = Entity::ShowChangesForEdit($request,$EntityType);
+
     // dd($Entity);
 
-    StoreHelperStore(null, $Entity, $Attr, $EntityType);
+    StoreHelperStore(null, $ShowChangesForEdit, $Attr, $EntityType);
   }
 
-  public static function ShowMultiStyledForEdit($EntityShowMultiForEdit,$EntityType)
+  public static function ShowMultiStyledForEdit($EntityType,$routeParameters)
   {
+
     if (!function_exists('App\ShowMultiStyledForEditHelper')) {
       function ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType)
       {
@@ -336,38 +319,54 @@ class Entity extends Model
                             <textarea class="kv-field-container kv-content-container kv-di-in" name="<?php echo $CurrentIdentifier; ?>[<?php echo $Attr[2]; ?>]" rows="8" ><?php echo $value2[$Attr[2]]; ?></textarea>
                           </div>
 
-                        <?php
-                      } ?>
-                    </li>
-                  </ul>
-                </li>
-                <?php
+                          <?php
+                        } ?>
+                      </li>
+                    </ul>
+                  </li>
+                  <?php
 
+                }
               }
             }
-          }
-        }?>
-      </ul>
-      <?php
+          }?>
+        </ul>
+        <?php
 
 
 
-      $result .= ob_get_contents();
+        $result .= ob_get_contents();
 
-      ob_end_clean();
+        ob_end_clean();
 
-      return $result;
+        return $result;
+      }
     }
-  }
+
+
 
 
 
     $Identifier = $EntityType;
     $Attr = Entity::ShowAttributeTypes();
+    $EntityTypeClass = "App\\".$EntityType;
+    $EntityShowMultiForEdit[$Attr[2]] = $EntityTypeClass::ShowMultiForEdit($routeParameters);
+
     $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
     return $result;
   }
 
+  public static function ShowChangesForEdit($request,$EntityType)
+  {
+    $result = $request->get($EntityType);
+    return $result;
+  }
+
+  public static function ShowImpliedChangesForEdit($request,$EntityType)
+  {
+    $result = $request->get($EntityType);
+    return $result;
+  }
 
 
 

@@ -86,17 +86,17 @@ class Report extends Model
     return $ShowID;
   }
 
-  public static function ShowBaseIDPlusBaseLocation()
-  {
-    return Group::ShowBaseLocation().Report::ShowBaseID(func_get_args()[0]);
-  }
+  // public static function ShowBaseIDPlusBaseLocation()
+  // {
+  //   return Group::ShowBaseLocation().Report::ShowBaseID(func_get_args()[0]);
+  // }
 
-  public static function ShowBaseID()
-  {
-    $arguments = func_get_args()[0][0];
-
-    return $arguments;
-  }
+  // public static function ShowBaseID()
+  // {
+  //   $arguments = func_get_args()[0][0];
+  //
+  //   return $arguments;
+  // }
 
   public static function ShowMultiForEdit($routeParameters)
   {
@@ -116,34 +116,34 @@ class Report extends Model
     return $result;
   }
 
-  public static function ShowMultiStyledForEdit($ReportShowMultiForEdit)
+  public static function ShowMultiStyledForEdit($routeParameters)
   {
     $EntityType = 'Report';
-    $result = Entity::ShowMultiStyledForEdit($ReportShowMultiForEdit,$EntityType);
+    $result = Entity::ShowMultiStyledForEdit($EntityType,$routeParameters);
     return $result;
   }
 
 
-  public static function ShowImmediateSubReport($routeParameters)
-  {
-    $GroupShowID = Group::ShowID($routeParameters);
-    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
-
-    if (!empty($ReportShowID)) {
-      $EntityShow = Report::find($ReportShowID);
-      $SubEntityList = Report::find($EntityShow['id'])->ReportChildren->toArray();
-    } elseif (!empty($GroupShowID)) {
-      $EntityShow = Group::find($GroupShowID);
-      $SubEntityList = Group::find($EntityShow['id'])->ReportChildren->toArray();
-    }
-
-    $result = array();
-    foreach ($SubEntityList as $key => $value) {
-      $result[$value['name']]['url'] = Report::ShowActions($routeParameters)['sub_report_edit'].'/'.$value['name'];
-    }
-
-    return $result;
-  }
+  // public static function ShowImmediateSubReport($routeParameters)
+  // {
+  //   $GroupShowID = Group::ShowID($routeParameters);
+  //   $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
+  //
+  //   if (!empty($ReportShowID)) {
+  //     $EntityShow = Report::find($ReportShowID);
+  //     $SubEntityList = Report::find($EntityShow['id'])->ReportChildren->toArray();
+  //   } elseif (!empty($GroupShowID)) {
+  //     $EntityShow = Group::find($GroupShowID);
+  //     $SubEntityList = Group::find($EntityShow['id'])->ReportChildren->toArray();
+  //   }
+  //
+  //   $result = array();
+  //   foreach ($SubEntityList as $key => $value) {
+  //     $result[$value['name']]['url'] = Report::ShowActions($routeParameters)['sub_report_edit'].'/'.$value['name'];
+  //   }
+  //
+  //   return $result;
+  // }
 
 
   public static function StoreMultiForEdit($request)

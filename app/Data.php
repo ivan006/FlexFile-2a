@@ -148,20 +148,18 @@ class Data extends Model
 
 
 
-  public static function ShowActions()
-  {
-    $ShowActions['SelectedSmartDataItem'] = 'Selected';
+  // public static function ShowActions()
+  // {
+  //   $ShowActions['SelectedSmartDataItem'] = 'Selected';
+  //
+  //   return $ShowActions;
+  // }
 
-    return $ShowActions;
-  }
-
-  public static function ShowMultiStyledForEdit($DataShowMultiForEdit)
+  public static function ShowMultiStyledForEdit($routeParameters)
   {
 
     $EntityType = 'Data';
-    $EntityShowMultiForEdit = $DataShowMultiForEdit;
-    $result = Entity::ShowMultiStyledForEdit($EntityShowMultiForEdit,$EntityType);
-
+    $result = Entity::ShowMultiStyledForEdit($EntityType,$routeParameters);
     return $result;
   }
 

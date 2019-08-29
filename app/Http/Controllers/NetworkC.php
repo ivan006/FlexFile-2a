@@ -100,15 +100,12 @@ class NetworkC extends Controller
       array_shift($arguments);
       array_shift($arguments);
       $Attr = Entity::ShowAttributeTypes();
-      $DataShowMultiForEdit[$Attr[2]] = Data::ShowMultiForEdit($routeParameters);
 
-      if (!empty($DataShowMultiForEdit)) {
-        $DataShowMultiStyledForEdit = Data::ShowMultiStyledForEdit($DataShowMultiForEdit);
-      } else {
-        $DataShowMultiStyledForEdit = null ;
-      }
 
-      $SmartDataItemM_ShowActions = Data::ShowActions();
+      $DataShowMultiStyledForEdit = Data::ShowMultiStyledForEdit($routeParameters);
+
+
+      // $SmartDataItemM_ShowActions = Data::ShowActions();
 
       $allURLs = Report::ShowActions($routeParameters);
 
@@ -121,24 +118,20 @@ class NetworkC extends Controller
       }
       $RichDataShow = $DataValues[$Attr[2]];
 
-      $ReportShowImSubReports = Report::ShowImmediateSubReport($routeParameters);
+      // $ReportShowImSubReports = Report::ShowImmediateSubReport($routeParameters);
 
-      $ReportShowMultiForEdit = Report::ShowMultiForEdit($routeParameters);
 
-      if (!empty($ReportShowMultiForEdit)) {
-        $ReportShowMultiForEdit2['content'] = $ReportShowMultiForEdit;
-        $ReportShowMultiStyledForEdit = Report::ShowMultiStyledForEdit($ReportShowMultiForEdit2);
-      } else {
-        $ReportShowMultiStyledForEdit =null;
-      }
 
-      return view('group-edit', compact('DataShowMultiForEdit', 'allURLs', 'RichDataShow', 'Attr', 'ReportShowImSubReports', 'ReportShowMultiStyledForEdit', 'DataShowMultiStyledForEdit'));
+
+      $ReportShowMultiStyledForEdit = Report::ShowMultiStyledForEdit($routeParameters);
+
+
+      return view('group-edit', compact('allURLs', 'RichDataShow', 'Attr', 'ReportShowMultiStyledForEdit', 'DataShowMultiStyledForEdit'));
     } else {
       $allURLs = Report::ShowActions(func_get_args());
       $ReportList = Group::ShowAll();
-      $SmartDataItemM_ShowActions = Data::ShowActions();
 
-      return view('network-edit', compact('ReportList', 'allURLs', 'SmartDataItemM_ShowActions'));
+      return view('network-edit', compact('ReportList', 'allURLs'));
     }
   }
 
