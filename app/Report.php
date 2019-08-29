@@ -146,10 +146,10 @@ class Report extends Model
   // }
 
 
-  public static function StoreMultiForEdit($request)
+  public static function StoreMultiForEdit($ShowChangesForEdit)
   {
     $EntityType = 'Report';
-    Entity::StoreMultiForEdit($request,$EntityType);
+    Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
   }
 
 
@@ -158,10 +158,15 @@ class Report extends Model
     switch ($request->get('form')) {
       case 'data':
 
-      Data::StoreMultiForEdit($request);
+      $EntityType = 'Data';
+      $ShowChangesForEdit = Entity::ShowChangesForEdit($request,$EntityType);
+      Data::StoreMultiForEdit($ShowChangesForEdit);
       break;
       case 'reports':
-      Report::StoreMultiForEdit($request);
+
+      $EntityType = 'Report';
+      $ShowChangesForEdit = Entity::ShowChangesForEdit($request,$EntityType);
+      Report::StoreMultiForEdit($ShowChangesForEdit);
 
       break;
 

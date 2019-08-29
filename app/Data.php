@@ -136,11 +136,8 @@ class Data extends Model
 
     $BaseEntityID = $DataList['id'];
     $BaseEntityType = 'Data';
-
     $EntityType = 'Data';
-
     $Slug = null;
-
     $result = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
 
     return $result;
@@ -167,10 +164,10 @@ class Data extends Model
 
 
 
-  public static function StoreMultiForEdit($request)
+  public static function StoreMultiForEdit($ShowChangesForEdit)
   {
     $EntityType = 'Data';
-    Entity::StoreMultiForEdit($request,$EntityType);
+    Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
   }
 
   // public static function Add($DataItem)

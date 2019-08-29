@@ -54,7 +54,6 @@ class Entity extends Model
     $SubIdentifier = 0;
 
     $result[0] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
-
     return $result;
   }
 
@@ -83,115 +82,128 @@ class Entity extends Model
       return $extention;
   }
 
-  public static function StoreMultiForEdit($request,$EntityType)
+  public static function StoreMultiForEdit($ShowChangesForEdit,$EntityType)
   {
-    function StoreHelperStore($InheritedAction, $ShowChangesForEdit, $Attr, $EntityType)
-    {
-      $EntityTypeClass = "App\\".$EntityType;
+    // dd($ShowChangesForEdit);
+    if (!function_exists('App\StoreHelperStore')) {
+      function StoreHelperStore($InheritedAction, $ShowChangesForEdit, $Attr, $EntityType)
+      {
+        $EntityTypeClass = "App\\".$EntityType;
 
-      if (isset($ShowChangesForEdit[$Attr[2]])) {
-        foreach ($ShowChangesForEdit[$Attr[2]] as $key => $value) {
-          if ('folder' == $value[$Attr[1]]) {
-            if (isset($value[$Attr[3]])) {
-              $Action = $value[$Attr[3]];
-            } else {
-              $Action = $InheritedAction;
-            }
-            // dd($ShowChangesForEdit);
-            switch ($Action) {
-              case 'update':
-              if (!empty($value[$Attr[4]])) {
-                $EntityTypeClass::find($value[$Attr[4]])
-                ->update([
-                  'name' => $value[$Attr[0]],
+        if (isset($ShowChangesForEdit[$Attr[2]])) {
+          foreach ($ShowChangesForEdit[$Attr[2]] as $key => $value) {
+            if ('folder' == $value[$Attr[1]]) {
+              if (isset($value[$Attr[3]])) {
+                $Action = $value[$Attr[3]];
+              } else {
+                $Action = $InheritedAction;
+              }
+              // dd($ShowChangesForEdit);
+              switch ($Action) {
+                case 'update':
+                if (!empty($value[$Attr[4]])) {
+                  $EntityTypeClass::find($value[$Attr[4]])
+                  ->update([
+                    'name' => $value[$Attr[0]],
+                  ]);
+                }
+                break;
+                case 'delete':
+                if (!empty($value[$Attr[4]])) {
+                  if ($EntityType == "Report") {
+                    $EntityType2 = 'Data';
+                    $BaseEntityType = $EntityType;
+                    $BaseEntityID = $value[$Attr[4]];
+                    $Slug = null;
+                    $ShowImpliedChangesForEdit = Entity::ShowImpliedChangesForEdit($BaseEntityType,$BaseEntityID, $EntityType2,$Slug);
+
+                    $ShowImpliedChangesForEdit2 = $ShowImpliedChangesForEdit[0];
+                    $ShowImpliedChangesForEdit2[$Attr[2]][0][$Attr[3]] = 'delete';
+
+                    Data::StoreMultiForEdit($ShowImpliedChangesForEdit2,$EntityType2);
+                  }
+                  $EntityTypeClass::find($value[$Attr[4]])->delete();
+                }
+                break;
+                case 'create_folder':
+                // dd($EntityTypeClass);
+                $var = $EntityTypeClass::create([
+                  'name' => $value[$Attr[6]]['folder'],
+                  'parent_id' => $value[$Attr[4]],
+                  'parent_type' => $value[$Attr[8]],
+                  'type' => 'folder',
+                  'content' => 'null'
                 ]);
-              }
-              break;
-              case 'delete':
-              if (!empty($value[$Attr[4]])) {
-                $EntityTypeClass::find($value[$Attr[4]])->delete();
-                // Data::StoreMultiForEdit($request,$EntityType);
-              }
-              break;
-              case 'create_folder':
-              // dd($EntityTypeClass);
-              $var = $EntityTypeClass::create([
-                'name' => $value[$Attr[6]]['folder'],
-                'parent_id' => $value[$Attr[4]],
-                'parent_type' => $value[$Attr[8]],
-                'type' => 'folder',
-                'content' => 'null'
-              ]);
 
-              if ($EntityType == "Report") {
-                $ReportShowID = $var->id;
+                if ($EntityType == "Report") {
+                  $ReportShowID = $var->id;
 
-                Data::create([
+                  Data::create([
                   'name' => '_data',
                   'parent_id' => $ReportShowID,
                   'parent_type' => "App\Report",
                   'type' => 'folder',
                   'content' => 'null',
-                ]);
-              }
+                  ]);
+                }
 
-              $Action = null;
-              break;
-              case 'create_file':
+                $Action = null;
+                break;
+                case 'create_file':
 
-              $var = $EntityTypeClass::create([
+                $var = $EntityTypeClass::create([
                 'name' => $value[$Attr[6]]['file'],
                 'parent_id' => $value[$Attr[4]],
                 'parent_type' => $value[$Attr[8]],
                 'type' => 'file',
                 'content' => 'null',
-              ]);
-
-              // $Action = null;
-              break;
-
-              default:
-
-              break;
-            }
-            StoreHelperStore($Action, $value, $Attr, $EntityType);
-            // $Action = null;
-          } else {
-            if (isset($value[$Attr[3]])) {
-              $Action = $value[$Attr[3]];
-            } else {
-              $Action = $InheritedAction;
-            }
-
-            switch ($Action) {
-              case 'update':
-              if (!empty($value[$Attr[4]])) {
-                $EntityTypeClass::find($value[$Attr[4]])
-                ->update([
-                'name' => $value[$Attr[0]],
-                'content' => $value[$Attr[2]],
                 ]);
-              }
-              break;
-              case 'delete':
-              if (!empty($value[$Attr[4]])) {
-                $EntityTypeClass::find($value[$Attr[4]])
-                ->delete();
-              }
-              break;
 
-              default:
+                // $Action = null;
+                break;
 
-              break;
+                default:
+
+                break;
+              }
+              StoreHelperStore($Action, $value, $Attr, $EntityType);
+              // $Action = null;
+            } else {
+              if (isset($value[$Attr[3]])) {
+                $Action = $value[$Attr[3]];
+              } else {
+                $Action = $InheritedAction;
+              }
+
+              switch ($Action) {
+                case 'update':
+                if (!empty($value[$Attr[4]])) {
+                  $EntityTypeClass::find($value[$Attr[4]])
+                  ->update([
+                  'name' => $value[$Attr[0]],
+                  'content' => $value[$Attr[2]],
+                  ]);
+                }
+                break;
+                case 'delete':
+                if (!empty($value[$Attr[4]])) {
+                  $EntityTypeClass::find($value[$Attr[4]])
+                  ->delete();
+                }
+                break;
+
+                default:
+
+                break;
+              }
+              // $Action = null;
             }
-            // $Action = null;
           }
         }
       }
     }
 
     $Attr = Entity::ShowAttributeTypes();
-    $ShowChangesForEdit = Entity::ShowChangesForEdit($request,$EntityType);
 
     // dd($Entity);
 
@@ -362,9 +374,9 @@ class Entity extends Model
     return $result;
   }
 
-  public static function ShowImpliedChangesForEdit($request,$EntityType)
+  public static function ShowImpliedChangesForEdit($BaseEntityType,$BaseEntityID, $EntityType,$Slug)
   {
-    $result = $request->get($EntityType);
+    $result = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
     return $result;
   }
 
