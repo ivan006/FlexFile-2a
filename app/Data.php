@@ -113,7 +113,6 @@ class Data extends Model
     return $result;
   }
 
-
   public static function ShowMultiForEdit($routeParameters)
   {
 
@@ -143,15 +142,6 @@ class Data extends Model
     return $result;
   }
 
-
-
-  // public static function ShowActions()
-  // {
-  //   $ShowActions['SelectedSmartDataItem'] = 'Selected';
-  //
-  //   return $ShowActions;
-  // }
-
   public static function ShowMultiStyledForEdit($routeParameters)
   {
 
@@ -160,20 +150,10 @@ class Data extends Model
     return $result;
   }
 
-
-
-
-
   public static function StoreMultiForEdit($ShowChangesForEdit)
   {
     $EntityType = 'Data';
     Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
   }
 
-  // public static function Add($DataItem)
-  // {
-  //
-  //   // dd($DataItem);
-  //   Data::create($DataItem);
-  // }
 }

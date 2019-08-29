@@ -105,6 +105,7 @@ class Report extends Model
 
     return $result;
   }
+
   public static function ShowMulti($routeParameters,$Slug)
   {
 
@@ -123,35 +124,11 @@ class Report extends Model
     return $result;
   }
 
-
-  // public static function ShowImmediateSubReport($routeParameters)
-  // {
-  //   $GroupShowID = Group::ShowID($routeParameters);
-  //   $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
-  //
-  //   if (!empty($ReportShowID)) {
-  //     $EntityShow = Report::find($ReportShowID);
-  //     $SubEntityList = Report::find($EntityShow['id'])->ReportChildren->toArray();
-  //   } elseif (!empty($GroupShowID)) {
-  //     $EntityShow = Group::find($GroupShowID);
-  //     $SubEntityList = Group::find($EntityShow['id'])->ReportChildren->toArray();
-  //   }
-  //
-  //   $result = array();
-  //   foreach ($SubEntityList as $key => $value) {
-  //     $result[$value['name']]['url'] = Report::ShowActions($routeParameters)['sub_report_edit'].'/'.$value['name'];
-  //   }
-  //
-  //   return $result;
-  // }
-
-
   public static function StoreMultiForEdit($ShowChangesForEdit)
   {
     $EntityType = 'Report';
     Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
   }
-
 
   public static function Store($routeParameters, $request)
   {
@@ -176,10 +153,4 @@ class Report extends Model
     }
   }
 
-
-
-  // public static function Add($routeParameters, $request)
-  // {
-  //
-  // }
 }
