@@ -147,7 +147,7 @@ class Entity extends Model
                   ]);
                 }
 
-                $Action = null;
+                $Action = $InheritedAction;
                 break;
                 case 'create_file':
 
@@ -159,7 +159,7 @@ class Entity extends Model
                 'content' => 'null',
                 ]);
 
-                // $Action = null;
+                $Action = $InheritedAction;
                 break;
 
                 default:
