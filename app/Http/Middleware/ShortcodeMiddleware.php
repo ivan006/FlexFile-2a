@@ -128,7 +128,13 @@ class ShortcodeMiddleware
           // dd('foreach is getting there');
           foreach ($matches as $key => $value) {
             // dd($value);
-            $result = $value[1];
+            $result = Data::ShowMulti($routeParameters);
+            // $result = $key;
+            $result = $result[0]['content'][1]['content'][0]['content'][0]['content'];
+            // $result = $result[0]['content'][0]['content'][$value[1]];
+            dd($result);
+            $result = $result[$value[1]]['content'];
+
             $responceContent = str_replace($value[0], $result, $responceContent);
           }
         }

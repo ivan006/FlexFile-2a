@@ -116,6 +116,28 @@ class Data extends Model
   public static function ShowMultiForEdit($routeParameters)
   {
 
+    $result = Data::ShowMulti($routeParameters);
+
+    return $result;
+  }
+
+  public static function ShowMultiStyledForEdit($routeParameters)
+  {
+
+    $EntityType = 'Data';
+    $result = Entity::ShowMultiStyledForEdit($EntityType,$routeParameters);
+    return $result;
+  }
+
+  public static function StoreMultiForEdit($ShowChangesForEdit)
+  {
+    $EntityType = 'Data';
+    Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
+  }
+
+  public static function ShowMulti($routeParameters)
+  {
+
     $GroupShowID = Group::ShowID($routeParameters);
     $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
@@ -142,18 +164,5 @@ class Data extends Model
     return $result;
   }
 
-  public static function ShowMultiStyledForEdit($routeParameters)
-  {
-
-    $EntityType = 'Data';
-    $result = Entity::ShowMultiStyledForEdit($EntityType,$routeParameters);
-    return $result;
-  }
-
-  public static function StoreMultiForEdit($ShowChangesForEdit)
-  {
-    $EntityType = 'Data';
-    Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
-  }
 
 }
