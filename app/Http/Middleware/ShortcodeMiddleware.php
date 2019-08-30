@@ -121,19 +121,28 @@ class ShortcodeMiddleware
       {
 
         // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`1`\]/";
-        $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]/";
+        $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]/";
 
         preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
         if (!empty($matches)) {
           // dd('foreach is getting there');
           foreach ($matches as $key => $value) {
             // dd($value);
-            $result = Data::ShowMulti($routeParameters);
-            // $result = $key;
-            $result = $result[0]['content'][1]['content'][0]['content'][0]['content'];
-            // $result = $result[0]['content'][0]['content'][$value[1]];
-            dd($result);
-            $result = $result[$value[1]]['content'];
+            // $result = Data::ShowMulti($routeParameters);
+            // // $result = $key;
+            // $result = $result[0]['content'][1]['content'][0]['content'][0]['content'];
+            // // $result = $result[0]['content'][0]['content'][$value[1]];
+            // dd($result);
+            // $result = $result[$value[1]]['content'];
+
+            $DataShowRelSig = "Book/Chapter 1/Dialogue set 1";
+            // $DataShowRelSig = $DataShowRelSig."/".$value[1];
+            // dd($DataShowRelSig);
+            $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
+            // dd($DataShowID);
+            $DataValues = Data::Show($DataShowID);
+            dd($DataValues);
+
 
             $responceContent = str_replace($value[0], $result, $responceContent);
           }
