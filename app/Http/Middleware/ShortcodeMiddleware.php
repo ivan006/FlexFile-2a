@@ -123,13 +123,13 @@ class ShortcodeMiddleware
         // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`1`\]/";
         $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]/";
 
-        preg_match_all($preg_match_all, $responceContent, $matches);
-        if (!empty($matches[0])) {
+        preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
+        if (!empty($matches)) {
           // dd('foreach is getting there');
-          foreach ($matches[0] as $key => $value) {
-            // dd($matches);
-            $result = $matches[1][0];
-            $responceContent = str_replace($value, $result, $responceContent);
+          foreach ($matches as $key => $value) {
+            // dd($value);
+            $result = $value[1];
+            $responceContent = str_replace($value[0], $result, $responceContent);
           }
         }
 
