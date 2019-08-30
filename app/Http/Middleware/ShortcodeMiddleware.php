@@ -120,14 +120,16 @@ class ShortcodeMiddleware
       function structure_foreach($responceContent, $routeParameters)
       {
 
-        $preg_match_all = "/\[s type=`foreach` var=`value` level=`2`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`2`\]/";
-        // $preg_match_all = "/\[s type=`foreach` var=`value` level=`2`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`2`\]/";
+        // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`1`\]/";
+        $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]/";
 
         preg_match_all($preg_match_all, $responceContent, $matches);
         if (!empty($matches[0])) {
-          dd('foreach is getting there');
+          // dd('foreach is getting there');
           foreach ($matches[0] as $key => $value) {
-
+            // dd($matches);
+            $result = $matches[1][0];
+            $responceContent = str_replace($value, $result, $responceContent);
           }
         }
 
