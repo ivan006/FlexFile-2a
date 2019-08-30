@@ -91,13 +91,13 @@ class ShortcodeMiddleware
 
       function reference($responceContent, $routeParameters)
       {
-        preg_match_all('/\[r\](.*)\[\/r\]/', $responceContent, $matches2);
+        preg_match_all('/\[g\](.*)\[\/g\]/', $responceContent, $matches2);
 
         if (!empty($matches2[0]) and !empty($routeParameters)) {
           foreach ($matches2[0] as $key => $value) {
             $shortcode = $value;
-            $parameter = str_replace('[r]', '', $shortcode);
-            $parameter = str_replace('[/r]', '', $parameter);
+            $parameter = str_replace('[g]', '', $shortcode);
+            $parameter = str_replace('[/g]', '', $parameter);
 
             $Attr = Entity::ShowAttributeTypes();
 
@@ -116,10 +116,30 @@ class ShortcodeMiddleware
         return $responceContent;
       }
 
+
+      function structure_foreach($responceContent, $routeParameters)
+      {
+
+        $preg_match_all = "/\[s type=`foreach` var=`value` level=`2`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`2`\]/";
+        // $preg_match_all = "/\[s type=`foreach` var=`value` level=`2`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`2`\]/";
+
+        preg_match_all($preg_match_all, $responceContent, $matches);
+        if (!empty($matches[0])) {
+          dd('foreach is getting there');
+          foreach ($matches[0] as $key => $value) {
+
+          }
+        }
+
+
+        return $responceContent;
+      }
+
+
       $responceContent = menu($responce, $routeParameters);
 
       $responceContent = reference($responceContent, $routeParameters);
-      $responceContent = reference($responceContent, $routeParameters);
+      $responceContent = structure_foreach($responceContent, $routeParameters);
 
       $responce->setContent($responceContent);
 
