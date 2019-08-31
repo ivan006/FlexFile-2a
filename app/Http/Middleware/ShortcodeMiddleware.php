@@ -67,7 +67,12 @@ class ShortcodeMiddleware
                 $arguments2[0] = $routeParameters[0];
 
                 $Slug = null;
-                $VPgsLocs = Report::ShowMulti($routeParameters,$Slug);
+
+                $BaseEntityType = 'Group';
+                $BaseEntityID = Group::ShowID($routeParameters);
+                $EntityType ='Report';
+
+                $VPgsLocs = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
 
                 ob_start();
 

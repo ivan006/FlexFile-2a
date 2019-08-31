@@ -113,13 +113,7 @@ class Data extends Model
     return $result;
   }
 
-  public static function ShowMultiForEdit($routeParameters)
-  {
 
-    $result = Data::ShowMulti($routeParameters);
-
-    return $result;
-  }
 
   public static function ShowMultiStyledForEdit($routeParameters)
   {
@@ -135,34 +129,7 @@ class Data extends Model
     Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
   }
 
-  public static function ShowMulti($routeParameters)
-  {
 
-    $GroupShowID = Group::ShowID($routeParameters);
-    $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
-
-    $Identifier = null;
-    if (!empty($ReportShowID)) {
-
-      $BaseEntityType = 'Report';
-      $BaseEntityID = $ReportShowID;
-    } elseif (!empty($GroupShowID)) {
-      $BaseEntityType = 'Group';
-      $BaseEntityID = $GroupShowID;
-    }
-
-    $BaseEntityTypeClass = "App\\".$BaseEntityType;
-
-    $DataList = $BaseEntityTypeClass::find($BaseEntityID)->DataChildren->first()->toArray();
-
-    $BaseEntityID = $DataList['id'];
-    $BaseEntityType = 'Data';
-    $EntityType = 'Data';
-    $Slug = null;
-    $result = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
-
-    return $result;
-  }
 
 
 }

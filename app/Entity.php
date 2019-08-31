@@ -362,7 +362,44 @@ class Entity extends Model
     $Identifier = $EntityType;
     $Attr = Entity::ShowAttributeTypes();
     $EntityTypeClass = "App\\".$EntityType;
-    $EntityShowMultiForEdit[$Attr[2]] = $EntityTypeClass::ShowMultiForEdit($routeParameters);
+
+    if ($EntityType=='Data') {
+
+
+      $GroupShowID = Group::ShowID($routeParameters);
+      $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
+
+      $Identifier = null;
+      if (!empty($ReportShowID)) {
+
+        $BaseEntityType = 'Report';
+        $BaseEntityID = $ReportShowID;
+      } elseif (!empty($GroupShowID)) {
+        $BaseEntityType = 'Group';
+        $BaseEntityID = $GroupShowID;
+      }
+
+      $BaseEntityTypeClass = "App\\".$BaseEntityType;
+
+      $DataList = $BaseEntityTypeClass::find($BaseEntityID)->DataChildren->first()->toArray();
+
+      $BaseEntityID = $DataList['id'];
+      $BaseEntityType = 'Data';
+      $EntityType = 'Data';
+
+      $Slug = null;
+
+    } else {
+      $Slug = route('NetworkC.show');
+
+      $BaseEntityType = 'Group';
+      $BaseEntityID = Group::ShowID($routeParameters);
+      $EntityType ='Report';
+
+
+    }
+
+    $EntityShowMultiForEdit[$Attr[2]] = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
 
     $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
     return $result;

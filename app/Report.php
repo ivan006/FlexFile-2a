@@ -98,24 +98,7 @@ class Report extends Model
   //   return $arguments;
   // }
 
-  public static function ShowMultiForEdit($routeParameters)
-  {
-    $Slug = route('NetworkC.show');
-    $result = Report::ShowMulti($routeParameters,$Slug);
 
-    return $result;
-  }
-
-  public static function ShowMulti($routeParameters,$Slug)
-  {
-
-    $BaseEntityType = 'Group';
-    $BaseEntityID = Group::ShowID($routeParameters);
-    $EntityType ='Report';
-    $result = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
-
-    return $result;
-  }
 
   public static function ShowMultiStyledForEdit($routeParameters)
   {
