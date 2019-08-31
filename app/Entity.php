@@ -381,5 +381,4 @@ class Entity extends Model
   }
 
 
-
 }

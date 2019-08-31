@@ -141,7 +141,8 @@ class ShortcodeMiddleware
             $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
             // dd($DataShowID);
             $DataValues = Data::Show($DataShowID);
-            dd($DataValues);
+            // dd($DataValues);
+            $result =1;
 
 
             $responceContent = str_replace($value[0], $result, $responceContent);
