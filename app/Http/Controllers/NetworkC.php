@@ -128,7 +128,7 @@ class NetworkC extends Controller
 
       return view('group-edit', compact('allURLs', 'RichDataShow', 'Attr', 'ReportShowMultiStyledForEdit', 'DataShowMultiStyledForEdit'));
     } else {
-      $allURLs = Report::ShowActions(func_get_args());
+      $allURLs = Report::ShowActions($routeParameters);
       $ReportList = Group::ShowAll();
 
       return view('network-edit', compact('ReportList', 'allURLs'));
@@ -147,10 +147,12 @@ class NetworkC extends Controller
   {
   }
 
-  /*
-  * Remove the specified resource from storage.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
+  public function help()
+  {
+    $routeParameters = func_get_args();
+
+    $allURLs = Report::ShowActions($routeParameters);
+    return view('network-help', compact('allURLs'));
+  }
+
 }

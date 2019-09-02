@@ -12,24 +12,22 @@
           Tools
         </a>
         <ul>
-          <!-- <li>
-          <a  href=""><del>Create</del>
-        </a>
-      </li> -->
-      <li>
-        <a  href=" {{ $allURLs['sub_report_read'] }}">Viewer
-        </a>
-      </li>
-      <!-- <li>
-      <a  href=""><del>Destroy</del>
-    </a>
-  </li> -->
-  <li>
-    <a  href="{{ $allURLs['sub_report_edit'] }}">Editor
-    </a>
-  </li>
-</ul>
-</div>
-</li>
-</ul>
+          <li>
+            <a  href=" {{ $allURLs['sub_report_read'] }}">Viewer
+            </a>
+          </li>
+          <li>
+            <a  href="{{ $allURLs['sub_report_edit'] }}">Editor
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </li>
+
+    <li>
+      <a  href="{{ route('NetworkC.help') }}">Help
+      </a>
+    </li>
+  </ul>
 </div>

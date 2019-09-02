@@ -25,3 +25,5 @@ Route::group(['middleware' => 'ShortcodeMiddleware'], function () {
 });
 Route::get('/edit/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}', 'NetworkC@edit')->name('NetworkC.edit');
 Route::post('/store/{a?}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}', 'NetworkC@store')->name('NetworkC.store');
+
+Route::get('/help', 'NetworkC@help')->name('NetworkC.help');
