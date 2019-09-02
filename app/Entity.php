@@ -369,7 +369,7 @@ class Entity extends Model
       $GroupShowID = Group::ShowID($routeParameters);
       $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
-      $Identifier = null;
+      // $Identifier = null;
       if (!empty($ReportShowID)) {
 
         $BaseEntityType = 'Report';

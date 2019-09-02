@@ -60,35 +60,35 @@ class ShortcodeMiddleware
               }
             }
           }
-            // dd($matches[0]);
-            foreach ($matches[0] as $key => $value) {
-              if (!empty($routeParameters)) {
-                $routeParameters = array_values($routeParameters);
-                $arguments2[0] = $routeParameters[0];
+          // dd($matches[0]);
+          foreach ($matches[0] as $key => $value) {
+            if (!empty($routeParameters)) {
+              $routeParameters = array_values($routeParameters);
+              $arguments2[0] = $routeParameters[0];
 
-                $Slug = null;
+              $Slug = null;
 
-                $BaseEntityType = 'Group';
-                $BaseEntityID = Group::ShowID($routeParameters);
-                $EntityType ='Report';
+              $BaseEntityType = 'Group';
+              $BaseEntityID = Group::ShowID($routeParameters);
+              $EntityType ='Report';
 
-                $VPgsLocs = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
+              $VPgsLocs = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
 
-                ob_start();
+              ob_start();
 
-                if (is_array($VPgsLocs)) {
-                  page_list($VPgsLocs, $value, $preg_match_all);
-                }
-
-                $result = ob_get_contents();
-                ob_end_clean();
-
-                $responceContent = str_replace($value, $result, $responceContent);
-              } else {
-                $responceContent = str_replace($value, null, $responceContent);
+              if (is_array($VPgsLocs)) {
+                page_list($VPgsLocs, $value, $preg_match_all);
               }
+
+              $result = ob_get_contents();
+              ob_end_clean();
+
+              $responceContent = str_replace($value, $result, $responceContent);
+            } else {
+              $responceContent = str_replace($value, null, $responceContent);
             }
           }
+        }
 
 
         return $responceContent;
@@ -130,24 +130,32 @@ class ShortcodeMiddleware
 
         preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
         if (!empty($matches)) {
-          // dd('foreach is getting there');
           foreach ($matches as $key => $value) {
-            // dd($value);
-            // $result = Data::ShowMulti($routeParameters);
-            // // $result = $key;
-            // $result = $result[0]['content'][1]['content'][0]['content'][0]['content'];
-            // // $result = $result[0]['content'][0]['content'][$value[1]];
-            // dd($result);
-            // $result = $result[$value[1]]['content'];
 
             $DataShowRelSig = "Book/Chapter 1/Dialogue set 1";
-            // $DataShowRelSig = $DataShowRelSig."/".$value[1];
-            // dd($DataShowRelSig);
             $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
-            // dd($DataShowID);
-            $DataValues = Data::Show($DataShowID);
-            // dd($DataValues);
-            $result =1;
+
+
+            $BaseEntityID = $DataShowID;
+            $BaseEntityType = 'Data';
+            $EntityType = 'Data';
+            $Slug = null;
+
+            $EntityShowMulti = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
+            // dd($EntityShowMulti[0]['content']);
+            $result = null;
+            foreach ($EntityShowMulti[0]['content'] as $key => $value2) {
+              ob_start();
+              ?>
+
+              <li>
+                <?php echo $value2['content']; ?>
+              </li>
+              <?php
+              $result = $result.ob_get_contents();
+              ob_end_clean();
+              // echo $value2['content'].'<br>';
+            }
 
 
             $responceContent = str_replace($value[0], $result, $responceContent);
