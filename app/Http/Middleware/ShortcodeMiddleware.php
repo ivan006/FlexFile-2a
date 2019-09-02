@@ -132,7 +132,8 @@ class ShortcodeMiddleware
         if (!empty($matches)) {
           foreach ($matches as $key => $value) {
 
-            $DataShowRelSig = "Book/Chapter 1/Dialogue set 1";
+            // $DataShowRelSig = "Book/Chapter 1/Dialogue set 1";
+            $DataShowRelSig = "Book/Chapter 1";
             $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
 
 
@@ -142,14 +143,40 @@ class ShortcodeMiddleware
             $Slug = null;
 
             $EntityShowMulti = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
-            // dd($EntityShowMulti[0]['content']);
             $result = null;
             foreach ($EntityShowMulti[0]['content'] as $key => $value2) {
               ob_start();
               ?>
 
               <li>
-                <?php echo $value2['content']; ?>
+                <?php
+                // dd($EntityShowMulti);
+                echo $value2['name'];
+
+                // echo $value2['content'];
+
+                $pattern = '/\[g type=`foreach`\](.*?)\[\/g\]/';
+                preg_match_all($pattern, $value[1], $matches2, PREG_SET_ORDER);
+
+                // dd($matches2);
+
+
+
+                ?>
+                <ul>
+                  <?php
+                  foreach ($matches2 as $key => $value3) {
+                    ?>
+                    <li>
+                    <?php
+                    echo $value2['content'][$value3[1]]['content'];
+                    ?>
+                  </li>
+                    <?php
+                  }
+                  ?>
+
+                </ul>
               </li>
               <?php
               $result = $result.ob_get_contents();
