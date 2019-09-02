@@ -133,13 +133,8 @@ class ShortcodeMiddleware
         // dd($matches);
         if (!empty($matches)) {
           foreach ($matches as $key => $value) {
-
-            // $DataShowRelSig = "Book/Chapter 1/Dialogue set 1";
-            // $DataShowRelSig = "Book/Chapter 1";
             $DataShowRelSig = $value[1];
-            // dd($DataShowRelSig);
             $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
-
 
             $BaseEntityID = $DataShowID;
             $BaseEntityType = 'Data';
@@ -153,11 +148,9 @@ class ShortcodeMiddleware
             $DataShowName = base64_encode($DataShowName);
 
             $result = null;
-            $result2 = null;
 
             foreach ($EntityShowMulti[$DataShowName]['content'] as $key => $value2) {
-              $result5 = $value[2];
-              // echo 1;
+              $result2 = $value[2];
 
               $pattern = '/\[g type=`foreach`\](.*?)\[\/g\]/';
               preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
@@ -166,16 +159,12 @@ class ShortcodeMiddleware
 
                 $DataShowName2 = base64_encode($value3[1]);
 
-                // $result4 =  $value2['name'];
                 $result4 =  $value2['content'][$DataShowName2]['content'].'<br>';
-                $result2 = str_replace($value3[0], $result4, $result5);
-                $result5 = $result2;
-              }
-              // dd($result5);
 
-              $result = $result.$result5;
+                $result2 = str_replace($value3[0], $result4, $result2);
+              }
+              $result = $result.$result2;
             }
-            // dd($result);
             $responceContent = str_replace($value[0], $result, $responceContent);
           }
         }
