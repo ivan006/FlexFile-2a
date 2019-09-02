@@ -13,7 +13,6 @@ class Entity extends Model
     if (!function_exists('App\ShowMultiHelper')) {
       function ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug)
       {
-        $result = array();
         $Attr = Entity::ShowAttributeTypes();
 
         $BaseEntityTypeClass = "App\\".$BaseEntityType;
@@ -22,30 +21,44 @@ class Entity extends Model
 
         $Slug = $Slug."/".$Entity['name'];
 
-        $result[$Attr[0]] = $Entity['name'];
-        $result[$Attr[1]] = $Entity['type'];
-        $result[$Attr[2]] = null;
-        $result[$Attr[4]] = $Entity['id'];
-        $result[$Attr[7]] = $Slug;
-        $result[$Attr[8]] = $BaseEntityTypeClass;
+        $identityer = base64_encode($Entity['name']);
 
-        $EntityChildrenType = $EntityType."Children";
-
-        $SubEntityList = $BaseEntityTypeClass::find($BaseEntityID)->$EntityChildrenType->toArray();
-
-        $SubIdentifier = 0;
-        foreach ($SubEntityList as $key => $value) {
-
-          $BaseEntityID = $value[$Attr[4]];
-
-          if ('folder' == $value['type']) {
-            $BaseEntityType = $EntityType;
-            $result[$Attr[2]][$SubIdentifier] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
-          } else {
-            $result[$Attr[2]][$SubIdentifier] = $BaseEntityTypeClass::Show($value['id']);
-          }
-          $SubIdentifier = $SubIdentifier + 1;
+        $result[$identityer][$Attr[0]] = $Entity['name'];
+        $result[$identityer][$Attr[1]] = $Entity['type'];
+        if (isset($Entity['content'])) {
+          // code...
+          $result[$identityer][$Attr[2]] = $Entity['content'];
         }
+        $result[$identityer][$Attr[4]] = $Entity['id'];
+
+
+        if ('folder' == $Entity['type']) {
+          $result[$identityer][$Attr[7]] = $Slug;
+          $result[$identityer][$Attr[8]] = $BaseEntityTypeClass;
+
+          $EntityChildrenType = $EntityType."Children";
+
+          $SubEntityList = $BaseEntityTypeClass::find($BaseEntityID)->$EntityChildrenType->toArray();
+
+
+          $result[$identityer][$Attr[2]] = array();
+
+          foreach ($SubEntityList as $key => $value) {
+
+
+            $BaseEntityID = $value[$Attr[4]];
+
+            $BaseEntityType = $EntityType;
+            $ShowMultiHelper = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+
+            $result[$identityer][$Attr[2]] = array_merge($result[$identityer][$Attr[2]],$ShowMultiHelper);
+
+
+
+
+          }
+        }
+
 
         return $result;
       }
@@ -53,7 +66,8 @@ class Entity extends Model
 
     $SubIdentifier = 0;
 
-    $result[0] = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+    $result = ShowMultiHelper($BaseEntityType, $BaseEntityID, $EntityType, $SubIdentifier,$Slug);
+    // dd($result);
     return $result;
   }
 

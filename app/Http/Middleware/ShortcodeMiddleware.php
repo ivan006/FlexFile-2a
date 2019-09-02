@@ -144,7 +144,11 @@ class ShortcodeMiddleware
 
             $EntityShowMulti = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
             $result = null;
-            foreach ($EntityShowMulti[0]['content'] as $key => $value2) {
+
+            $DataShowName = base64_encode('Chapter 1');
+
+            // dd($EntityShowMulti);
+            foreach ($EntityShowMulti[$DataShowName]['content'] as $key => $value2) {
               ob_start();
               ?>
 
@@ -169,7 +173,8 @@ class ShortcodeMiddleware
                     ?>
                     <li>
                     <?php
-                    echo $value2['content'][$value3[1]]['content'];
+                    $DataShowName2 = base64_encode($value3[1]);
+                    echo $value2['content'][$DataShowName2]['content'];
                     ?>
                   </li>
                     <?php
