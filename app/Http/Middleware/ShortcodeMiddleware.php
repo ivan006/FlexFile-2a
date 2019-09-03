@@ -188,16 +188,22 @@ class ShortcodeMiddleware
 
           $pattern = "/\[sc(.*?)\-/";
           preg_match_all($pattern, $responceContentNew, $matches, PREG_SET_ORDER);
-          if (!empty($matches)) {
-            foreach ($matches as $key => $value) {
+          $unique_matches = array_unique($matches, SORT_REGULAR);
+
+          if (!empty($unique_matches)) {
+            foreach ($unique_matches as $key => $value) {
+              // echo $value[1];
               $replace = $value[1] -1;
               $responceContentNew = str_replace($value[0], '[sc'.$replace.'-', $responceContentNew);
             }
           }
           $pattern = "/\[\/sc(.*?)\-/";
           preg_match_all($pattern, $responceContentNew, $matches, PREG_SET_ORDER);
-          if (!empty($matches)) {
-            foreach ($matches as $key => $value) {
+          $unique_matches = array_unique($matches, SORT_REGULAR);
+
+          if (!empty($unique_matches)) {
+            foreach ($unique_matches as $key => $value) {
+              // echo $value[1];
               $replace = $value[1] -1;
               $responceContentNew = str_replace($value[0], '[/sc'.$replace.'-', $responceContentNew);
             }
