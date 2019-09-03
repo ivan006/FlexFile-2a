@@ -186,18 +186,14 @@ class ShortcodeMiddleware
           $responceContentNew = str_replace($matches[0][0], '', $responceContentNew);
 
 
-          $pattern = "/\[sc(.*?)\-/";
-
-          preg_match_all($pattern, $responceContent, $matches, PREG_SET_ORDER);
-
-          if (!empty($matches)) {
-            foreach ($matches as $key => $value) {
-              $replace = 1;
-              $responceContentNew = str_replace($value[0], '[sc'.$replace.'-', $responceContentNew);
-            }
-          }
-
-          // dd($matches);
+          // $pattern = "/\[sc(.*?)\-/";
+          // preg_match_all($pattern, $responceContent, $matches, PREG_SET_ORDER);
+          // if (!empty($matches)) {
+          //   foreach ($matches as $key => $value) {
+          //     $replace = 1;
+          //     $responceContentNew = str_replace($value[0], '[sc'.$replace.'-', $responceContentNew);
+          //   }
+          // }
 
           $responceContentNew = shortcode($responceContentNew, $routeParameters);
 
