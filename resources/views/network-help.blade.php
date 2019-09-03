@@ -22,22 +22,34 @@
     <ul>
       <li>Shortcodes
         <ul>
-          <li>Group Menu</li>
-          <li>Getter</li>
-          <li>Foreach</li>
+          <li>
+            Getters
+            <ul>
+              <li>Menu getter</li>
+              <li>Data getter</li>
+            </ul>
+          </li>
+          <li>
+            Structurers
+            <ul>
+              <li>Foreach structurer</li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
     <h3>Shortcodes</h3>
-    <h4>Group Menu</h4>
+
+    <h4>Getters</h4>
+    <h5>Menu getter</h5>
     <p>
-      Group Menu shortcode is shown below.
+      Menu getter Menu shortcode is shown below.
     </p>
     <xmp>
 
       <div class="f-multi-level-dropdown">
         <ul>
-          [page_list]
+          [sc1-g-menu]
           [twig]
           <li>
             <a href="[link]">
@@ -58,25 +70,25 @@
             </a>
           </li>
           [/leaf]
-          [/page_list]
+          [/sc1-g-menu]
         </ul>
       </div>
     </xmp>
-
-    <h4>Getter</h4>
+    <h5>Data getter</h5>
     <p>
-      Getter shortcode is shown below.
+      Data getter shortcode is shown below.
     </p>
     <xmp>
-      [g]code/w3.css[/g]
+      [sc1-g-data]code/w3.css[/sc1-g-data]
     </xmp>
-    <h4>Foreach</h4>
+    <h4>Structurers</h4>
+    <h5>Foreach structurer</h5>
     <p>
-      Foreach shortcode is shown below.
+      Foreach structurer shortcode is shown below.
     </p>
     <xmp>
       <ul>
-        [s type=`foreach` var=`[g type=`foreach`]Book/Chapter 1[/g]` level=`1`]
+        [sc1-s-foreach type=`foreach` var=`[g type=`foreach`]Book/Chapter 1[/g]` level=`1`]
         <li><b>Dialogue set</b>
           <ul>
             <li>
@@ -87,7 +99,7 @@
             </li>
           </ul>
         </li>
-        [/s type=`foreach` var=`[g type=`foreach`]Book/Chapter 1[/g]` level=`1`]
+        [/sc1-s-foreach type=`foreach` var=`` level=`1`]
       </ul>
     </xmp>
 
