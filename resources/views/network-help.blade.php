@@ -1,8 +1,8 @@
-@include('includes.base-dom/general-include-one-of-four')
+@include('includes.base-dom/1-title-links')
 <link href="{{ asset('css/key-value-list.css') }}" rel="stylesheet">
-@include('includes.base-dom/general-include-two-of-four')
+
 @include('includes.menu_report')
-@include('includes.base-dom/general-include-three-of-four')
+@include('includes.base-dom/2-wrap-div')
 
 <!-- Left Column -->
 <div class="w3-col m2">
@@ -105,4 +105,4 @@
 </div>
 
 
-@include('includes.base-dom/general-include-four-of-four')
+@include('includes.base-dom/3-wrap-div-script')
