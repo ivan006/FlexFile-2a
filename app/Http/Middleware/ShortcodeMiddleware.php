@@ -170,12 +170,12 @@ class ShortcodeMiddleware
       }
 
       function shortcode($responceContent,$routeParameters){
-        $preg_match_all = "/\[sc1\-/";
+
+        $preg_match_all = '/\[sc(.*?)-((.|\n)*?)\[\/sc\1-/';
 
         preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
-
+        // dd($matches);
         if (!empty($matches)) {
-
           $responceContentNew = $responceContent;
 
           $responceContentNew = menu_getter($responceContentNew, $routeParameters);
@@ -185,29 +185,14 @@ class ShortcodeMiddleware
 
           // $responceContentNew = str_replace($matches[0][0], '', $responceContentNew);
 
-
-          $pattern = "/\[sc(.*?)\-/";
-          preg_match_all($pattern, $responceContentNew, $matches, PREG_SET_ORDER);
-          $unique_matches = array_unique($matches, SORT_REGULAR);
-
-          if (!empty($unique_matches)) {
-            foreach ($unique_matches as $key => $value) {
-              // echo $value[1];
-              $replace = $value[1] -1;
-              $responceContentNew = str_replace($value[0], '[sc'.$replace.'-', $responceContentNew);
-            }
+          // $matches = array_unique($matches, SORT_REGULAR);
+          foreach ($matches as $key => $value) {
+            // dd($value);
+            // echo $value[1];
+            $replace = $value[1] -1;
+            $responceContentNew = str_replace($value[0], '[sc'.$replace.'-', $responceContentNew);
           }
-          $pattern = "/\[\/sc(.*?)\-/";
-          preg_match_all($pattern, $responceContentNew, $matches, PREG_SET_ORDER);
-          $unique_matches = array_unique($matches, SORT_REGULAR);
 
-          if (!empty($unique_matches)) {
-            foreach ($unique_matches as $key => $value) {
-              // echo $value[1];
-              $replace = $value[1] -1;
-              $responceContentNew = str_replace($value[0], '[/sc'.$replace.'-', $responceContentNew);
-            }
-          }
 
           $responceContentNew = shortcode($responceContentNew, $routeParameters);
 
