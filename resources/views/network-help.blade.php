@@ -45,11 +45,14 @@
     <p>
       Menu getter Menu shortcode is shown below.
     </p>
-    <xmp>
 
+
+
+
+    <xmp>
       <div class="f-multi-level-dropdown">
         <ul>
-          [sc1-g-menu]
+          [sc1-g-menu var=``]
           [twig]
           <li>
             <a href="[link]">
@@ -74,21 +77,35 @@
         </ul>
       </div>
     </xmp>
+
+
+
+
     <h5>Data getter</h5>
     <p>
       Data getter shortcode is shown below.
     </p>
+
+
+
     <xmp>
-      [sc1-g-data]code/w3.css[/sc1-g-data]
+      [sc1-g-data var=`code/w3.css`][/sc1-g-data]
     </xmp>
+
+
+
     <h4>Structurers</h4>
     <h5>Foreach structurer</h5>
     <p>
       Foreach structurer shortcode is shown below.
     </p>
+
+
+
+
     <xmp>
       <ul>
-        [sc1-s-foreach type=`foreach` var=`[g type=`foreach`]Book/Chapter 1[/g]` level=`1`]
+        [sc1-s-foreach var=`Book/Chapter 1`]
         <li><b>Dialogue set</b>
           <ul>
             <li>
@@ -99,9 +116,12 @@
             </li>
           </ul>
         </li>
-        [/sc1-s-foreach type=`foreach` var=`` level=`1`]
+        [/sc1-s-foreach]
       </ul>
     </xmp>
+
+
+
 
 
     <br>

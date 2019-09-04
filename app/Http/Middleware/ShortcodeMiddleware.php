@@ -30,7 +30,7 @@ class ShortcodeMiddleware
       function menu_getter($responceContent, $routeParameters)
       {
 
-        $preg_match_all = "/\[sc0\-g\-menu\]((.|\n)*?)\[twig\]((.|\n)*?)\[inner_twig\]((.|\n)*?)\[\/twig\]((.|\n)*?)\[leaf\]((.|\n)*?)\[\/leaf\]((.|\n)*?)\[\/sc0\-g\-menu\]/";
+        $preg_match_all = "/\[sc0\-g\-menu var=``\]((.|\n)*?)\[twig\]((.|\n)*?)\[inner_twig\]((.|\n)*?)\[\/twig\]((.|\n)*?)\[leaf\]((.|\n)*?)\[\/leaf\]((.|\n)*?)\[\/sc0\-g\-menu\]/";
 
         preg_match_all($preg_match_all, $responceContent, $matches);
         if (!empty($matches[0])) {
@@ -95,7 +95,7 @@ class ShortcodeMiddleware
 
       function data_getter($responceContent, $routeParameters)
       {
-        preg_match_all('/\[sc0\-g\-data\](.*)\[\/sc0\-g\-data\]/', $responceContent, $matches2, PREG_SET_ORDER);
+        preg_match_all('/\[sc0\-g\-data var=`(.*?)`\](.*?)\[\/sc0\-g\-data\]/', $responceContent, $matches2, PREG_SET_ORDER);
         if (!empty($matches2) and !empty($routeParameters)) {
           foreach ($matches2 as $key => $value) {
 
@@ -121,9 +121,11 @@ class ShortcodeMiddleware
       function foreach_structurer($responceContent, $routeParameters)
       {
 
+
         // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`1`\]/";
         // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]/";
-        $preg_match_all = "/\[sc0\-s\-foreach type=`foreach` var=`\[g type=`foreach`\](.*?)\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/sc0\-s\-foreach type=`foreach` var=`(.*?)` level=`1`\]/";
+        // $preg_match_all = "/\[sc0\-s\-foreach type=`foreach` var=`\[g type=`foreach`\](.*?)\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/sc0\-s\-foreach type=`foreach` var=`(.*?)` level=`1`\]/";
+        $preg_match_all = "/\[sc0\-s\-foreach var=`(.*?)`\]((.|\r\n)*?)\[\/sc0\-s\-foreach\]/";
 
         preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
         // dd($matches);
@@ -171,7 +173,7 @@ class ShortcodeMiddleware
 
       function shortcode($responceContent,$routeParameters){
 
-        $preg_match_all = '/\[sc(.*?)-(.*?)\]((.|\n)*?)\[\/sc\1-\2\]/';
+        $preg_match_all = '/\[sc(.*?)-(.*?) var=`(.*?)`\]((.|\n)*?)\[\/sc\1-\2\]/';
 
         preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
         // dd($matches);
@@ -188,7 +190,7 @@ class ShortcodeMiddleware
 
             if ($value[1] > 0) {
               $replace = $value[1] -1;
-              $responceContentNew = str_replace($value[0], '[sc'.$replace.'-'.$value[2].']'.$value[3].'[/sc'.$replace.'-'.$value[2].']', $responceContentNew);
+              $responceContentNew = str_replace($value[0], '[sc'.$replace.'-'.$value[2].' var=`'.$value[3].'`]'.$value[4].'[/sc'.$replace.'-'.$value[2].']', $responceContentNew);
             } else {
               $responceContentNew = str_replace($value[0], 'error - unknown shortcode', $responceContentNew);
 
