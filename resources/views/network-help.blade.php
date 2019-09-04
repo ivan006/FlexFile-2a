@@ -94,10 +94,24 @@
 
 
 
-    <h4>Structurers</h4>
-    <h5>Foreach structurer</h5>
+
+    <h4>Setters</h4>
+    <h5>Coming soon</h5>
     <p>
-      Foreach structurer shortcode is shown below.
+      Coming soon shortcode is shown below.
+    </p>
+
+
+
+    <xmp>
+      Coming soon
+    </xmp>
+
+
+    <h4>Structurered getters/setters</h4>
+    <h5>Foreach structurered getter/setter</h5>
+    <p>
+      Foreach structurered getter/setter shortcode is shown below.
     </p>
 
 
@@ -109,10 +123,28 @@
         <li><b>Dialogue set</b>
           <ul>
             <li>
-              <b>Neale:</b> [g type=`foreach`]Neale[/g]
+              <b>Neale:</b> [sc1-s-foreach-g var=`Neale`][/sc1-s-foreach-g]
             </li>
             <li>
-              <b>God:</b> [g type=`foreach`]God[/g]
+              <b>God:</b> [sc1-s-foreach-g var=`God`][/sc1-s-foreach-g]
+            </li>
+          </ul>
+        </li>
+        [/sc1-s-foreach]
+      </ul>
+    </xmp>
+
+
+    <xmp>
+      <ul>
+        [sc1-s-foreach var=`Book/Chapter 1`]
+        <li><b>Dialogue set</b>
+          <ul>
+            <li>
+              <b>Neale:</b> [sc1-s-foreach-g var=`Neale`][/sc1-s-foreach-g]
+            </li>
+            <li>
+              <b>God:</b> [sc1-s-foreach-g var=`God`][/sc1-s-foreach-g]
             </li>
           </ul>
         </li>

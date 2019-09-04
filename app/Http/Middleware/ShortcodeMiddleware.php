@@ -150,7 +150,7 @@ class ShortcodeMiddleware
             foreach ($EntityShowMulti[$DataShowName]['content'] as $key => $value2) {
               $result2 = $value[2];
 
-              $pattern = '/\[g type=`foreach`\](.*?)\[\/g\]/';
+              $pattern = '/\[sc1-s-foreach-g var=`(.*?)`\](.*?)\[\/sc1-s-foreach-g\]/';
               preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
 
               foreach ($matches2 as $key => $value3) {
