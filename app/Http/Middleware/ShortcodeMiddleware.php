@@ -148,24 +148,20 @@ class ShortcodeMiddleware
             $result = null;
 
             foreach ($EntityShowMulti[$DataShowName]['content'] as $key => $value2) {
-              if (1==1) {
-                $pattern = '/\[sc1-s-foreach-g var=`(.*?)`\](.*?)\[\/sc1-s-foreach-g\]/';
-                preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
+              $result2 = $value[2];
 
-                foreach ($matches2 as $key => $value3) {
+              $pattern = '/\[sc1-s-foreach-g var=`(.*?)`\](.*?)\[\/sc1-s-foreach-g\]/';
+              preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
 
-                  $DataShowName2 = base64_encode($value3[1]);
+              foreach ($matches2 as $key => $value3) {
 
-                  $result4 =  $value2['content'][$DataShowName2]['content'].'<br>';
+                $DataShowName2 = base64_encode($value3[1]);
 
-                  $value[2] = str_replace($value3[0], $result4, $value[2]);
-                }
-                $result = $result.$value[2];
+                $result4 =  $value2['content'][$DataShowName2]['content'].'<br>';
+
+                $result2 = str_replace($value3[0], $result4, $result2);
               }
-              if (1==1) {
-
-                $result = $result.foreach_structurer($responceContentNew, $routeParameters);
-              }
+              $result = $result.$result2;
             }
             $responceContent = str_replace($value[0], $result, $responceContent);
           }

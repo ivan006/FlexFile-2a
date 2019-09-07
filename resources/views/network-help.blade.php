@@ -137,15 +137,21 @@
 
     <xmp>
       <ul>
-        [sc1-s-foreach var=`Book/Chapter 1`]
+        [sc1-s-foreach var=`Book/Content`]
         <li><b>Dialogue set</b>
           <ul>
-            <li>
-              <b>Neale:</b> [sc1-s-foreach-g var=`Neale`][/sc1-s-foreach-g]
+            [sc1-s-foreach var=`Content`]
+            <li><b>Dialogue set</b>
+              <ul>
+                <li>
+                  <b>Neale:</b> [sc1-s-foreach-g var=`Neale`][/sc1-s-foreach-g]
+                </li>
+                <li>
+                  <b>God:</b> [sc1-s-foreach-g var=`God`][/sc1-s-foreach-g]
+                </li>
+              </ul>
             </li>
-            <li>
-              <b>God:</b> [sc1-s-foreach-g var=`God`][/sc1-s-foreach-g]
-            </li>
+            [/sc1-s-foreach]
           </ul>
         </li>
         [/sc1-s-foreach]
