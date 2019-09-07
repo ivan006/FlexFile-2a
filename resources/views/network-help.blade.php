@@ -115,18 +115,22 @@
     </p>
 
 
-
-
     <xmp>
       <ul>
-        [sc1-s-foreach var=`Book/Chapter 1`]
-        <li><b>Dialogue set</b>
+        [sc1-s-foreach var=`Trip/Day 1`]
+        <li><b>Event</b>
           <ul>
             <li>
-              <b>Neale:</b> [sc1-s-foreach-g var=`Neale`][/sc1-s-foreach-g]
+              <b>What:</b> [sc1-s-foreach-g var=`What`][/sc1-s-foreach-g]
             </li>
             <li>
-              <b>God:</b> [sc1-s-foreach-g var=`God`][/sc1-s-foreach-g]
+              <b>How:</b> [sc1-s-foreach-g var=`How`][/sc1-s-foreach-g]
+            </li>
+            <li>
+              <b>When:</b> [sc1-s-foreach-g var=`When`][/sc1-s-foreach-g]
+            </li>
+            <li>
+              <b>Where:</b> [sc1-s-foreach-g var=`Where`][/sc1-s-foreach-g]
             </li>
           </ul>
         </li>
@@ -135,19 +139,27 @@
     </xmp>
 
 
+
+
     <xmp>
       <ul>
-        [sc1-s-foreach var=`Book/Content`]
-        <li><b>Dialogue set</b>
+        [sc1-s-foreach var=`Trip/Day 1`]
+        <li><b>Event</b>
           <ul>
-            [sc1-s-foreach var=`Content`]
-            <li><b>Dialogue set</b>
+            [sc1-s-foreach var=`Trip/Day 1`]
+            <li><b>Event</b>
               <ul>
                 <li>
-                  <b>Neale:</b> [sc1-s-foreach-g var=`Neale`][/sc1-s-foreach-g]
+                  <b>What:</b> [sc1-s-foreach-g var=`What`][/sc1-s-foreach-g]
                 </li>
                 <li>
-                  <b>God:</b> [sc1-s-foreach-g var=`God`][/sc1-s-foreach-g]
+                  <b>How:</b> [sc1-s-foreach-g var=`How`][/sc1-s-foreach-g]
+                </li>
+                <li>
+                  <b>When:</b> [sc1-s-foreach-g var=`When`][/sc1-s-foreach-g]
+                </li>
+                <li>
+                  <b>Where:</b> [sc1-s-foreach-g var=`Where`][/sc1-s-foreach-g]
                 </li>
               </ul>
             </li>
