@@ -159,7 +159,7 @@ class ShortcodeMiddleware
                 }
                 $responceContent = str_replace($value[0], $result, $responceContent);
               }
-              dd($responceContent);
+              // dd($responceContent);
               preg_match_all($pattern, $responceContent, $matches, PREG_SET_ORDER);
               if (!empty($matches)) {
                 dd(1);

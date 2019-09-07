@@ -146,7 +146,7 @@
         [sc1-s-foreach var=`Trip/Day 1`]
         <li><b>Event</b>
           <ul>
-            [sc1-s-foreach var=`Trip/Day 1`]
+            [sc2-s-foreach var=`Trip/Day 1`]
             <li><b>Event</b>
               <ul>
                 <li>
@@ -163,7 +163,7 @@
                 </li>
               </ul>
             </li>
-            [/sc1-s-foreach]
+            [/sc2-s-foreach]
           </ul>
         </li>
         [/sc1-s-foreach]
