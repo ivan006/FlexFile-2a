@@ -120,76 +120,53 @@ class ShortcodeMiddleware
 
       function foreach_structurer($responceContent, $routeParameters)
       {
-        if (!function_exists('App\Http\Middleware\iterations')) {
-          function  iterations($result,$EntityShowMulti,$value,$responceContent,$routeParameters){
-            // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`1`\]/";
-            // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]/";
-            // $preg_match_all = "/\[sc0\-s\-foreach type=`foreach` var=`\[g type=`foreach`\](.*?)\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/sc0\-s\-foreach type=`foreach` var=`(.*?)` level=`1`\]/";
-            $preg_match_all = "/\[sc0\-s\-foreach var=`(.*?)`\]((.|\r\n)*?)\[\/sc0\-s\-foreach\]/";
-
-            preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
-            // dd($matches);
-            if (!empty($matches)) {
-              foreach ($matches as $key => $value) {
-                if ($EntityShowMulti==null) {
-                  $DataShowRelSig = $value[1];
-                  $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
-
-                  $BaseEntityID = $DataShowID;
-                  $BaseEntityType = 'Data';
-                  $EntityType = 'Data';
-                  $Slug = null;
-
-                  $EntityShowMulti = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
-                }
 
 
-                // $DataShowName = explode('/',$DataShowRelSig);
-                // $DataShowName = end($DataShowName);
-                // $DataShowName = base64_encode($DataShowName);
+        // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`value` level=`1`\]/";
+        // $preg_match_all = "/\[s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/s type=`foreach` var=`\[g type=`foreach`\]Book\/Chapter 1\/Dialogue set 1\[\/g\]` level=`1`\]/";
+        // $preg_match_all = "/\[sc0\-s\-foreach type=`foreach` var=`\[g type=`foreach`\](.*?)\[\/g\]` level=`1`\]((.|\r\n)*?)\[\/sc0\-s\-foreach type=`foreach` var=`(.*?)` level=`1`\]/";
+        $preg_match_all = "/\[sc0\-s\-foreach var=`(.*?)`\]((.|\r\n)*?)\[\/sc0\-s\-foreach\]/";
 
+        preg_match_all($preg_match_all, $responceContent, $matches, PREG_SET_ORDER);
+        // dd($matches);
+        if (!empty($matches)) {
+          foreach ($matches as $key => $value) {
+            $DataShowRelSig = $value[1];
+            $DataShowID = Data::ShowID($routeParameters, $DataShowRelSig);
 
+            $BaseEntityID = $DataShowID;
+            $BaseEntityType = 'Data';
+            $EntityType = 'Data';
+            $Slug = null;
 
-                foreach (reset($EntityShowMulti)['content'] as $key => $value2) {
+            $EntityShowMulti = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
 
-                  // $echome = $value2;
-                  // $echome = reset($echome['content']);
-                  // echo $echome['content'].'<br>';
+            $DataShowName = explode('/',$DataShowRelSig);
+            $DataShowName = end($DataShowName);
+            $DataShowName = base64_encode($DataShowName);
 
-                  $pattern = '/\[sc1-s-foreach-g var=`(.*?)`\](.*?)\[\/sc1-s-foreach-g\]/';
-                  preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
+            $result = null;
 
-                  if (!empty($matches2)) {
-                    dd($matches2);
-                    foreach ($matches2 as $key => $value3) {
-                      // dd($value3[0]);
+            foreach ($EntityShowMulti[$DataShowName]['content'] as $key => $value2) {
+              $result2 = $value[2];
 
+              $pattern = '/\[sc1-s-foreach-g var=`(.*?)`\](.*?)\[\/sc1-s-foreach-g\]/';
+              preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
 
-                      $DataShowName2 = base64_encode($value3[1]);
+              foreach ($matches2 as $key => $value3) {
 
-                      $result4 =  $value2['content'][$DataShowName2]['content'].'<br>';
-                      // $supercala = 'value';
-                      // $$supercala[2] = str_replace($value3[0], $result4, $value[2]);
-                      $value[2] = str_replace($value3[0], $result4, $value[2]);
-                    }
-                    $result = $result.$value[2];
-                  } else {
+                $DataShowName2 = base64_encode($value3[1]);
 
-                    $result = iterations($result,$EntityShowMulti,$value,$responceContent,$routeParameters);
-                  }
-                }
-                // $result = $result.iterations($result,$EntityShowMulti,$value,$responceContent,$routeParameters);
-                $responceContent = str_replace($value[0], $result, $responceContent);
-                // return $result;
+                $result4 =  $value2['content'][$DataShowName2]['content'].'<br>';
+
+                $result2 = str_replace($value3[0], $result4, $result2);
               }
+              $result = $result.$result2;
             }
-            return $responceContent;
+            $responceContent = str_replace($value[0], $result, $responceContent);
           }
         }
-        $EntityShowMulti = null;
-        $value = null;
-        $result = null;
-        $responceContent = iterations($result,$EntityShowMulti,$value,$responceContent,$routeParameters);
+
 
         return $responceContent;
       }
