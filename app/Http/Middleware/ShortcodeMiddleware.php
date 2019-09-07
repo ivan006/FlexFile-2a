@@ -160,19 +160,19 @@ class ShortcodeMiddleware
                   preg_match_all($pattern, $value[2], $matches2, PREG_SET_ORDER);
 
                   if (!empty($matches2)) {
-                    dd($matches2);
+                    // dd($matches2);
+                    $result2 = $value[2];
                     foreach ($matches2 as $key => $value3) {
                       // dd($value3[0]);
-
 
                       $DataShowName2 = base64_encode($value3[1]);
 
                       $result4 =  $value2['content'][$DataShowName2]['content'].'<br>';
                       // $supercala = 'value';
                       // $$supercala[2] = str_replace($value3[0], $result4, $value[2]);
-                      $value[2] = str_replace($value3[0], $result4, $value[2]);
+                      $result2 = str_replace($value3[0], $result4, $result2);
                     }
-                    $result = $result.$value[2];
+                    $result = $result.$result2;
                   } else {
 
                     $result = iterations($result,$EntityShowMulti,$value,$responceContent,$routeParameters);
@@ -215,6 +215,8 @@ class ShortcodeMiddleware
               $replace = $value[1] -1;
               $responceContentNew = str_replace($value[0], '[sc'.$replace.'-'.$value[2].' var=`'.$value[3].'`]'.$value[4].'[/sc'.$replace.'-'.$value[2].']', $responceContentNew);
             } else {
+              // $replace = $value[1] -1;
+              // $responceContentNew = str_replace($value[0], 'error - unknown shortcode'.' ([sc'.$replace.'-'.$value[2].' var=`'.$value[3].'`]'.$value[4].')', $responceContentNew);
               $responceContentNew = str_replace($value[0], 'error - unknown shortcode', $responceContentNew);
 
             }
