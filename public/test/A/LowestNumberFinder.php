@@ -5,9 +5,9 @@ class LowestNumberFinder {
     public function getLowest(string $numbers): string {
 
         // todo
-        $range1 = $numbers;
-        $range1 = str_replace(' ', '', $range1);
-        $range1 = explode(',', $range1);
+        $numbers = $numbers;
+        $numbers = str_replace(' ', '', $range1);
+        $range1 = explode(',', $numbers);
         $range2Lowest = min($range1)-1;
         $range2Highest = max($range1)+1;
         $range2 = range($range2Lowest,$range2Highest);
