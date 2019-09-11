@@ -159,6 +159,11 @@ class ShortcodeMiddleware
                 }
                 $responceContent = str_replace($value[0], $result, $responceContent);
               }
+
+
+              preg_match_all('/\(([^()]|(?R))*\)/', '(1, (2, 3)) (4, 5)', $matches10, PREG_SET_ORDER);
+              // preg_match_all('/{((questionamrk squar bracket[^{}]+|(?R))*)}/', '{1, {2, 3}} {4, 5}', $matches10, PREG_SET_ORDER);
+              dd($matches10);
               // dd($responceContent);
               preg_match_all($pattern, $responceContent, $matches, PREG_SET_ORDER);
               if (!empty($matches)) {
