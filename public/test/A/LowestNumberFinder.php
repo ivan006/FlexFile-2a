@@ -4,7 +4,7 @@ class LowestNumberFinder {
 
     public function getLowest(string $numbers): string {
 
-        // todo - took 45min
+        // todo
         $numbers = $numbers;
         $numbers = str_replace(' ', '', $range1);
         $range1 = explode(',', $numbers);
