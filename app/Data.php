@@ -128,6 +128,12 @@ class Data extends Model
     $EntityType = 'Data';
     Entity::StoreMultiForEdit($ShowChangesForEdit,$EntityType);
   }
+  public static function ShowMultiForEdit($routeParameters)
+  {
+    $EntityType = 'Data';
+    $result = Entity::ShowMultiForEdit($EntityType,$routeParameters);
+    return $result;
+  }
 
 
 

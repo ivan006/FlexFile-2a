@@ -370,10 +370,16 @@ class Entity extends Model
     }
 
 
-
-
-
     $Identifier = $EntityType;
+    $Attr = Entity::ShowAttributeTypes();
+    $EntityShowMultiForEdit = Entity::ShowMultiForEdit($EntityType,$routeParameters);
+
+    $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
+    return $result;
+  }
+
+  public static function ShowMultiForEdit($EntityType,$routeParameters)
+  {
     $Attr = Entity::ShowAttributeTypes();
     $EntityTypeClass = "App\\".$EntityType;
 
@@ -383,7 +389,6 @@ class Entity extends Model
       $GroupShowID = Group::ShowID($routeParameters);
       $ReportShowID = Report::ShowID($GroupShowID, $routeParameters);
 
-      // $Identifier = null;
       if (!empty($ReportShowID)) {
 
         $BaseEntityType = 'Report';
@@ -414,9 +419,8 @@ class Entity extends Model
     }
 
     $EntityShowMultiForEdit[$Attr[2]] = Entity::ShowMulti($BaseEntityType,$BaseEntityID, $EntityType,$Slug);
+    return $EntityShowMultiForEdit;
 
-    $result = ShowMultiStyledForEditHelper($Identifier, $EntityShowMultiForEdit, $Attr,$EntityType);
-    return $result;
   }
 
   public static function ShowChangesForEdit($request,$EntityType)
