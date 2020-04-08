@@ -171,6 +171,12 @@
     </xmp>
 
 
+    <h3>New notes - Data types</h3>
+    Rich.txt (this is the template is controlls the presentation instructions/logic)
+    Non-template data (this is all referencable data)
+    image.jpeg (image type field)
+
+
 
 
 
